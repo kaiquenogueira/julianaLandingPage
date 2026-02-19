@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-    site: 'https://julianacapucci.com.br',
+    site: 'https://www.julianacapucci.com.br',
     output: 'static',
     integrations: [sitemap()],
     build: {

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://julianacapucci.com.br/sitemap-index.xml
+Sitemap: https://www.julianacapucci.com.br/sitemap-index.xml
