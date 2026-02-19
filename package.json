@@ -1,0 +1,11 @@
+{
+  "name": "site-psicologia-juliana",
+  "version": "1.0.0",
+  "description": "Site institucional — Juliana Capucci, Psicóloga",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site — no build step needed'",
+    "start": "npx serve ."
+  }
+}
