@@ -1,0 +1,16 @@
+{
+    "name": "Juliana Capucci — Psicoterapia Online",
+    "short_name": "Juliana Capucci",
+    "description": "Psicoterapia online com Terapia Cognitivo-Comportamental (TCC) para crianças, adolescentes e adultas.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FAF7F3",
+    "theme_color": "#C4908A",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "type": "image/svg+xml",
+            "sizes": "any"
+        }
+    ]
+}

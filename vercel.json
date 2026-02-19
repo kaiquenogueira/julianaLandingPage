@@ -1,6 +1,5 @@
 {
-    "buildCommand": "",
-    "outputDirectory": ".",
+    "framework": "astro",
     "cleanUrls": true,
     "headers": [
         {

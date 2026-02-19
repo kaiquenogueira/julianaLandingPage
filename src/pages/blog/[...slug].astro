@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
+---
+
+<BaseLayout
+  title={`${post.data.title} — Juliana Capucci`}
+  description={post.data.description}
+  image={post.data.image || '/img/profile.jpg'}
+>
+  <Nav />
+
+  <article class="blog-post">
+    <div class="post-header">
+      <a href="/blog" class="back-link">← Voltar ao blog</a>
+      <time datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString('pt-BR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}
+      </time>
+      <h1>{post.data.title}</h1>
+      <div class="post-tags">
+        {post.data.tags.map((tag) => (
+          <span class="pill">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="post-content">
+      <Content />
+    </div>
+
+    <div class="post-cta">
+      <p>Gostou do artigo? Agende sua sessão e vamos conversar.</p>
+      <a href="https://wa.me/5511993051221" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        Agendar pelo WhatsApp
+      </a>
+    </div>
+  </article>
+
+  <!-- JSON-LD Article -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "datePublished": post.data.date.toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Juliana Capucci",
+      "url": siteUrl,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Juliana Capucci — Psicoterapia Online",
+    },
+  })} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .blog-post {
+    padding: clamp(8rem, 12vw, 10rem) var(--container-padding) var(--section-spacing);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    font-size: 0.8rem;
+    color: var(--rose);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: 2rem;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--mauve);
+  }
+
+  .post-header {
+    margin-bottom: 3rem;
+  }
+
+  .post-header time {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .post-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0.8rem 0 1.2rem;
+    color: var(--warm-dark);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .post-tags .pill {
+    background: var(--cream-warm);
+    border: 1px solid var(--border-light);
+    color: var(--mauve);
+    font-size: 0.7rem;
+  }
+
+  .post-content {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .post-content :global(h2) {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--warm-dark);
+    margin: 2.5rem 0 1rem;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--warm-dark);
+    margin: 2rem 0 0.8rem;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1.2rem;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin-bottom: 1.2rem;
+    padding-left: 1.5rem;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .post-content :global(strong) {
+    color: var(--warm-dark);
+    font-weight: 500;
+  }
+
+  .post-content :global(a) {
+    color: var(--rose);
+    text-decoration: underline;
+    transition: color var(--transition-fast);
+  }
+
+  .post-content :global(a:hover) {
+    color: var(--mauve);
+  }
+
+  .post-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--blush);
+    margin: 2.5rem 0;
+  }
+
+  .post-cta {
+    margin-top: 3rem;
+    padding: 2.5rem;
+    background: var(--cream-warm);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .post-cta p {
+    font-size: 1rem;
+    color: var(--warm-dark);
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 7rem 1.5rem 4rem;
+    }
+  }
+</style>

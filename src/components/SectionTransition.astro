@@ -1,0 +1,52 @@
+---
+export interface Props {
+  variant?: 'default' | 'warm' | 'reverse' | 'dark' | 'from-dark';
+}
+
+const { variant = 'default' } = Astro.props;
+
+const classMap: Record<string, string> = {
+  default: 'section-transition',
+  warm: 'section-transition section-transition--warm',
+  reverse: 'section-transition section-transition--reverse',
+  dark: 'section-transition section-transition--dark',
+  'from-dark': 'section-transition section-transition--from-dark',
+};
+
+const pathMap: Record<string, { viewBox: string; path: string; fill: string }> = {
+  default: {
+    viewBox: '0 0 1440 80',
+    path: 'M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z',
+    fill: 'var(--cream)',
+  },
+  warm: {
+    viewBox: '0 0 1440 60',
+    path: 'M0,0 C480,60 960,0 1440,30 L1440,60 L0,60 Z',
+    fill: 'var(--cream-warm)',
+  },
+  reverse: {
+    viewBox: '0 0 1440 60',
+    path: 'M0,30 C360,0 720,60 1080,10 S1440,40 1440,30 L1440,60 L0,60 Z',
+    fill: 'var(--cream)',
+  },
+  dark: {
+    viewBox: '0 0 1440 80',
+    path: 'M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z',
+    fill: 'var(--warm-dark)',
+  },
+  'from-dark': {
+    viewBox: '0 0 1440 80',
+    path: 'M0,0 L0,40 C360,80 1080,0 1440,40 L1440,0 Z',
+    fill: 'var(--warm-dark)',
+  },
+};
+
+const cls = classMap[variant];
+const svg = pathMap[variant];
+---
+
+<div class={cls} aria-hidden="true">
+  <svg viewBox={svg.viewBox} preserveAspectRatio="none">
+    <path d={svg.path} fill={svg.fill} />
+  </svg>
+</div>

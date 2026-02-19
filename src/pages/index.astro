@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SectionTransition from '../components/SectionTransition.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import TCC from '../components/sections/TCC.astro';
+import OnlineInfo from '../components/sections/OnlineInfo.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import CTA from '../components/sections/CTA.astro';
+---
+
+<BaseLayout>
+  <Nav />
+  <Hero />
+
+  <SectionTransition variant="default" />
+
+  <!-- DIVIDER -->
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-text">Psicologia com ciência e cuidado</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <About />
+  <SectionTransition variant="warm" />
+  <HowItWorks />
+  <SectionTransition variant="reverse" />
+  <TCC />
+  <SectionTransition variant="default" />
+  <OnlineInfo />
+  <SectionTransition variant="dark" />
+  <Pricing />
+  <SectionTransition variant="from-dark" />
+  <CTA />
+  <Footer />
+</BaseLayout>

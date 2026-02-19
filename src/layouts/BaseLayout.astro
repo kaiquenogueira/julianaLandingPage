@@ -1,0 +1,158 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Juliana Capucci — Psicoterapia Online',
+  description = 'Psicoterapia online com Juliana Capucci — CRP 08/209218. Atendimentos para crianças, adolescentes e adultas. Terapia Cognitivo-Comportamental (TCC) com acolhimento e ciência.',
+  image = '/img/profile.jpg',
+  canonical,
+} = Astro.props;
+
+const canonicalUrl = canonical || Astro.url.href;
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
+const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+
+  <!-- SEO -->
+  <meta name="description" content={description}>
+  <meta name="keywords" content="psicóloga online, psicoterapia, TCC, terapia cognitivo comportamental, Juliana Capucci, atendimento psicológico online">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href={canonicalUrl}>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:image" content={absoluteImage}>
+  <meta property="og:url" content={canonicalUrl}>
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Juliana Capucci — Psicoterapia Online">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={absoluteImage}>
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#C4908A">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts (preload) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${siteUrl}/#organization`,
+        "name": "Juliana Capucci — Psicoterapia Online",
+        "description": "Psicoterapia online com Terapia Cognitivo-Comportamental (TCC) para crianças, adolescentes e adultas.",
+        "url": siteUrl,
+        "telephone": "+5511993051221",
+        "areaServed": "BR",
+        "serviceType": "Psicoterapia Online",
+        "priceRange": "R$130-R$400",
+        "image": absoluteImage,
+        "sameAs": [
+          "https://instagram.com/psijulianacapucci"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        "name": "Juliana Capucci",
+        "jobTitle": "Psicóloga",
+        "description": "Psicóloga formada desde 2019, pós-graduada em Avaliação Psicológica pelo IPOG. CRP 08/209218.",
+        "url": siteUrl,
+        "image": absoluteImage,
+        "sameAs": [
+          "https://instagram.com/psijulianacapucci"
+        ],
+        "worksFor": {
+          "@id": `${siteUrl}/#organization`
+        }
+      }
+    ]
+  })} />
+
+  <!-- Web Manifest -->
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+  <slot />
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => obs.observe(el));
+
+    // Smooth nav
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href')!);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          const navLinksEl = document.getElementById('navLinks');
+          const menuToggleEl = document.getElementById('menuToggle');
+          navLinksEl?.classList.remove('open');
+          menuToggleEl?.classList.remove('active');
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle?.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks?.classList.toggle('open');
+    });
+
+    // Nav scroll condensation
+    const mainNav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        mainNav?.classList.add('nav-scrolled');
+      } else {
+        mainNav?.classList.remove('nav-scrolled');
+      }
+    }, { passive: true });
+  </script>
+</body>
+
+</html>
