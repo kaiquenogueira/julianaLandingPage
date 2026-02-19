@@ -1,739 +1,326 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Juliana Capucci — Psicoterapia Online</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --cream: #FAF7F3;
-    --blush: #E8CFC8;
-    --rose: #C4908A;
-    --mauve: #9B7B8A;
-    --sage: #A3B4A2;
-    --warm-dark: #3D2E2E;
-    --text-light: #7A6060;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juliana Capucci — Psicoterapia Online</title>
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    <!-- SEO & Open Graph -->
+    <meta name="description"
+        content="Psicoterapia online com Juliana Capucci — CRP 08/209218. Atendimentos para crianças, adolescentes e adultas. Terapia Cognitivo-Comportamental (TCC) com acolhimento e ciência.">
+    <meta name="keywords"
+        content="psicóloga online, psicoterapia, TCC, terapia cognitivo comportamental, Juliana Capucci, atendimento psicológico online">
+    <meta property="og:title" content="Juliana Capucci — Psicoterapia Online">
+    <meta property="og:description"
+        content="Atendimentos psicológicos 100% online, semanais e acolhedores. Terapia Cognitivo-Comportamental para crianças, adolescentes e adultas.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/img/profile.jpg">
+    <meta name="theme-color" content="#C4908A">
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--warm-dark);
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.4rem 4rem;
-    background: rgba(250,247,243,0.88);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(196,144,138,0.15);
-  }
-  .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    color: var(--mauve);
-  }
-  .logo span { font-style: italic; color: var(--rose); }
-  nav a {
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-light);
-    transition: color 0.3s;
-  }
-  nav a:hover { color: var(--rose); }
-  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-  .nav-cta {
-    background: var(--rose);
-    color: #fff !important;
-    padding: 0.55rem 1.4rem;
-    border-radius: 100px;
-    transition: background 0.3s, transform 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--mauve) !important; transform: translateY(-1px); }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 0 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-blob-1 {
-    position: absolute; top: -120px; right: -80px;
-    width: 560px; height: 560px;
-    background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
-    border-radius: 50%;
-    opacity: 0.55;
-    animation: float 8s ease-in-out infinite;
-  }
-  .hero-blob-2 {
-    position: absolute; bottom: -100px; left: -60px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(163,180,162,0.35) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: float 10s ease-in-out infinite reverse;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-20px) scale(1.03); }
-  }
-
-  .hero-text { position: relative; z-index: 2; padding-top: 5rem; }
-  .hero-eyebrow {
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 5vw, 5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--warm-dark);
-    margin-bottom: 1.6rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-  .hero-title em {
-    font-style: italic;
-    color: var(--rose);
-  }
-  .hero-subtitle {
-    font-size: 1rem;
-    line-height: 1.75;
-    color: var(--text-light);
-    max-width: 420px;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
-  .hero-actions { display: flex; gap: 1rem; align-items: center; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
-  .btn-primary {
-    background: var(--rose);
-    color: #fff;
-    padding: 0.9rem 2.2rem;
-    border-radius: 100px;
-    text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 8px 24px rgba(196,144,138,0.35);
-  }
-  .btn-primary:hover { background: var(--mauve); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(155,123,138,0.35); }
-  .btn-ghost {
-    color: var(--text-light);
-    text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 0.06em;
-    display: flex; align-items: center; gap: 0.5rem;
-    transition: color 0.3s;
-  }
-  .btn-ghost:hover { color: var(--rose); }
-  .btn-ghost::after { content: '→'; transition: transform 0.3s; }
-  .btn-ghost:hover::after { transform: translateX(4px); }
-
-  .hero-visual {
-    position: relative; z-index: 2;
-    display: flex; justify-content: center; align-items: center;
-    padding-top: 5rem;
-    opacity: 0;
-    animation: fadeIn 1.2s 0.5s forwards;
-  }
-  .hero-img-wrap {
-    width: 380px; height: 480px;
-    background: linear-gradient(135deg, var(--blush) 0%, var(--sage) 100%);
-    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(196,144,138,0.2);
-    animation: morphBlob 12s ease-in-out infinite;
-  }
-  @keyframes morphBlob {
-    0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
-    33% { border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%; }
-    66% { border-radius: 40% 60% 50% 50% / 45% 55% 45% 55%; }
-  }
-  .hero-img-inner {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: rgba(255,255,255,0.85);
-    text-align: center;
-    padding: 2rem;
-    line-height: 1.7;
-  }
-  .hero-badge {
-    position: absolute; bottom: -10px; right: -10px;
-    background: var(--cream);
-    border: 1px solid var(--blush);
-    border-radius: 20px;
-    padding: 1rem 1.4rem;
-    font-size: 0.75rem;
-    color: var(--mauve);
-    letter-spacing: 0.05em;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-  }
-  .hero-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--rose); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 4rem;
-    gap: 1.5rem;
-  }
-  .divider-line { flex: 1; height: 1px; background: var(--blush); }
-  .divider-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--rose);
-    white-space: nowrap;
-  }
-
-  /* ── SOBRE ── */
-  .about {
-    padding: 7rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-    position: relative;
-  }
-  .about-blob {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(232,207,200,0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-  }
-  .section-title em { font-style: italic; color: var(--rose); }
-  .about-text { font-size: 0.95rem; line-height: 1.85; color: var(--text-light); font-weight: 300; margin-bottom: 1.2rem; }
-  .about-card {
-    background: #fff;
-    border: 1px solid var(--blush);
-    border-radius: 24px;
-    padding: 2.5rem;
-    position: relative;
-    z-index: 2;
-  }
-  .credential {
-    display: flex; align-items: flex-start; gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .credential:last-child { margin-bottom: 0; }
-  .cred-icon {
-    width: 40px; height: 40px; flex-shrink: 0;
-    background: var(--cream);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-  }
-  .cred-text h4 { font-size: 0.85rem; font-weight: 500; color: var(--warm-dark); margin-bottom: 0.2rem; }
-  .cred-text p { font-size: 0.78rem; color: var(--text-light); line-height: 1.5; }
-
-  /* ── COMO FUNCIONA ── */
-  .how {
-    padding: 6rem 4rem;
-    background: linear-gradient(180deg, var(--cream) 0%, rgba(232,207,200,0.18) 100%);
-  }
-  .how-header { text-align: center; margin-bottom: 4rem; }
-  .steps {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-    max-width: 960px; margin: 0 auto;
-  }
-  .step {
-    text-align: center; padding: 2.5rem 1.5rem;
-    background: #fff;
-    border-radius: 28px;
-    border: 1px solid rgba(232,207,200,0.6);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .step:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(196,144,138,0.12); }
-  .step-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3.5rem;
-    font-weight: 300;
-    color: rgba(232,207,200,0.7);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-  .step h3 { font-size: 0.9rem; font-weight: 500; color: var(--warm-dark); margin-bottom: 0.7rem; letter-spacing: 0.03em; }
-  .step p { font-size: 0.82rem; color: var(--text-light); line-height: 1.7; font-weight: 300; }
-
-  /* ── TCC ── */
-  .tcc {
-    padding: 7rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .tcc-visual {
-    background: linear-gradient(145deg, var(--sage) 0%, var(--mauve) 100%);
-    border-radius: 40px;
-    padding: 3.5rem;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  .tcc-visual::before {
-    content: '';
-    position: absolute; top: -60px; right: -60px;
-    width: 200px; height: 200px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 50%;
-  }
-  .tcc-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.5;
-    margin-bottom: 2rem;
-  }
-  .tcc-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .pill {
-    background: rgba(255,255,255,0.18);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    backdrop-filter: blur(4px);
-  }
-
-  /* ── PREÇOS ── */
-  .pricing {
-    padding: 7rem 4rem;
-    text-align: center;
-    background: var(--warm-dark);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  .pricing::before {
-    content: '';
-    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(196,144,138,0.15) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  .pricing .section-label { color: var(--rose); }
-  .pricing .section-title { color: #fff; }
-  .pricing .section-title em { color: var(--rose); }
-  .cards {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem; max-width: 860px; margin: 3.5rem auto 0;
-    position: relative; z-index: 2;
-  }
-  .price-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 28px;
-    padding: 2.5rem 2rem;
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .price-card:hover { border-color: var(--rose); background: rgba(196,144,138,0.08); }
-  .price-card.featured {
-    border-color: var(--rose);
-    background: rgba(196,144,138,0.12);
-  }
-  .price-tag {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--rose);
-    line-height: 1;
-    margin: 1rem 0 0.3rem;
-  }
-  .price-tag sup { font-size: 1.2rem; vertical-align: super; }
-  .price-card h3 { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-  .price-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 0.8rem; line-height: 1.6; }
-  .featured-label {
-    display: inline-block;
-    background: var(--rose);
-    color: #fff;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.9rem;
-    border-radius: 100px;
-    margin-bottom: 0.5rem;
-  }
-
-  /* ── ONLINE INFO ── */
-  .online-info {
-    padding: 6rem 4rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .info-item { text-align: center; padding: 1.5rem; }
-  .info-icon {
-    font-size: 2rem; margin-bottom: 1rem;
-    display: block;
-  }
-  .info-item h4 { font-size: 0.85rem; font-weight: 500; color: var(--warm-dark); margin-bottom: 0.5rem; }
-  .info-item p { font-size: 0.8rem; color: var(--text-light); line-height: 1.65; font-weight: 300; }
-
-  /* ── CTA FINAL ── */
-  .cta-section {
-    padding: 8rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-blob {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 600px; height: 400px;
-    background: radial-gradient(ellipse, rgba(232,207,200,0.35) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .cta-section .section-title { font-size: clamp(2.5rem, 4vw, 4rem); }
-  .cta-sub { font-size: 1rem; color: var(--text-light); margin: 1.2rem auto 2.5rem; max-width: 440px; line-height: 1.7; font-weight: 300; }
-  .cta-contact { margin-top: 3rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
-  .contact-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--text-light); }
-  .contact-item a { color: var(--rose); text-decoration: none; }
-  .contact-item a:hover { text-decoration: underline; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--blush);
-    padding: 2rem 4rem;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.75rem; color: var(--text-light);
-  }
-  footer .logo { font-size: 1rem; }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 1.5rem; padding-top: 5rem; text-align: center; }
-    .hero-visual { padding-top: 2rem; }
-    .hero-img-wrap { width: 260px; height: 320px; }
-    .hero-actions { justify-content: center; }
-    .hero-subtitle { margin: 0 auto 2rem; }
-    .about, .tcc { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
-    .steps { grid-template-columns: 1fr; padding: 0 1.5rem; }
-    .cards { grid-template-columns: 1fr; padding: 0 1.5rem; }
-    .online-info { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
-    .how { padding: 4rem 1.5rem; }
-    .pricing { padding: 5rem 1.5rem; }
-    .cta-section { padding: 5rem 1.5rem; }
-    footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
-  }
-</style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">Juliana <span>Capucci</span></div>
-  <div class="nav-links">
-    <a href="#sobre">Sobre</a>
-    <a href="#abordagem">Abordagem</a>
-    <a href="#valores">Valores</a>
-    <a href="#agendar" class="nav-cta">Agendar sessão</a>
-  </div>
-</nav>
+    <!-- NAV -->
+    <nav>
+        <div class="logo">Juliana <span>Capucci</span></div>
+        <button class="hamburger" id="menuToggle" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="#sobre">Sobre</a>
+            <a href="#abordagem">Abordagem</a>
+            <a href="#valores">Valores</a>
+            <a href="#agendar" class="nav-cta">Agendar sessão</a>
+        </div>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-blob-1"></div>
-  <div class="hero-blob-2"></div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-blob-1"></div>
+        <div class="hero-blob-2"></div>
 
-  <div class="hero-text">
-    <p class="hero-eyebrow">Psicoterapia Online · CRP 08/209218</p>
-    <h1 class="hero-title">
-      Cuidar de você<br>
-      começa com uma<br>
-      <em>conversa.</em>
-    </h1>
-    <p class="hero-subtitle">
-      Atendimentos psicológicos 100% online, semanais e acolhedores —
-      para crianças, adolescentes e adultas que desejam se descobrir e crescer.
-    </p>
-    <div class="hero-actions">
-      <a href="https://wa.me/5511993051221" class="btn-primary" target="_blank">Agendar minha sessão</a>
-      <a href="#sobre" class="btn-ghost">Saber mais</a>
-    </div>
-  </div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">Psicoterapia Online · CRP 08/209218</p>
+            <h1 class="hero-title">
+                Cuidar de você<br>
+                começa com uma<br>
+                <em>conversa.</em>
+            </h1>
+            <p class="hero-subtitle">
+                Atendimentos psicológicos 100% online, semanais e acolhedores —
+                para crianças, adolescentes e adultas que desejam se descobrir e crescer.
+            </p>
+            <div class="hero-actions">
+                <a href="https://wa.me/5511993051221" class="btn-primary" target="_blank">Agendar minha sessão</a>
+                <a href="#sobre" class="btn-ghost">Saber mais</a>
+            </div>
+        </div>
 
-  <div class="hero-visual">
-    <div class="hero-img-wrap">
-      <div class="hero-img-inner">
-        "A relação terapêutica<br>é fundamental para<br>o seu crescimento."
-      </div>
-    </div>
-    <div class="hero-badge">
-      <strong>+5</strong>
-      Anos de prática
-    </div>
-  </div>
-</section>
+        <div class="hero-visual">
+            <div class="hero-img-wrap">
+                <!-- 
+        Para usar sua foto de perfil, adicione o arquivo em assets/img/profile.jpg
+        e descomente a tag <img> abaixo (removendo o bloco hero-img-inner):
+      -->
+                <!-- <img src="assets/img/profile.jpg" alt="Juliana Capucci — Psicóloga"> -->
+                <div class="hero-img-inner">
+                    "A relação terapêutica<br>é fundamental para<br>o seu crescimento."
+                </div>
+            </div>
+            <div class="hero-badge">
+                <strong>+5</strong>
+                Anos de prática
+            </div>
+        </div>
+    </section>
 
-<!-- DIVIDER -->
-<div class="divider">
-  <div class="divider-line"></div>
-  <span class="divider-text">Psicologia com ciência e cuidado</span>
-  <div class="divider-line"></div>
-</div>
+    <!-- DIVIDER -->
+    <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text">Psicologia com ciência e cuidado</span>
+        <div class="divider-line"></div>
+    </div>
 
-<!-- SOBRE -->
-<section class="about" id="sobre">
-  <div class="about-blob"></div>
-  <div class="reveal">
-    <p class="section-label">Sobre mim</p>
-    <h2 class="section-title">Olá, sou<br><em>Juliana Capucci.</em></h2>
-    <p class="about-text">
-      Sou psicóloga formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Acredito que a terapia é um espaço de segurança, acolhimento e transformação.
-    </p>
-    <p class="about-text">
-      Atendo crianças, adolescentes e adultas de forma 100% online, com sessões semanais via videochamada. Porque cuidar da saúde mental é um ato de amor-próprio que você merece.
-    </p>
-  </div>
-  <div class="about-card reveal">
-    <div class="credential">
-      <div class="cred-icon">🎓</div>
-      <div class="cred-text">
-        <h4>Formação em Psicologia</h4>
-        <p>Graduada em Psicologia desde 2019</p>
-      </div>
-    </div>
-    <div class="credential">
-      <div class="cred-icon">📋</div>
-      <div class="cred-text">
-        <h4>Pós-graduação</h4>
-        <p>Avaliação Psicológica pelo IPOG</p>
-      </div>
-    </div>
-    <div class="credential">
-      <div class="cred-icon">💻</div>
-      <div class="cred-text">
-        <h4>Atendimentos 100% Online</h4>
-        <p>Crianças, adolescentes e adultas</p>
-      </div>
-    </div>
-    <div class="credential">
-      <div class="cred-icon">🔒</div>
-      <div class="cred-text">
-        <h4>Sigilo Profissional</h4>
-        <p>Ética e confidencialidade garantidas</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+        <div class="about-blob"></div>
+        <div class="reveal">
+            <p class="section-label">Sobre mim</p>
+            <h2 class="section-title">Olá, sou<br><em>Juliana Capucci.</em></h2>
+            <p class="about-text">
+                Sou psicóloga formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Acredito que a
+                terapia é um espaço de segurança, acolhimento e transformação.
+            </p>
+            <p class="about-text">
+                Atendo crianças, adolescentes e adultas de forma 100% online, com sessões semanais via videochamada.
+                Porque cuidar da saúde mental é um ato de amor-próprio que você merece.
+            </p>
+        </div>
+        <div class="about-card reveal">
+            <div class="credential">
+                <div class="cred-icon">🎓</div>
+                <div class="cred-text">
+                    <h4>Formação em Psicologia</h4>
+                    <p>Graduada em Psicologia desde 2019</p>
+                </div>
+            </div>
+            <div class="credential">
+                <div class="cred-icon">📋</div>
+                <div class="cred-text">
+                    <h4>Pós-graduação</h4>
+                    <p>Avaliação Psicológica pelo IPOG</p>
+                </div>
+            </div>
+            <div class="credential">
+                <div class="cred-icon">💻</div>
+                <div class="cred-text">
+                    <h4>Atendimentos 100% Online</h4>
+                    <p>Crianças, adolescentes e adultas</p>
+                </div>
+            </div>
+            <div class="credential">
+                <div class="cred-icon">🔒</div>
+                <div class="cred-text">
+                    <h4>Sigilo Profissional</h4>
+                    <p>Ética e confidencialidade garantidas</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- COMO FUNCIONA -->
-<section class="how">
-  <div class="how-header reveal">
-    <p class="section-label">Como funciona</p>
-    <h2 class="section-title">Simples como <em>deve ser.</em></h2>
-  </div>
-  <div class="steps">
-    <div class="step reveal">
-      <div class="step-num">01</div>
-      <h3>Entre em contato</h3>
-      <p>Fale comigo pelo WhatsApp ou Instagram. Vamos conversar sobre suas necessidades e escolher o melhor horário fixo para você.</p>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">02</div>
-      <h3>Primeira sessão</h3>
-      <p>Nos conhecemos, criamos um ambiente de acolhimento e iniciamos juntas essa jornada. Investimento de R$100,00.</p>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">03</div>
-      <h3>Sessões semanais</h3>
-      <p>Encontros via videochamada de até 50 minutos, toda semana, no seu horário fixo — sem confirmação prévia.</p>
-    </div>
-  </div>
-</section>
+    <!-- COMO FUNCIONA -->
+    <section class="how">
+        <div class="how-header reveal">
+            <p class="section-label">Como funciona</p>
+            <h2 class="section-title">Simples como <em>deve ser.</em></h2>
+        </div>
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step-num">01</div>
+                <h3>Entre em contato</h3>
+                <p>Fale comigo pelo WhatsApp ou Instagram. Vamos conversar sobre suas necessidades e escolher o melhor
+                    horário fixo para você.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">02</div>
+                <h3>Primeira sessão</h3>
+                <p>Nos conhecemos, criamos um ambiente de acolhimento e iniciamos juntas essa jornada. Investimento de
+                    R$100,00.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">03</div>
+                <h3>Sessões semanais</h3>
+                <p>Encontros via videochamada de até 50 minutos, toda semana, no seu horário fixo — sem confirmação
+                    prévia.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- ABORDAGEM TCC -->
-<section class="tcc" id="abordagem">
-  <div class="tcc-visual reveal">
-    <p class="tcc-quote">"Aprender a compreender seus pensamentos é o primeiro passo para transformar sua vida."</p>
-    <div class="tcc-pills">
-      <span class="pill">Distorções cognitivas</span>
-      <span class="pill">Emoções</span>
-      <span class="pill">Comportamentos</span>
-      <span class="pill">Perspectivas</span>
-      <span class="pill">Autoconhecimento</span>
-      <span class="pill">Estratégias funcionais</span>
-    </div>
-  </div>
-  <div class="reveal">
-    <p class="section-label">Abordagem</p>
-    <h2 class="section-title">Terapia Cognitivo<br><em>Comportamental</em></h2>
-    <p class="about-text">
-      A TCC é uma abordagem reconhecida cientificamente e indicada para crianças, adolescentes e adultas. Seu foco está em compreender como pensamentos, emoções e comportamentos estão interligados.
-    </p>
-    <p class="about-text">
-      Durante o processo terapêutico, você aprende a identificar distorções cognitivas, desenvolver novas perspectivas e adotar estratégias mais funcionais para lidar com desafios pessoais, emocionais ou relacionais.
-    </p>
-  </div>
-</section>
+    <!-- ABORDAGEM TCC -->
+    <section class="tcc" id="abordagem">
+        <div class="tcc-visual reveal">
+            <p class="tcc-quote">"Aprender a compreender seus pensamentos é o primeiro passo para transformar sua vida."
+            </p>
+            <div class="tcc-pills">
+                <span class="pill">Distorções cognitivas</span>
+                <span class="pill">Emoções</span>
+                <span class="pill">Comportamentos</span>
+                <span class="pill">Perspectivas</span>
+                <span class="pill">Autoconhecimento</span>
+                <span class="pill">Estratégias funcionais</span>
+            </div>
+        </div>
+        <div class="reveal">
+            <p class="section-label">Abordagem</p>
+            <h2 class="section-title">Terapia Cognitivo<br><em>Comportamental</em></h2>
+            <p class="about-text">
+                A TCC é uma abordagem reconhecida cientificamente e indicada para crianças, adolescentes e adultas. Seu
+                foco está em compreender como pensamentos, emoções e comportamentos estão interligados.
+            </p>
+            <p class="about-text">
+                Durante o processo terapêutico, você aprende a identificar distorções cognitivas, desenvolver novas
+                perspectivas e adotar estratégias mais funcionais para lidar com desafios pessoais, emocionais ou
+                relacionais.
+            </p>
+        </div>
+    </section>
 
-<!-- ONLINE INFO -->
-<section style="background: linear-gradient(180deg, var(--cream) 0%, rgba(232,207,200,0.1) 100%);">
-  <div style="text-align:center; padding: 5rem 4rem 0; " class="reveal">
-    <p class="section-label">Atendimentos Online</p>
-    <h2 class="section-title">Tudo o que você<br>precisa <em>saber.</em></h2>
-  </div>
-  <div class="online-info">
-    <div class="info-item reveal">
-      <span class="info-icon">💬</span>
-      <h4>Ambiente seguro</h4>
-      <p>Esteja em um lugar onde se sinta à vontade e privada durante a sessão.</p>
-    </div>
-    <div class="info-item reveal">
-      <span class="info-icon">📶</span>
-      <h4>Internet estável</h4>
-      <p>Velocidade mínima de 11 Mb/s para garantir a qualidade da chamada.</p>
-    </div>
-    <div class="info-item reveal">
-      <span class="info-icon">🎧</span>
-      <h4>Fone de ouvido</h4>
-      <p>Prefira usar fones e verifique a bateria do dispositivo antes da sessão.</p>
-    </div>
-  </div>
-</section>
+    <!-- ONLINE INFO -->
+    <section class="online-section">
+        <div class="online-header reveal">
+            <p class="section-label">Atendimentos Online</p>
+            <h2 class="section-title">Tudo o que você<br>precisa <em>saber.</em></h2>
+        </div>
+        <div class="online-info">
+            <div class="info-item reveal">
+                <span class="info-icon">💬</span>
+                <h4>Ambiente seguro</h4>
+                <p>Esteja em um lugar onde se sinta à vontade e privada durante a sessão.</p>
+            </div>
+            <div class="info-item reveal">
+                <span class="info-icon">📶</span>
+                <h4>Internet estável</h4>
+                <p>Velocidade mínima de 11 Mb/s para garantir a qualidade da chamada.</p>
+            </div>
+            <div class="info-item reveal">
+                <span class="info-icon">🎧</span>
+                <h4>Fone de ouvido</h4>
+                <p>Prefira usar fones e verifique a bateria do dispositivo antes da sessão.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- PREÇOS -->
-<section class="pricing" id="valores">
-  <p class="section-label">Investimento</p>
-  <h2 class="section-title">Cuide de você com<br><em>clareza e confiança.</em></h2>
-  <div class="cards">
-    <div class="price-card reveal">
-      <h3>Primeira Sessão</h3>
-      <div class="price-tag"><sup>R$</sup>100</div>
-      <p class="price-desc">Uma oportunidade para nos conhecermos e criar juntas um ambiente de confiança.</p>
-    </div>
-    <div class="price-card featured reveal">
-      <span class="featured-label">Mais escolhido</span>
-      <h3>Pacote Mensal</h3>
-      <div class="price-tag"><sup>R$</sup>350</div>
-      <p class="price-desc">4 sessões por mês com desconto especial. Recibo emitido via Receita Saúde.</p>
-    </div>
-    <div class="price-card reveal">
-      <h3>Sessão Avulsa</h3>
-      <div class="price-tag"><sup>R$</sup>100</div>
-      <p class="price-desc">Por encontro, com pagamento até 2h antes do início da sessão.</p>
-    </div>
-  </div>
-  <p style="color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: 2rem; position:relative; z-index:2;">
-    Pagamento via PIX ou cartão de crédito (link). Reagendamentos com até 24h de antecedência.
-  </p>
-</section>
+    <!-- PREÇOS -->
+    <section class="pricing" id="valores">
+        <p class="section-label">Investimento</p>
+        <h2 class="section-title">Cuide de você com<br><em>clareza e confiança.</em></h2>
+        <div class="cards">
+            <div class="price-card reveal">
+                <h3>Primeira Sessão</h3>
+                <div class="price-tag"><sup>R$</sup>100</div>
+                <p class="price-desc">Uma oportunidade para nos conhecermos e criar juntas um ambiente de confiança.</p>
+                <a href="https://wa.me/5511993051221?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20primeira%20sess%C3%A3o!"
+                    class="btn-primary" target="_blank">Agendar</a>
+            </div>
+            <div class="price-card featured reveal">
+                <span class="featured-label">Mais escolhido</span>
+                <h3>Pacote Mensal</h3>
+                <div class="price-tag"><sup>R$</sup>350</div>
+                <p class="price-desc">4 sessões por mês com desconto especial. Recibo emitido via Receita Saúde.</p>
+                <a href="https://wa.me/5511993051221?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20pacote%20mensal!"
+                    class="btn-primary" target="_blank">Quero o pacote</a>
+            </div>
+            <div class="price-card reveal">
+                <h3>Sessão Avulsa</h3>
+                <div class="price-tag"><sup>R$</sup>100</div>
+                <p class="price-desc">Por encontro, com pagamento até 2h antes do início da sessão.</p>
+                <a href="https://wa.me/5511993051221?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20sess%C3%A3o%20avulsa!"
+                    class="btn-primary" target="_blank">Agendar</a>
+            </div>
+        </div>
+        <p class="pricing-note">
+            Pagamento via PIX ou cartão de crédito (link). Reagendamentos com até 24h de antecedência.
+        </p>
+    </section>
 
-<!-- CTA -->
-<section class="cta-section" id="agendar">
-  <div class="cta-blob"></div>
-  <div style="position: relative; z-index: 2;">
-    <p class="section-label reveal">Dê o primeiro passo</p>
-    <h2 class="section-title reveal">Que tal começar a<br>cuidar de <em>você hoje?</em></h2>
-    <p class="cta-sub reveal">Agende sua sessão e vamos juntas nessa jornada de autoconhecimento e bem-estar.</p>
-    <a href="https://wa.me/5511993051221" class="btn-primary reveal" target="_blank" style="display: inline-block; font-size: 0.9rem; padding: 1rem 2.8rem;">
-      Agendar pelo WhatsApp
-    </a>
-    <div class="cta-contact reveal">
-      <div class="contact-item">
-        <span>📱</span>
-        <a href="https://wa.me/5511993051221">(11) 99305-1221</a>
-      </div>
-      <div class="contact-item">
-        <span>📸</span>
-        <a href="https://instagram.com/psijulianacapucci" target="_blank">@psijulianacapucci</a>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- CTA -->
+    <section class="cta-section" id="agendar">
+        <div class="cta-blob"></div>
+        <div class="cta-inner">
+            <p class="section-label reveal">Dê o primeiro passo</p>
+            <h2 class="section-title reveal">Que tal começar a<br>cuidar de <em>você hoje?</em></h2>
+            <p class="cta-sub reveal">Agende sua sessão e vamos juntas nessa jornada de autoconhecimento e bem-estar.
+            </p>
+            <a href="https://wa.me/5511993051221" class="btn-primary cta-main-btn reveal" target="_blank">
+                Agendar pelo WhatsApp
+            </a>
+            <div class="cta-contact reveal">
+                <div class="contact-item">
+                    <span>📱</span>
+                    <a href="https://wa.me/5511993051221">(11) 99305-1221</a>
+                </div>
+                <div class="contact-item">
+                    <span>📸</span>
+                    <a href="https://instagram.com/psijulianacapucci" target="_blank">@psijulianacapucci</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="logo">Juliana <span>Capucci</span> · Psicóloga</div>
-  <div>CRP 08/209218 · Atendimentos 100% Online</div>
-  <div>© 2024 Todos os direitos reservados.</div>
-</footer>
+    <!-- FOOTER -->
+    <footer>
+        <div class="logo">Juliana <span>Capucci</span> · Psicóloga</div>
+        <div class="footer-links">
+            <a href="#sobre">Sobre</a>
+            <a href="#abordagem">Abordagem</a>
+            <a href="#valores">Valores</a>
+            <a href="#agendar">Agendar</a>
+        </div>
+        <div>CRP 08/209218 · © 2024 Todos os direitos reservados.</div>
+    </footer>
 
-<script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => obs.observe(el));
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => obs.observe(el));
 
-  // Smooth nav highlight
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-</script>
+        // Smooth nav
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu if open
+                    navLinks.classList.remove('open');
+                    menuToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+    </script>
 </body>
+
 </html>
