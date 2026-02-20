@@ -10,31 +10,43 @@ import TCC from '../components/sections/TCC.astro';
 import OnlineInfo from '../components/sections/OnlineInfo.astro';
 import Pricing from '../components/sections/Pricing.astro';
 import CTA from '../components/sections/CTA.astro';
+import BrainScene from '../components/3d/BrainScene';
 ---
 
 <BaseLayout>
+  <BrainScene client:only="react" />
   <Nav />
+  
+  <!-- 1. Hero (Visão Geral) -->
   <Hero />
 
   <SectionTransition variant="default" />
 
-  <!-- DIVIDER -->
-  <div class="divider" aria-hidden="true">
-    <div class="divider-line"></div>
-    <span class="divider-text">Psicologia com ciência e cuidado</span>
-    <div class="divider-line"></div>
-  </div>
-
-  <About />
-  <SectionTransition variant="warm" />
-  <HowItWorks />
-  <SectionTransition variant="reverse" />
+  <!-- 2. Abordagem (Córtex Pré-frontal) -->
   <TCC />
+  
+  <SectionTransition variant="reverse" />
+
+  <!-- 3. Sobre (Sistema Límbico) -->
+  <About />
+  
+  <SectionTransition variant="warm" />
+
+  <!-- 4. Como Funciona (Hipocampo) -->
+  <HowItWorks />
+  
   <SectionTransition variant="default" />
+  
   <OnlineInfo />
+  
   <SectionTransition variant="dark" />
+  
   <Pricing />
+  
   <SectionTransition variant="from-dark" />
+  
+  <!-- 5. CTA (Amígdala/Segurança) -->
   <CTA />
+  
   <Footer />
 </BaseLayout>
