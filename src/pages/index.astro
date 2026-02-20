@@ -10,15 +10,16 @@ import TCC from '../components/sections/TCC.astro';
 import OnlineInfo from '../components/sections/OnlineInfo.astro';
 import Pricing from '../components/sections/Pricing.astro';
 import CTA from '../components/sections/CTA.astro';
-import BrainScene from '../components/3d/BrainScene';
+import ImmersiveScene from '../components/3d/ImmersiveScene';
 ---
 
 <BaseLayout>
-  <BrainScene client:only="react" />
+  <ImmersiveScene client:only="react" />
   <Nav />
   
-  <!-- 1. Hero (Visão Geral) -->
-  <Hero />
+  <main id="main-content">
+    <!-- 1. Hero (Visão Geral) -->
+    <Hero />
 
   <SectionTransition variant="default" />
 
@@ -47,6 +48,7 @@ import BrainScene from '../components/3d/BrainScene';
   
   <!-- 5. CTA (Amígdala/Segurança) -->
   <CTA />
+  </main>
   
   <Footer />
 </BaseLayout>

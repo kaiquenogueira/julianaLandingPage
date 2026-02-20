@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /llms.txt
 
-Sitemap: https://www.julianacapucci.com.br/sitemap-index.xml
+# Para IA e LLM Crawlers (GPTBot, ClaudeBot, etc.) permitimos a exploração do site e do llms.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+Sitemap: https://julianacapucci.com.br/sitemap-index.xml

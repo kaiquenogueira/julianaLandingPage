@@ -13,11 +13,13 @@
   --charcoal: #264653;
   --cream: #FAF7F3;
   --cream-warm: #F5EDE8;
-  
-  --warm-dark: #264653; /* Substituindo o marrom escuro pelo charcoal profundo */
-  --text-light: #5f7470;
+
+  --warm-dark: #1F3842;
+  /* Even deeper charcoal */
+  --text-light: #324744;
+  /* Darkest sage/grey for optimal legibility */
   --white: #FFFFFF;
-  
+
   --border-light: rgba(42, 157, 143, 0.2);
 
   --section-spacing: clamp(5rem, 8vw, 8rem);
@@ -229,12 +231,15 @@ nav a:hover {
 }
 
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+  /* Increased size */
   line-height: 1.75;
   color: var(--text-light);
-  max-width: 420px;
+  max-width: 480px;
+  /* Increased width to accommodate larger text */
   margin-bottom: 2.5rem;
-  font-weight: 300;
+  font-weight: 400;
+  /* Slightly bolder */
   opacity: 0;
   animation: fadeUp 0.8s 0.6s forwards;
 }
@@ -493,21 +498,26 @@ nav a:hover {
 }
 
 .about-text {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
+  /* Increased size */
   line-height: 1.85;
   color: var(--text-light);
-  font-weight: 300;
+  font-weight: 400;
+  /* Increased weight */
   margin-bottom: 1.2rem;
 }
 
 .about-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  /* More opaque */
+  backdrop-filter: blur(16px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 2.5rem;
   position: relative;
   z-index: 2;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  /* Added slight shadow to lift from particles */
 }
 
 .credential {
@@ -557,11 +567,16 @@ nav a:hover {
 .step {
   text-align: center;
   padding: 2.5rem 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+  /* More opaque */
   border-radius: 28px;
   border: 1px solid var(--border-light);
   cursor: pointer;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  /* Lifted */
 }
 
 .step:hover {
@@ -587,10 +602,11 @@ nav a:hover {
 }
 
 .step p {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  /* Increased size */
   color: var(--text-light);
   line-height: 1.7;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 /* ── TCC ── */
@@ -675,7 +691,19 @@ nav a:hover {
 
 .info-item {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  position: relative;
+  z-index: 2;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.info-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(42, 157, 143, 0.1);
 }
 
 .info-item h4 {
@@ -686,10 +714,33 @@ nav a:hover {
 }
 
 .info-item p {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  /* Increased size */
   color: var(--text-light);
   line-height: 1.65;
-  font-weight: 300;
+  font-weight: 400;
+}
+
+.info-highlight {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--border-light);
+  color: var(--text-light);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 2;
+}
+
+.info-highlight strong {
+  color: var(--teal);
+  font-weight: 500;
 }
 
 /* ── PREÇOS ── */

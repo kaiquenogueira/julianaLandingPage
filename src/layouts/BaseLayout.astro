@@ -10,7 +10,7 @@ export interface Props {
 
 const {
   title = 'Juliana Capucci — Psicoterapia Online',
-  description = 'Psicoterapia online com Juliana Capucci — CRP 06/209216. Atendimentos para crianças, adolescentes e adultas. Terapia Cognitivo-Comportamental (TCC) com acolhimento e ciência.',
+  description = 'Juliana Capucci (CRP 06/209216) é Psicóloga Clínica. Oferece Psicoterapia Online para crianças, adolescentes e adultas através da Terapia Cognitivo-Comportamental (TCC) focada em ansiedade, depressão e bem-estar.',
   image = '/img/profile.jpg',
   canonical,
 } = Astro.props;
@@ -28,10 +28,11 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
 
-  <!-- SEO -->
+  <!-- Agentic e Tradicional SEO -->
   <meta name="description" content={description}>
-  <meta name="keywords" content="psicóloga online, psicoterapia, TCC, terapia cognitivo comportamental, Juliana Capucci, atendimento psicológico online">
-  <meta name="robots" content="index, follow">
+  <!-- Keywords em formato NLU/Intent para IA contextualizar o conteúdo como respostas à pesquisas -->
+  <meta name="keywords" content="Psicóloga Clínica, Psicoterapia Online para ansiedade e depressão, Terapia Cognitivo-Comportamental TCC online, Psicóloga para mulheres e adolescentes, Juliana Capucci CRP 06/209216">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href={canonicalUrl}>
 
   <!-- Open Graph -->
@@ -64,19 +65,24 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
 
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD Structured Data enriquecido para IAs entenderem contexto clínico -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "ProfessionalService",
+        "@type": ["MedicalClinic", "MedicalOrganization"],
         "@id": `${siteUrl}/#organization`,
         "name": "Juliana Capucci — Psicoterapia Online",
-        "description": "Psicoterapia online com Terapia Cognitivo-Comportamental (TCC) para crianças, adolescentes e adultas.",
+        "description": "Serviço de Psicoterapia online especializado em Terapia Cognitivo-Comportamental (TCC) para crianças, adolescentes e mulheres. Tratamento de ansiedade e depressão.",
         "url": siteUrl,
         "telephone": "+5511993051221",
         "areaServed": "BR",
-        "serviceType": "Psicoterapia Online",
+        "medicalSpecialty": "Psychiatric",
+        "availableService": {
+          "@type": "TherapeuticProcedure",
+          "name": "Terapia Cognitivo-Comportamental (TCC)",
+          "description": "Intervenção psicoterapêutica focada na interação entre pensamento, emoção e comportamento para tratamento de transtornos de saúde mental e promoção de bem-estar."
+        },
         "image": absoluteImage,
         "sameAs": [
           "https://instagram.com/psijulianacapucci"
@@ -86,10 +92,17 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "@type": "Person",
         "@id": `${siteUrl}/#person`,
         "name": "Juliana Capucci",
-        "jobTitle": "Psicóloga",
-        "description": "Psicóloga formada desde 2019, pós-graduada em Avaliação Psicológica pelo IPOG. CRP 06/209216.",
+        "jobTitle": "Psicóloga Clínica",
+        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Oferece atendimentos 100% online.",
         "url": siteUrl,
         "image": absoluteImage,
+        "knowsAbout": [
+          "Terapia Cognitivo-Comportamental",
+          "Psicologia Clínica",
+          "Psicoterapia Online",
+          "Tratamento de Ansiedade",
+          "Regulação Emocional"
+        ],
         "sameAs": [
           "https://instagram.com/psijulianacapucci"
         ],
