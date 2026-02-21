@@ -1,26 +1,66 @@
-<!-- COMO FUNCIONA -->
-<section class="how" id="como-funciona">
+<!-- POSSIBILIDADES -->
+<section class="how" id="possibilidades">
   <div class="how-header reveal">
-    <p class="section-label">Como funciona</p>
-    <h2 class="section-title">Simples como <em>deve ser.</em></h2>
+    <p class="section-label">O que é possível abordar?</p>
+    <div class="hero-line" aria-hidden="true" style="margin: 1rem auto; opacity: 1; animation: none;"></div>
   </div>
-  <div class="steps">
+  <div class="steps possibilities-grid">
     <div class="step reveal">
-      <div class="step-num">01</div>
-      <h3>Entre em contato</h3>
-      <p>Fale comigo pelo WhatsApp ou Instagram. Vamos conversar sobre suas necessidades e escolher o melhor
-        horário fixo para você.</p>
+      <div class="quote-icon">“</div>
+      <h3>Ansiedade</h3>
+      <p>Estado de agitação constante, preocupação excessiva, pensamentos acelerados e angústia diante de algumas situações ou sem motivo aparente.</p>
     </div>
     <div class="step reveal">
-      <div class="step-num">02</div>
-      <h3>Primeira sessão</h3>
-      <p>Nos conhecemos, criamos um ambiente de acolhimento e iniciamos juntas essa jornada. Além de desvendar o processo de psicoterapia, este primeiro encontro é uma oportunidade para construir uma parceria significativa.</p>
+      <div class="quote-icon">“</div>
+      <h3>Depressão</h3>
+      <p>Sentimento persistente de desânimo, tristeza, vazio, baixa autoestima e desesperança. Perda de interesse em atividades que até então eram prazerosas. Alterações no sono e no apetite.</p>
     </div>
     <div class="step reveal">
-      <div class="step-num">03</div>
-      <h3>Sessões semanais</h3>
-      <p>Encontros via videochamada de até 50 minutos, toda semana, no seu horário fixo — sem confirmação
-        prévia.</p>
+      <div class="quote-icon">“</div>
+      <h3>Luto</h3>
+      <p>Perda de um ente querido ou de algo significativo que acarreta em sentimentos dolorosos de frustração e tristeza, dificuldade de seguir adiante.</p>
+    </div>
+    <div class="step reveal">
+      <div class="quote-icon">“</div>
+      <h3>Traumas</h3>
+      <p>Experiências vivenciadas de forma a alterar significativamente nossa percepção sobre o mundo, sobre os outros ou sobre nós mesmos.</p>
+    </div>
+    <div class="step reveal">
+      <div class="quote-icon">“</div>
+      <h3>Relacionamentos</h3>
+      <p>Desafio de identificar e trabalhar a complexidade dos afetos e das questões que perpassam as relações, sejam elas amorosas, familiares ou de amizade.</p>
+    </div>
+    <div class="step reveal">
+      <div class="quote-icon">“</div>
+      <h3>Baixa autoestima</h3>
+      <p>Sentimento constante de insatisfação consigo mesmo, autocrítica, insegurança, busca constante pela aprovação do outro, dificuldade em enxergar seu valor e suas habilidades.</p>
     </div>
   </div>
 </section>
+
+<style>
+  .possibilities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .quote-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    color: var(--sage);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 900px) {
+    .possibilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .possibilities-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

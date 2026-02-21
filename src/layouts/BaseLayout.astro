@@ -10,7 +10,7 @@ export interface Props {
 
 const {
   title = 'Juliana Capucci — Psicoterapia Online',
-  description = 'Juliana Capucci (CRP 06/209216) é Psicóloga Clínica. Oferece Psicoterapia Online para crianças, adolescentes e adultas através da Terapia Cognitivo-Comportamental (TCC) focada em ansiedade, depressão e bem-estar.',
+  description = 'Juliana Capucci (CRP 06/209216) é Psicóloga Clínica. Oferece Psicoterapia Online para adolescentes e adultos através da Terapia Cognitivo-Comportamental (TCC) focada em ansiedade, depressão e bem-estar.',
   image = '/img/profile.jpg',
   canonical,
 } = Astro.props;
@@ -31,7 +31,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
   <!-- Agentic e Tradicional SEO -->
   <meta name="description" content={description}>
   <!-- Keywords em formato NLU/Intent para IA contextualizar o conteúdo como respostas à pesquisas -->
-  <meta name="keywords" content="Psicóloga Clínica, Psicoterapia Online para ansiedade e depressão, Terapia Cognitivo-Comportamental TCC online, Psicóloga para mulheres e adolescentes, Juliana Capucci CRP 06/209216">
+  <meta name="keywords" content="Psicóloga Clínica, Psicoterapia Online para ansiedade e depressão, Terapia Cognitivo-Comportamental TCC online, Psicóloga para adolescentes e adultos, Juliana Capucci CRP 06/209216">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href={canonicalUrl}>
 
@@ -73,7 +73,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "@type": ["MedicalClinic", "MedicalOrganization"],
         "@id": `${siteUrl}/#organization`,
         "name": "Juliana Capucci — Psicoterapia Online",
-        "description": "Serviço de Psicoterapia online especializado em Terapia Cognitivo-Comportamental (TCC) para crianças, adolescentes e mulheres. Tratamento de ansiedade e depressão.",
+        "description": "Serviço de Psicoterapia online especializado em Terapia Cognitivo-Comportamental (TCC) para adolescentes e adultos. Tratamento de ansiedade e depressão.",
         "url": siteUrl,
         "telephone": "+5511993051221",
         "areaServed": "BR",
@@ -93,7 +93,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "@id": `${siteUrl}/#person`,
         "name": "Juliana Capucci",
         "jobTitle": "Psicóloga Clínica",
-        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Oferece atendimentos 100% online.",
+        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Oferece atendimentos online.",
         "url": siteUrl,
         "image": absoluteImage,
         "knowsAbout": [

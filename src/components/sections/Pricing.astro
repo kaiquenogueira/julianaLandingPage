@@ -1,34 +1,173 @@
-<!-- INFORMAÇÕES -->
+<!-- INFORMAÇÕES / FAQ -->
 <section class="pricing" id="informacoes">
-  <p class="section-label">Informações Importantes</p>
-  <h2 class="section-title">Cuide de você com<br><em>clareza e confiança.</em></h2>
-  <div class="cards">
-    <div class="price-card reveal">
-      <h3>Horários de Atendimento</h3>
-      <p class="price-desc" style="margin-top: 1.5rem;">
-        É importante que separe na sua agenda um dia e horário para a psicoterapia que você consiga manter. Suas sessões semanais serão isentas de confirmação prévia.
-      </p>
-    </div>
-    <div class="price-card reveal">
-      <h3>Reagendamentos</h3>
-      <p class="price-desc" style="margin-top: 1.5rem;">
-        Caso haja qualquer empecílio em realizar a sessão na data agendada, é possível realizar o reagendamento com até 24 horas de antecedência (preferencialmente para a mesma semana). Caso não se apresente na data agendada e não haja justificativa, sua sessão será dada como falta e será cobrada.
-      </p>
-    </div>
-    <div class="price-card reveal">
-      <h3>Segurança</h3>
-      <p class="price-desc" style="margin-top: 1.5rem;">
-        O momento da terapia é seu, você pode dizer o que quiser, expressar seus sentimentos e pensamentos sem ser julgada e com a certeza da ética e sigilo profissional.
-      </p>
-    </div>
-    <div class="price-card reveal">
-      <h3>Pagamentos</h3>
-      <p class="price-desc" style="margin-top: 1.5rem;">
-        Oferecemos a conveniência de pagamentos adiantados via PIX ou cartão de crédito. Opções de pacote mensal (inclui 4 sessões, com desconto especial) ou sessão avulsa. O recibo é emitido via Receita Saúde.
-      </p>
-    </div>
+  <p class="section-label">Cuide de você com clareza e confiança.</p>
+  <h2 class="section-title">Tudo o que você<br>precisa <em>saber.</em></h2>
+
+  <div class="faq-container reveal">
+    <!-- 1. Duração -->
+    <details class="faq-item">
+      <summary>
+        <h3>Qual a duração das sessões?</h3>
+        <span class="icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Cada sessão tem duração de 50 minutos e ocorre semanalmente, sempre no mesmo dia e horário combinado.</p>
+      </div>
+    </details>
+
+    <!-- 2. Eficácia Online -->
+    <details class="faq-item">
+      <summary>
+        <h3>A psicoterapia online é tão eficaz quanto a presencial?</h3>
+        <span class="icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Sim. A psicoterapia online é tão eficaz quanto a presencial, oferecendo resultados consistentes, além de mais praticidade e conforto.</p>
+      </div>
+    </details>
+
+    <!-- 3. Agendamento e Faltas (Mesclando Horários + Reagendamentos + Nova info) -->
+    <details class="faq-item">
+      <summary>
+        <h3>Como funciona o agendamento e reagendamento?</h3>
+        <span class="icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>O agendamento é simples: basta enviar uma mensagem pelo WhatsApp para combinarmos o melhor dia e horário fixo para você.</p>
+        <p>Caso precise remarcar, é só avisar com pelo menos 24 horas de antecedência. Faltas sem aviso prévio serão cobradas normalmente.</p>
+      </div>
+    </details>
+
+    <!-- 4. Valores e Pagamento -->
+    <details class="faq-item">
+      <summary>
+        <h3>Qual o valor da consulta e formas de pagamento?</h3>
+        <span class="icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Conforme o Art. 20 do Código de Ética do CFP, a divulgação de valores não é permitida publicamente. Entre em contato pelo WhatsApp para saber mais.</p>
+        <p>O pagamento pode ser feito via PIX ou cartão de crédito, com opções de sessão avulsa ou pacote mensal (com desconto). Emitimos recibo para reembolso.</p>
+      </div>
+    </details>
+
+    <!-- 5. Sigilo e Segurança -->
+    <details class="faq-item">
+      <summary>
+        <h3>O atendimento é sigiloso?</h3>
+        <span class="icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Absolutamente. O momento da terapia é seu espaço seguro. Você pode expressar seus sentimentos e pensamentos sem julgamentos, com a garantia total de ética e sigilo profissional.</p>
+      </div>
+    </details>
   </div>
-  <p class="pricing-note">
+
+  <p class="pricing-note reveal">
     Dúvidas? Entre em contato para conversarmos melhor.
   </p>
 </section>
+
+<style>
+  .faq-container {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .faq-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--coral);
+  }
+
+  .faq-item[open] {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--amber);
+  }
+
+  summary {
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--white);
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+    color: var(--coral);
+    font-weight: 300;
+    transition: transform 0.3s ease;
+  }
+
+  details[open] .icon {
+    transform: rotate(45deg);
+    color: var(--amber);
+  }
+
+  .faq-content {
+    padding: 0 2rem 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    font-size: 1rem;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .faq-content p {
+    margin-bottom: 1rem;
+  }
+
+  .faq-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    summary {
+      padding: 1.2rem 1.5rem;
+    }
+    
+    .faq-content {
+      padding: 0 1.5rem 1.5rem;
+    }
+    
+    summary h3 {
+      font-size: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>

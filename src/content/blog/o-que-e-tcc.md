@@ -15,9 +15,8 @@ Durante as sessões, trabalhamos juntas para identificar padrões de pensamento 
 
 A TCC é indicada para:
 
-- **Crianças** — ajudando a lidar com medos, ansiedade e dificuldades escolares
 - **Adolescentes** — trabalhando questões de identidade, autoestima e pressão social
-- **Adultas** — apoiando em ansiedade, depressão, relacionamentos e autoconhecimento
+- **Adultos** — apoiando em ansiedade, depressão, relacionamentos e autoconhecimento
 
 ## Benefícios da TCC
 
