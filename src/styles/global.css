@@ -5,30 +5,41 @@
 
 /* ── VARIÁVEIS & RESET ── */
 :root {
-  /* Paleta quente e orgânica */
-  --coral: #D05335;
-  --teal: #427060;
-  --amber: #F4A261;
-  --sage: #A9B5A4;
-  --charcoal: #354B45;
-  --cream: #FAF7F3;
-  --cream-warm: #F5EDE8;
+  /* Paleta quente e orgânica inspirada no design gerado */
+  --coral: #DE5D3E;
+  /* Ligeiramente mais vibrante */
+  --teal: #355C50;
+  /* Verde um pouco mais profundo e sofisticado */
+  --amber: #F29C52;
+  --sage: #A0AEA3;
+  --charcoal: #2A3B36;
+  /* Tom mais escuro para maior contraste */
+  --cream: #FDF9F4;
+  /* Fundo creme mais limpo e claro */
+  --cream-warm: #F8EFEA;
 
-  --warm-dark: #2A3834;
-  /* Even deeper charcoal */
-  --text-light: #3D504A;
-  /* Darkest sage/grey for optimal legibility */
+  --warm-dark: #222E2B;
+  --text-light: #4A5D57;
+  /* Texto de corpo ligeiramente mais suave, mas legível */
   --white: #FFFFFF;
 
-  --border-light: rgba(66, 112, 96, 0.2);
+  --border-light: rgba(53, 92, 80, 0.12);
+  /* Bordas mais sutis */
 
-  --section-spacing: clamp(5rem, 8vw, 8rem);
-  --container-padding: clamp(1.5rem, 4vw, 4rem);
+  --glass-bg: rgba(253, 249, 244, 0.85);
+  /* Fundo glass mais refinado */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px rgba(42, 59, 54, 0.04);
+
+  --section-spacing: clamp(6rem, 10vw, 10rem);
+  /* Mais respiro entre seções */
+  --container-padding: clamp(1.5rem, 5vw, 5rem);
   --transition-fast: 200ms ease;
   --transition-base: 300ms ease;
-  --radius-sm: 12px;
-  --radius-md: 24px;
-  --radius-lg: 40px;
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 16px;
+  --radius-md: 28px;
+  --radius-lg: 48px;
   --radius-pill: 100px;
 }
 
@@ -50,11 +61,12 @@ html {
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: transparent;
+  background: var(--cream);
   color: var(--warm-dark);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 /* ── NAV ── */
@@ -201,34 +213,39 @@ nav a:hover {
   position: relative;
   z-index: 2;
   padding-top: 5rem;
+  max-width: 600px;
+  /* Controlar melhor o max-width */
 }
 
 .hero-eyebrow {
-  font-size: 0.85rem;
-  letter-spacing: 0.22em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
   opacity: 0;
   animation: fadeUp 0.8s 0.2s forwards;
 }
 
 .hero-line {
-  width: 40px;
-  height: 1px;
+  width: 60px;
+  height: 2px;
   background: var(--amber);
-  margin-bottom: 1.4rem;
+  margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 0.6s 0.3s forwards;
 }
 
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3.5rem, 6vw, 6rem);
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--warm-dark);
-  margin-bottom: 1.6rem;
+  font-size: clamp(3.8rem, 7vw, 6.5rem);
+  font-weight: 400;
+  /* Levemente mais peso para presença */
+  line-height: 1.05;
+  color: var(--charcoal);
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.02em;
   opacity: 0;
   animation: fadeUp 0.8s 0.4s forwards;
 }
@@ -320,23 +337,30 @@ nav a:hover {
 }
 
 .hero-img-wrap {
-  width: 380px;
-  height: 480px;
+  width: 400px;
+  height: 520px;
   background: linear-gradient(135deg, var(--coral) 0%, var(--amber) 100%);
-  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  border-radius: 6vw 4vw 6vw 4vw / 5vw 6vw 4vw 5vw;
+  /* Curvas mais suaves baseadas na viewport */
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(208, 83, 53, 0.2);
-  animation: morphBlob 12s ease-in-out infinite;
+  box-shadow: 0 40px 80px rgba(42, 59, 54, 0.15);
+  /* Sombra mais difusa e elegante */
+  animation: morphBlob 16s ease-in-out infinite;
 }
 
 .hero-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.hero-img-wrap:hover img {
+  transform: scale(1.03);
 }
 
 .hero-img-inner {
@@ -351,23 +375,32 @@ nav a:hover {
 
 .hero-badge {
   position: absolute;
-  bottom: -10px;
-  right: -10px;
-  background: var(--cream);
-  border: 1px solid var(--amber);
-  border-radius: 20px;
-  padding: 1rem 1.4rem;
-  font-size: 0.85rem;
+  bottom: 20px;
+  right: -30px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   color: var(--charcoal);
-  letter-spacing: 0.05em;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  letter-spacing: 0.02em;
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 .hero-badge strong {
   display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
+  font-size: 2.2rem;
+  line-height: 1;
   color: var(--coral);
+  font-weight: 600;
 }
 
 /* ── SECTION TRANSITIONS (wave dividers) ── */
@@ -494,10 +527,13 @@ nav a:hover {
 
 .section-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  /* Proporção melhorada */
   font-weight: 300;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+  color: var(--charcoal);
+  letter-spacing: -0.01em;
 }
 
 .section-title em {
@@ -507,25 +543,24 @@ nav a:hover {
 
 .about-text {
   font-size: 1.15rem;
-  /* Increased size */
-  line-height: 1.85;
+  line-height: 1.8;
   color: var(--text-light);
   font-weight: 400;
-  /* Increased weight */
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .about-card {
-  background: rgba(255, 255, 255, 0.95);
-  /* More opaque */
+  background: var(--glass-bg);
   backdrop-filter: blur(16px);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 2.5rem;
+  -webkit-backdrop-filter: blur(16px);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  /* Bordas mais arredondadas */
+  padding: 3rem;
+  /* Mais espaçamento interno */
   position: relative;
   z-index: 2;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  /* Added slight shadow to lift from particles */
+  box-shadow: var(--glass-shadow);
 }
 
 .credential {
@@ -574,44 +609,45 @@ nav a:hover {
 
 .step {
   text-align: center;
-  padding: 2.5rem 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  /* More opaque */
-  border-radius: 28px;
-  border: 1px solid var(--border-light);
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  padding: 3rem 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  border: var(--glass-border);
+  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
   position: relative;
   z-index: 2;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  /* Lifted */
+  box-shadow: var(--glass-shadow);
 }
 
 .step:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(66, 112, 96, 0.1);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(42, 59, 54, 0.08);
+  /* Efeito hover mais suave */
 }
 
 .step-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 300;
-  color: var(--amber);
+  color: var(--coral);
+  /* Mudança para coral para mais destaque */
   line-height: 1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .step h3 {
-  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
   font-weight: 500;
-  color: var(--warm-dark);
-  margin-bottom: 0.7rem;
-  letter-spacing: 0.03em;
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
 }
 
 .step p {
   font-size: 1.05rem;
-  /* Increased size */
   color: var(--text-light);
   line-height: 1.7;
   font-weight: 400;
@@ -751,15 +787,14 @@ nav a:hover {
   font-weight: 500;
 }
 
-/* ── PREÇOS ── */
 .pricing {
   padding: var(--section-spacing) var(--container-padding);
   text-align: center;
-  background: linear-gradient(180deg, rgba(53, 75, 69, 0.95) 0%, rgba(53, 75, 69, 0.98) 100%);
+  background: linear-gradient(180deg, var(--charcoal) 0%, #1A2522 100%);
+  /* Fundo mais escuro e rico */
   color: var(--white);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(5px);
 }
 
 .pricing::before {
@@ -770,12 +805,15 @@ nav a:hover {
   transform: translateX(-50%);
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(208, 83, 53, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(222, 93, 62, 0.08) 0%, transparent 70%);
+  /* Brilho coral sutil */
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .pricing .section-label {
   color: var(--amber);
+  letter-spacing: 0.15em;
 }
 
 .pricing .section-title {
@@ -783,7 +821,8 @@ nav a:hover {
 }
 
 .pricing .section-title em {
-  color: var(--coral);
+  color: var(--amber);
+  /* Amber no escuro fica mais elegante que coral */
 }
 
 .cards {
