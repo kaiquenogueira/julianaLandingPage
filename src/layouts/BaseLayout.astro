@@ -25,13 +25,36 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
 <head>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-974807273"></script>
-  <script>
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-974807273"></script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'AW-974807273');
+
+    // Event snippet for contato para o whtasapp conversion page
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-974807273/_5kACLbX4oEcEOnB6dAD',
+          'event_callback': callback
+      });
+      return false;
+    }
+
+    // Attach click listener globally to all links pointing to WhatsApp
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a');
+      if (link && link.href && (link.href.includes('wa.me') || link.href.includes('api.whatsapp.com'))) {
+        e.preventDefault();
+        gtag_report_conversion(link.href);
+      }
+    });
   </script>
 
   <meta charset="UTF-8">
