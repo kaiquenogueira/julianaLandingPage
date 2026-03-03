@@ -110,8 +110,29 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
           }
         ],
         "image": absoluteImage,
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "15",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "R. Catequese, 725",
+          "addressLocality": "Santo André",
+          "addressRegion": "SP",
+          "postalCode": "09090-401",
+          "addressCountry": "BR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "-23.6561917",
+          "longitude": "-46.5359554"
+        },
         "sameAs": [
-          "https://instagram.com/psijulianacapucci"
+          "https://instagram.com/psijulianacapucci",
+          "https://www.google.com/maps?cid=16212388933725404534"
         ]
       },
       {
@@ -157,7 +178,8 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
           "name": "Conselho Federal de Psicologia (CFP)"
         },
         "sameAs": [
-          "https://instagram.com/psijulianacapucci"
+          "https://instagram.com/psijulianacapucci",
+          "https://www.google.com/maps?cid=16212388933725404534"
         ],
         "worksFor": {
           "@id": `${siteUrl}/#organization`

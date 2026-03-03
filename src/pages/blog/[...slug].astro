@@ -63,18 +63,40 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
   <!-- JSON-LD Article -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `${siteUrl}/blog/${post.slug}/#article`,
     "headline": post.data.title,
     "description": post.data.description,
     "datePublished": post.data.date.toISOString(),
+    "dateModified": post.data.date.toISOString(),
+    "inLanguage": "pt-BR",
+    "url": `${siteUrl}/blog/${post.slug}/`,
+    "image": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}${post.data.image || '/img/profile.jpg'}`,
+    },
+    "keywords": post.data.tags.join(", "),
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blog/${post.slug}/`,
+    },
     "author": {
       "@type": "Person",
+      "@id": `${siteUrl}/#person`,
       "name": "Juliana Capucci",
       "url": siteUrl,
     },
     "publisher": {
       "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
       "name": "Juliana Capucci — Psicoterapia Online",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/img/profile.jpg`,
+      },
+    },
+    "isPartOf": {
+      "@id": `${siteUrl}/#website`,
     },
   })} />
 
