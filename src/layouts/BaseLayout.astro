@@ -9,8 +9,8 @@ export interface Props {
 }
 
 const {
-  title = 'Juliana Capucci — Psicoterapia Online',
-  description = 'Juliana Capucci (CRP 06/209216) é Psicóloga Clínica. Oferece Psicoterapia Online para adolescentes e adultos através da Terapia Cognitivo-Comportamental (TCC) focada em ansiedade, depressão e bem-estar.',
+  title = 'Juliana Capucci | Psicóloga Online para Ansiedade e Família · TCC',
+  description = 'Juliana Capucci (CRP 06/209216) é Psicóloga Clínica especializada em TCC. Psicoterapia online para ansiedade, dinâmicas familiares e saúde mental de au pairs. Agende sua sessão →',
   image = '/img/profile.jpg',
   canonical,
 } = Astro.props;
@@ -31,9 +31,12 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
   <!-- Agentic e Tradicional SEO -->
   <meta name="description" content={description}>
   <!-- Keywords em formato NLU/Intent para IA contextualizar o conteúdo como respostas à pesquisas -->
-  <meta name="keywords" content="Psicóloga Clínica, Psicoterapia Online para ansiedade e depressão, Terapia Cognitivo-Comportamental TCC online, Psicóloga para adolescentes e adultos, Juliana Capucci CRP 06/209216">
+  <meta name="keywords" content="Juliana Capucci, psicóloga online, psicoterapia online, ansiedade, família, au pair saúde mental, Terapia Cognitivo-Comportamental TCC, psicóloga para adolescentes e adultos, CRP 06/209216">
+  <meta name="author" content="Juliana Capucci">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href={canonicalUrl}>
+  <link rel="me" href="https://instagram.com/psijulianacapucci">
+  <link rel="author" href={`${siteUrl}/`}>
 
   <!-- Open Graph -->
   <meta property="og:title" content={title}>
@@ -70,19 +73,42 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["MedicalClinic", "MedicalOrganization"],
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        "url": siteUrl,
+        "name": "Juliana Capucci — Psicoterapia Online",
+        "description": "Site oficial de Juliana Capucci, psicóloga clínica online especializada em TCC, ansiedade, dinâmicas familiares e saúde mental para au pairs.",
+        "inLanguage": "pt-BR",
+        "publisher": {
+          "@id": `${siteUrl}/#person`
+        }
+      },
+      {
+        "@type": ["ProfessionalService", "HealthAndBeautyBusiness"],
         "@id": `${siteUrl}/#organization`,
         "name": "Juliana Capucci — Psicoterapia Online",
-        "description": "Serviço de Psicoterapia online especializado em Terapia Cognitivo-Comportamental (TCC) para adolescentes e adultos. Tratamento de ansiedade e depressão.",
+        "description": "Serviço de psicoterapia 100% online especializado em Terapia Cognitivo-Comportamental (TCC) para adolescentes, adultos, famílias e au pairs. Foco em ansiedade, depressão e bem-estar emocional.",
         "url": siteUrl,
         "telephone": "+5511993051221",
         "areaServed": "BR",
-        "medicalSpecialty": "Psychiatric",
-        "availableService": {
-          "@type": "TherapeuticProcedure",
-          "name": "Terapia Cognitivo-Comportamental (TCC)",
-          "description": "Intervenção psicoterapêutica focada na interação entre pensamento, emoção e comportamento para tratamento de transtornos de saúde mental e promoção de bem-estar."
-        },
+        "serviceType": "Psicoterapia Online",
+        "availableService": [
+          {
+            "@type": "Service",
+            "name": "Terapia Cognitivo-Comportamental (TCC)",
+            "description": "Intervenção psicoterapêutica baseada em evidências focada na interação entre pensamentos, emoções e comportamentos."
+          },
+          {
+            "@type": "Service",
+            "name": "Psicoterapia para Dinâmicas Familiares",
+            "description": "Suporte psicológico online para conflitos familiares, comunicação entre pais e filhos e fortalecimento de vínculos afetivos."
+          },
+          {
+            "@type": "Service",
+            "name": "Saúde Mental para Au Pairs",
+            "description": "Atendimento psicológico online especializado para au pairs brasileiros no exterior, com suporte para ansiedade, adaptação cultural e saudade."
+          }
+        ],
         "image": absoluteImage,
         "sameAs": [
           "https://instagram.com/psijulianacapucci"
@@ -92,23 +118,104 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "@type": "Person",
         "@id": `${siteUrl}/#person`,
         "name": "Juliana Capucci",
+        "givenName": "Juliana",
+        "familyName": "Capucci",
         "jobTitle": "Psicóloga Clínica",
-        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Oferece atendimentos online.",
+        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Atende online adolescentes, adultos, famílias e au pairs com foco em ansiedade e TCC.",
         "url": siteUrl,
         "image": absoluteImage,
+        "telephone": "+5511993051221",
         "knowsAbout": [
-          "Terapia Cognitivo-Comportamental",
+          "Terapia Cognitivo-Comportamental (TCC)",
           "Psicologia Clínica",
           "Psicoterapia Online",
-          "Tratamento de Ansiedade",
-          "Regulação Emocional"
+          "Transtornos de Ansiedade",
+          "Regulação Emocional",
+          "Saúde Mental Familiar",
+          "Psicoterapia para Au Pairs",
+          "Depressão",
+          "Luto e Trauma",
+          "Autoestima e Relacionamentos"
         ],
+        "hasCredential": {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "license",
+          "name": "CRP 06/209216",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "Conselho Regional de Psicologia de São Paulo (CRP-06)"
+          }
+        },
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "IPOG — Instituto de Pós-Graduação e Graduação"
+          }
+        ],
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Conselho Federal de Psicologia (CFP)"
+        },
         "sameAs": [
           "https://instagram.com/psijulianacapucci"
         ],
         "worksFor": {
           "@id": `${siteUrl}/#organization`
         }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${siteUrl}/#faq`,
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qual a duração das sessões de psicoterapia online com Juliana Capucci?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cada sessão tem duração de 50 minutos e ocorre semanalmente, sempre no mesmo dia e horário combinado."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "A psicoterapia online é tão eficaz quanto a presencial?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. A psicoterapia online é tão eficaz quanto a presencial, oferecendo resultados consistentes, além de mais praticidade e conforto. Estudos científicos confirmam a equivalência clínica dos atendimentos online."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Como funciona o agendamento de sessões com a psicóloga Juliana Capucci?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "O agendamento é simples: basta enviar uma mensagem pelo WhatsApp para combinarmos o melhor dia e horário fixo para você."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Juliana Capucci atende au pairs e brasileiros no exterior?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. Como os atendimentos são 100% online, Juliana Capucci atende au pairs e brasileiros morando no exterior que precisam de suporte psicológico para ansiedade, adaptação cultural e saúde mental."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Juliana Capucci atende questões relacionadas à família?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. Juliana Capucci trabalha com dinâmicas familiares, incluindo conflitos entre pais e filhos, comunicação familiar e desafios nos relacionamentos íntimos e de amizade."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O atendimento psicológico online com Juliana Capucci é sigiloso?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutamente. O momento da terapia é seu espaço seguro. Você pode expressar seus sentimentos e pensamentos sem julgamentos, com a garantia total de ética e sigilo profissional, conforme o Código de Ética do CFP."
+            }
+          }
+        ]
       }
     ]
   })} />

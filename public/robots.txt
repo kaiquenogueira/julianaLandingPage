@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Allow: /llms.txt
 
 # Para IA e LLM Crawlers (GPTBot, ClaudeBot, etc.) permitimos a exploração do site e do llms.txt
 User-agent: GPTBot
@@ -9,4 +8,24 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
-Sitemap: https://julianacapucci.com.br/sitemap-index.xml
+# Google Gemini / AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+Sitemap: https://www.julianacapucci.com.br/sitemap-index.xml
