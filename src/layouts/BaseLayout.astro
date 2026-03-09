@@ -15,8 +15,17 @@ const {
   canonical,
 } = Astro.props;
 
-const canonicalUrl = canonical || Astro.url.href;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
+const baseUrl = siteUrl || Astro.url.origin;
+const canonicalCandidate = canonical ? new URL(canonical, baseUrl) : new URL(Astro.url);
+const canonicalNormalized = new URL(canonicalCandidate.toString());
+canonicalNormalized.hash = '';
+canonicalNormalized.search = '';
+const canonicalLastSegment = canonicalNormalized.pathname.split('/').pop() ?? '';
+if (!canonicalNormalized.pathname.endsWith('/') && !canonicalLastSegment.includes('.')) {
+  canonicalNormalized.pathname = `${canonicalNormalized.pathname}/`;
+}
+const canonicalUrl = canonicalNormalized.toString();
 const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 ---
 

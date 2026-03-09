@@ -6,6 +6,7 @@ import react from '@astrojs/react';
 export default defineConfig({
     site: 'https://www.julianacapucci.com.br',
     output: 'static',
+    trailingSlash: 'always',
     integrations: [sitemap(), react()],
     build: {
         assets: '_assets',

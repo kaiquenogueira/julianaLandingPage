@@ -23,7 +23,7 @@ const posts = (await getCollection('blog')).sort(
 
     <div class="blog-grid">
       {posts.map((post) => (
-        <a href={`/blog/${post.slug}`} class="blog-card reveal">
+        <a href={`/blog/${post.slug}/`} class="blog-card reveal">
           <time datetime={post.data.date.toISOString()}>
             {post.data.date.toLocaleDateString('pt-BR', {
               year: 'numeric',
