@@ -9,8 +9,8 @@ export interface Props {
 }
 
 const {
-  title = 'Juliana Capucci | Psicóloga Online para Ansiedade e Família · TCC',
-  description = 'Juliana Capucci (CRP 06/209216) é Psicóloga Clínica especializada em TCC. Psicoterapia online para ansiedade, dinâmicas familiares e saúde mental de au pairs. Agende sua sessão →',
+  title = 'Juliana Capucci | Psicóloga Online · Ansiedade, Maternidade e Intercâmbio',
+  description = 'Juliana Capucci (CRP 06/209216), Psicóloga Clínica. Psicoterapia online com TCC para ansiedade, maternidade, relacionamentos e intercâmbio (au pair e estudos). Agende →',
   image = '/img/profile.jpg',
   canonical,
 } = Astro.props;
@@ -75,7 +75,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
   <!-- Agentic e Tradicional SEO -->
   <meta name="description" content={description}>
   <!-- Keywords em formato NLU/Intent para IA contextualizar o conteúdo como respostas à pesquisas -->
-  <meta name="keywords" content="Juliana Capucci, psicóloga online, psicoterapia online, ansiedade, família, au pair saúde mental, Terapia Cognitivo-Comportamental TCC, psicóloga para adolescentes e adultos, CRP 06/209216">
+  <meta name="keywords" content="Juliana Capucci, psicóloga online, psicoterapia online, ansiedade, família, au pair saúde mental, intercâmbio saúde mental, au pair e estudos, desejo de ser mãe, maternidade psicológica, apoio emocional maternidade, relacionamento, terapia intervencionista, Terapia Cognitivo-Comportamental TCC, psicóloga para adolescentes e adultos, CRP 06/209216">
   <meta name="author" content="Juliana Capucci">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href={canonicalUrl}>
@@ -121,7 +121,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "@id": `${siteUrl}/#website`,
         "url": siteUrl,
         "name": "Juliana Capucci — Psicoterapia Online",
-        "description": "Site oficial de Juliana Capucci, psicóloga clínica online especializada em TCC, ansiedade, dinâmicas familiares e saúde mental para au pairs.",
+        "description": "Site oficial de Juliana Capucci, psicóloga clínica online especializada em TCC, ansiedade, dinâmicas familiares, apoio emocional à maternidade, relacionamentos e saúde mental no intercâmbio (au pairs e estudantes).",
         "inLanguage": "pt-BR",
         "publisher": {
           "@id": `${siteUrl}/#person`
@@ -131,7 +131,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "@type": ["ProfessionalService", "HealthAndBeautyBusiness"],
         "@id": `${siteUrl}/#organization`,
         "name": "Juliana Capucci — Psicoterapia Online",
-        "description": "Serviço de psicoterapia 100% online especializado em Terapia Cognitivo-Comportamental (TCC) para adolescentes, adultos, famílias e au pairs. Foco em ansiedade, depressão e bem-estar emocional.",
+        "description": "Serviço de psicoterapia 100% online especializado em Terapia Cognitivo-Comportamental (TCC), uma abordagem intervencionista baseada em evidências. Atende adolescentes, adultos, famílias, mulheres em decisão sobre a maternidade e brasileiras no exterior (au pairs e estudantes de intercâmbio). Foco em ansiedade, depressão, relacionamentos e bem-estar emocional.",
         "url": siteUrl,
         "telephone": "+5511993051221",
         "areaServed": "BR",
@@ -140,7 +140,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
           {
             "@type": "Service",
             "name": "Terapia Cognitivo-Comportamental (TCC)",
-            "description": "Intervenção psicoterapêutica baseada em evidências focada na interação entre pensamentos, emoções e comportamentos."
+            "description": "Abordagem intervencionista baseada em evidências: intervenção ativa e estruturada sobre a interação entre pensamentos, emoções e comportamentos, com técnicas concretas e metas definidas."
           },
           {
             "@type": "Service",
@@ -149,8 +149,18 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
           },
           {
             "@type": "Service",
-            "name": "Saúde Mental para Au Pairs",
-            "description": "Atendimento psicológico online especializado para au pairs brasileiros no exterior, com suporte para ansiedade, adaptação cultural e saudade."
+            "name": "Saúde Mental no Intercâmbio (Au Pairs e Estudantes)",
+            "description": "Atendimento psicológico online em português para brasileiras no exterior — au pairs e estudantes de intercâmbio — com suporte para ansiedade, adaptação cultural, saudade, isolamento e ansiedade de desempenho."
+          },
+          {
+            "@type": "Service",
+            "name": "Apoio Emocional à Maternidade",
+            "description": "Acompanhamento psicológico para mulheres que desejam ser mães, trabalhando ambivalência, medos, pressão social e ansiedade da decisão. Foco no bem-estar emocional, não em fertilidade ou acompanhamento médico."
+          },
+          {
+            "@type": "Service",
+            "name": "Psicoterapia para Relacionamentos",
+            "description": "Apoio para questões emocionais de relacionamentos amorosos, familiares e de amizade, incluindo dependência emocional, término, ciúmes e limites."
           }
         ],
         "image": absoluteImage,
@@ -186,7 +196,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "givenName": "Juliana",
         "familyName": "Capucci",
         "jobTitle": "Psicóloga Clínica",
-        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Atende online adolescentes, adultos, famílias e au pairs com foco em ansiedade e TCC.",
+        "description": "Juliana Capucci (CRP 06/209216) é psicóloga clínica formada desde 2019 e pós-graduada em Avaliação Psicológica pelo IPOG. Atende online adolescentes, adultos, famílias, mulheres em decisão sobre a maternidade e brasileiras no exterior (au pairs e estudantes de intercâmbio), com foco em ansiedade, relacionamentos e TCC como abordagem intervencionista.",
         "url": siteUrl,
         "image": absoluteImage,
         "telephone": "+5511993051221",
@@ -198,9 +208,13 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
           "Regulação Emocional",
           "Saúde Mental Familiar",
           "Psicoterapia para Au Pairs",
+          "Saúde Mental no Intercâmbio (Au Pairs e Estudantes)",
+          "Apoio Emocional à Maternidade",
+          "Terapia Cognitivo-Comportamental como Abordagem Intervencionista",
           "Depressão",
           "Luto e Trauma",
-          "Autoestima e Relacionamentos"
+          "Autoestima e Relacionamentos",
+          "Relacionamentos Amorosos"
         ],
         "hasCredential": {
           "@type": "EducationalOccupationalCredential",
@@ -271,6 +285,30 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Sim. Juliana Capucci trabalha com dinâmicas familiares, incluindo conflitos entre pais e filhos, comunicação familiar e desafios nos relacionamentos íntimos e de amizade."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual metodologia ou abordagem Juliana Capucci utiliza?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Juliana Capucci trabalha com a Terapia Cognitivo-Comportamental (TCC), uma abordagem intervencionista e baseada em evidências. É uma metodologia de intervenção ativa e estruturada: terapeuta e paciente intervêm de forma prática sobre pensamentos e comportamentos no presente, com técnicas concretas, metas claras e foco em resultados."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Juliana Capucci atende mulheres que querem ser mãe?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. Juliana Capucci oferece apoio emocional a mulheres que desejam se tornar mães, ajudando a lidar com a ambivalência sobre a maternidade, medos, pressão social e familiar, ansiedade da decisão e o peso do relógio biológico. O foco é o bem-estar emocional — não é tratamento de fertilidade nem acompanhamento médico."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Juliana Capucci atende intercambistas e estudantes no exterior?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. Além de au pairs, Juliana Capucci atende estudantes de intercâmbio e brasileiras vivendo fora do país. Como os atendimentos são 100% online e em português, ela apoia na adaptação cultural, saudade, isolamento e ansiedade de desempenho de morar no exterior."
             }
           },
           {
