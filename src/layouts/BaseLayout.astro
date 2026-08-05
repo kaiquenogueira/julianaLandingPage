@@ -9,16 +9,18 @@ import ConsentBanner from '../components/ConsentBanner.astro';
 // conflito: cada uma monta o próprio público de remarketing. O primeiro ID é o
 // que carrega o gtag.js; os demais entram só como `config`.
 const GOOGLE_ADS_IDS = [
-  'AW-974807273',    // conta antiga
-  'AW-18373032857',  // conta nova
+  'AW-18373032857',
 ];
 
 // Ações de conversão disparadas no clique de WhatsApp. Cada conta precisa da
 // própria ação criada na interface do Google Ads — o rótulo depois da barra é
 // exclusivo dela e não pode ser reaproveitado entre contas.
-const GOOGLE_ADS_CONVERSIONS = [
-  'AW-974807273/_5kACLbX4oEcEOnB6dAD',
-];
+//
+// VAZIO DE PROPÓSITO: a conta antiga saiu e a ação de conversão da nova ainda
+// não foi criada. Enquanto esta lista estiver vazia nenhuma conversão é
+// registrada no Google Ads — o evento `contato_whatsapp` continua saindo e
+// serve de rastro até o rótulo novo entrar aqui.
+const GOOGLE_ADS_CONVERSIONS: string[] = [];
 
 const GA4_ID = import.meta.env.PUBLIC_GA4_ID;
 const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
