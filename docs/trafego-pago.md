@@ -286,15 +286,22 @@ perto de mim
 
 ---
 
-## 5. Extensões (aplicar na campanha inteira)
+## 5. Recursos (aplicar na campanha inteira)
 
-**Sitelinks**
-| Texto | Destino |
-|---|---|
-| Como funciona | `/psicologa-online/#informacoes` |
-| Terapia e Maternidade | `/terapia-para-maternidade/` |
-| Brasileiras no Exterior | `/terapia-para-intercambio/` |
-| Relacionamentos | `/terapia-de-relacionamento/` |
+> Na interface atual isso fica em **Recursos**, não em "Extensões" — o nome mudou.
+> Caminho: Campanhas → Recursos → **+**, escolhendo o nível **Campanha**.
+
+**Sitelinks** — preencher os quatro. Com menos de quatro o Google não exibe nenhum.
+
+| Texto (máx. 25) | Descrição 1 (máx. 35) | Descrição 2 (máx. 35) | Destino |
+|---|---|---|---|
+| Como funciona | Sessões de 50 min por videochamada | Dia e horário fixos toda semana | `/psicologa-online/#informacoes` |
+| Terapia e Maternidade | Apoio na decisão de ser mãe | Ambivalência, medos e pressão | `/terapia-para-maternidade/` |
+| Brasileiras no Exterior | Atendimento online em português | Au pairs e intercambistas | `/terapia-para-intercambio/` |
+| Relacionamentos | Dependência emocional e limites | Atendimento individual online | `/terapia-de-relacionamento/` |
+
+As descrições são opcionais, mas sitelink com descrição ocupa mais espaço na página de
+resultados e rende mais cliques.
 
 **Frases de destaque**
 ```
@@ -306,12 +313,17 @@ Recibo para reembolso
 Horário fixo semanal
 ```
 
-**Snippets estruturados** — tipo "Tipos":
+**Snippet estruturado** — cabeçalho "Tipos", um valor por linha:
 ```
-Ansiedade, Depressão, Luto, Relacionamentos, Maternidade, Intercâmbio
+Ansiedade
+Depressão
+Luto
+Relacionamentos
+Maternidade
+Intercâmbio
 ```
 
-**Extensão de chamada:** (11) 99305-1221 — só em horário comercial, para não gerar ligação sem resposta.
+**Recurso de chamada:** (11) 99305-1221 — só em horário comercial, para não gerar ligação sem resposta.
 
 ---
 
