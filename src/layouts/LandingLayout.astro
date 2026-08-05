@@ -1,0 +1,91 @@
+---
+/**
+ * Layout das landing pages de tráfego pago.
+ *
+ * Diferenças em relação à home: navegação enxuta (sem links internos que vazem
+ * o clique pago), copy do herói e do CTA por persona, e origem própria no
+ * WhatsApp para o lead chegar identificado.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SectionTransition from '../components/SectionTransition.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import TCC from '../components/sections/TCC.astro';
+import PersonaPains from '../components/sections/PersonaPains.astro';
+import OnlineInfo from '../components/sections/OnlineInfo.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import CTA from '../components/sections/CTA.astro';
+import type { WhatsAppOrigin } from '../lib/whatsapp';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  origin: WhatsAppOrigin;
+  heroTitle: string;
+  heroSubtitle: string;
+  heroAriaLabel: string;
+  heroCtaLabel?: string;
+  painsTitle: string;
+  painsIntro?: string;
+  pains: Array<{ heading: string; body: string }>;
+  ctaTitle: string;
+  ctaSubtitle: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  origin,
+  heroTitle,
+  heroSubtitle,
+  heroAriaLabel,
+  heroCtaLabel = 'Agendar pelo WhatsApp',
+  painsTitle,
+  painsIntro,
+  pains,
+  ctaTitle,
+  ctaSubtitle,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Nav minimal origin={origin} />
+
+  <main id="main-content">
+    <Hero
+      origin={origin}
+      ariaLabel={heroAriaLabel}
+      title={heroTitle}
+      subtitle={heroSubtitle}
+      ctaLabel={heroCtaLabel}
+    />
+
+    <SectionTransition variant="default" />
+
+    <About />
+
+    <SectionTransition variant="reverse" />
+
+    <TCC />
+
+    <SectionTransition variant="warm" />
+
+    <PersonaPains title={painsTitle} intro={painsIntro} items={pains} />
+
+    <SectionTransition variant="default" />
+
+    <OnlineInfo />
+
+    <Pricing />
+
+    <SectionTransition variant="from-dark" />
+
+    <CTA origin={origin} title={ctaTitle} subtitle={ctaSubtitle} />
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,13 +1,27 @@
+---
+import { whatsappLinkAttrs, WHATSAPP_DISPLAY, type WhatsAppOrigin } from '../../lib/whatsapp';
+
+export interface Props {
+  origin?: WhatsAppOrigin;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  origin = 'home-cta',
+  title = 'Que tal começar a<br>cuidar de <em>você hoje?</em>',
+  subtitle = 'Agende sua sessão e vamos juntas nessa jornada de autoconhecimento e bem-estar.',
+} = Astro.props;
+---
+
 <!-- CTA -->
 <section class="cta-section" id="agendar" aria-label="Agendar sessão de psicoterapia online com Juliana Capucci">
   <div class="cta-blob" aria-hidden="true"></div>
   <div class="cta-inner">
     <p class="section-label reveal">Dê o primeiro passo</p>
-    <h2 class="section-title reveal">Que tal começar a<br>cuidar de <em>você hoje?</em></h2>
-    <p class="cta-sub reveal">Agende sua sessão e vamos juntas nessa jornada de autoconhecimento e bem-estar.
-    </p>
-    <a href="https://wa.me/5511993051221" class="btn-primary cta-main-btn reveal" target="_blank"
-      rel="noopener noreferrer">
+    <h2 class="section-title reveal" set:html={title}></h2>
+    <p class="cta-sub reveal">{subtitle}</p>
+    <a {...whatsappLinkAttrs({ origin })} class="btn-primary cta-main-btn reveal">
       Agendar pelo WhatsApp
     </a>
     <div class="cta-contact reveal">
@@ -18,7 +32,7 @@
           <path
             d="M14 2C14.5 2 15 2.2 15.35 2.59C15.71 2.97 15.88 3.47 15.84 4L15.14 12.07C15.09 12.57 14.67 12.97 14.17 12.99L10.83 13.12C10.39 13.14 9.97 12.89 9.78 12.5L8.52 4.39" />
         </svg>
-        <a href="https://wa.me/5511993051221">(11) 99305-1221</a>
+        <a {...whatsappLinkAttrs({ origin })}>{WHATSAPP_DISPLAY}</a>
       </div>
       <div class="contact-item">
         <svg viewBox="0 0 24 24" aria-hidden="true">

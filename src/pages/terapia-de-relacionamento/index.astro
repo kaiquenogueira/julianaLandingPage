@@ -1,0 +1,46 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+
+const pains = [
+  {
+    heading: 'Dependência emocional',
+    body: 'Quando o bem-estar passa a depender da resposta do outro e a própria vida vai ficando em segundo plano.',
+  },
+  {
+    heading: 'Dificuldade de impor limites',
+    body: 'Dizer não, pedir o que precisa, sustentar um combinado. Trabalhamos isso de forma prática, situação por situação.',
+  },
+  {
+    heading: 'Ciúmes e insegurança',
+    body: 'O pensamento que volta, a checagem, o desgaste que vem depois. Olhamos o que alimenta esse ciclo.',
+  },
+  {
+    heading: 'Término e recomeço',
+    body: 'Elaborar o fim de uma relação, lidar com o vazio da rotina que mudou e reconstruir os próprios planos.',
+  },
+  {
+    heading: 'Relações familiares',
+    body: 'Conflitos entre pais e filhos, comunicação travada e padrões que se repetem há anos dentro de casa.',
+  },
+  {
+    heading: 'Padrões que se repetem',
+    body: 'Perceber o que você leva de uma relação para a próxima, e o que dá para fazer diferente a partir daí.',
+  },
+];
+---
+
+<LandingLayout
+  title="Terapia Online para Relacionamentos | Juliana Capucci — Psicóloga"
+  description="Psicoterapia online para questões de relacionamento: dependência emocional, limites, ciúmes, término e conflitos familiares. Juliana Capucci, CRP 06/209216."
+  canonical="/terapia-de-relacionamento/"
+  origin="lp-relacionamento"
+  heroAriaLabel="Psicoterapia online para relacionamentos amorosos, familiares e de amizade"
+  heroTitle="Relações difíceis<br>também se<br><em>aprendem a viver.</em>"
+  heroSubtitle="Psicoterapia online para questões de relacionamento amoroso, familiar e de amizade. Um espaço para entender os próprios padrões e experimentar outros caminhos."
+  heroCtaLabel="Quero conversar sobre isso"
+  painsTitle="O que podemos trabalhar juntas"
+  painsIntro="Atendimento individual. O foco é o seu lugar na relação — não é terapia de casal."
+  pains={pains}
+  ctaTitle="Comece por<br><em>você.</em>"
+  ctaSubtitle="Envie uma mensagem e vamos combinar um horário para conversar sobre o seu momento."
+/>
