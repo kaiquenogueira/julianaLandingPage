@@ -1,0 +1,157 @@
+<h1>Google Ads API — Tool Design Document</h1>
+
+<p><strong>Applicant:</strong> Kaique Nogueira<br>
+<strong>Contact:</strong> kaiquenogueir@gmail.com<br>
+<strong>Google Cloud project:</strong> juliana-site-504617 (project number 931477069622)<br>
+<strong>Primary website:</strong> https://www.julianacapucci.com.br<br>
+<strong>Date:</strong> 5 August 2026</p>
+
+<hr>
+
+<h2>1. Business model</h2>
+
+<p>I manage digital marketing for a single advertiser: Juliana Capucci, a licensed
+clinical psychologist in Brazil (professional registration CRP 06/209216) who provides
+online psychotherapy sessions by video call.</p>
+
+<p>The business is a solo clinical practice. Revenue comes directly from therapy sessions
+paid by the patient. There is no reselling of advertising services, no agency operation,
+and no third-party clients. I am the only person who will use the tool, and the only
+advertiser account involved is the practice's own account.</p>
+
+<p>The practice's capacity is limited to roughly one to four new patients per month, so
+the advertising objective is not volume. It is to keep the cost per acquired patient
+within a known range and to stop spending when the schedule fills. That constraint is
+what drives the reporting need described below.</p>
+
+<h2>2. What the tool does</h2>
+
+<p>The tool is an internal, read-only reporting and analysis assistant. It runs on my own
+laptop and answers questions about the practice's own Google Ads account.</p>
+
+<p>It is built from two off-the-shelf components:</p>
+
+<ul>
+  <li><strong>Google Ads MCP Server</strong> — the official open-source server published by
+      Google at <em>github.com/googleads/google-ads-mcp</em>, installed locally via pipx and
+      run as a local stdio process. It is read-only by design and exposes three tools:
+      <em>search</em>, <em>get_resource_metadata</em> and <em>list_accessible_customers</em>.</li>
+  <li><strong>Claude Code</strong> — a command-line AI assistant that connects to the local
+      MCP server and turns my questions into GAQL queries, then summarises the results.</li>
+</ul>
+
+<p>I did not build a hosted product. There is no web application, no user accounts, no
+database of Google Ads data, and nothing exposed to the internet.</p>
+
+<h2>3. Why the API rather than the user interface</h2>
+
+<p>Three recurring reporting tasks are slow and error-prone in the interface and are the
+reason for this application:</p>
+
+<ul>
+  <li><strong>Weekly search-terms review.</strong> Reading the search terms report and
+      building the negative keyword list is the single most cost-saving routine early in a
+      campaign. Querying it directly makes the review consistent instead of ad hoc.</li>
+  <li><strong>Cost per acquired patient.</strong> Google Ads reports cost per conversion,
+      but a conversion here is a WhatsApp click. The figure that matters is cost per patient
+      who actually started therapy, which requires joining campaign cost data with an
+      offline record I keep separately.</li>
+  <li><strong>Campaign and keyword performance summaries</strong> across a small number of
+      ad groups segmented by patient profile.</li>
+</ul>
+
+<h2>4. API services used</h2>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <tr><th>Service / method</th><th>Purpose</th></tr>
+  <tr><td>CustomerService.ListAccessibleCustomers</td><td>Identify which account to query</td></tr>
+  <tr><td>GoogleAdsService.Search (GAQL)</td><td>Read campaign, ad group, keyword and search term metrics</td></tr>
+  <tr><td>GoogleAdsFieldService (resource metadata)</td><td>Resolve available fields to build valid queries</td></tr>
+</table>
+
+<p><strong>No mutate operations are used.</strong> The tool cannot create, pause or modify
+campaigns, budgets, bids or assets. Every change to the account is made by hand in the
+Google Ads interface. This is a property of the official MCP server, which exposes no
+mutate methods at all.</p>
+
+<p><strong>Capability provided:</strong> Reporting only. The tool does not create or manage
+accounts or campaigns, and does not use keyword planning services.</p>
+
+<p><strong>Campaign types read:</strong> Search, and Display for the remarketing stage
+planned once the account has accumulated enough traffic.</p>
+
+<h3>Representative queries</h3>
+
+<pre>
+SELECT search_term_view.search_term,
+       metrics.clicks, metrics.impressions,
+       metrics.cost_micros, metrics.conversions
+FROM   search_term_view
+WHERE  segments.date DURING LAST_7_DAYS
+
+SELECT campaign.name, ad_group.name,
+       metrics.cost_micros, metrics.conversions
+FROM   keyword_view
+WHERE  segments.date DURING LAST_30_DAYS
+</pre>
+
+<h2>5. Data flow</h2>
+
+<pre>
+  My terminal (local machine)
+        |
+        v
+  Claude Code  --stdio-->  Google Ads MCP server (local process)
+                                   |
+                                   | HTTPS, OAuth 2.0 user credentials
+                                   v
+                         Google Ads API (read-only)
+</pre>
+
+<p>Results are returned to my terminal and summarised. Nothing is written to a server,
+nothing is cached beyond the lifetime of the session, and no Google Ads data leaves my
+machine other than back to Google. There is no data warehouse, no export pipeline, and no
+sharing with any third party.</p>
+
+<h2>6. Access and security</h2>
+
+<ul>
+  <li><strong>Users:</strong> internal only — one person, myself.</li>
+  <li><strong>Accounts accessed:</strong> one advertiser account, belonging to the practice
+      I manage, linked through my own manager account.</li>
+  <li><strong>Authentication:</strong> OAuth 2.0 Application Default Credentials with the
+      <em>https://www.googleapis.com/auth/adwords</em> scope, issued to an OAuth client in
+      the Cloud project listed above.</li>
+  <li><strong>Credential storage:</strong> credentials live only on my local machine, outside
+      version control. The project's source repository is public, so the credentials
+      directory is excluded by two independent gitignore layers, verified with
+      <em>git check-ignore</em>.</li>
+  <li><strong>Query volume:</strong> low — on the order of a few dozen queries per week,
+      driven by a weekly review routine rather than by automated polling.</li>
+</ul>
+
+<h2>7. Interface</h2>
+
+<p>The tool has no graphical interface. Interaction happens in a terminal: I ask a question
+in plain language, the assistant issues one or more GAQL queries through the MCP server,
+and returns a table or short summary. A typical exchange looks like this:</p>
+
+<pre>
+&gt; Which search terms spent money last week without producing a conversion?
+
+  Running GAQL against search_term_view, last 7 days.
+
+  Search term                      Clicks   Cost      Conversions
+  psicologo online gratis              14   R$ 42,10            0
+  curso de psicologia                   9   R$ 27,40            0
+
+  Recommendation: add "gratis" and "curso" as negative keywords.
+  (Applied manually in the Google Ads interface.)
+</pre>
+
+<h2>8. Summary</h2>
+
+<p>A single practitioner's own advertising account, read by a single internal user, through
+Google's own open-source MCP server, with no mutate access, no hosted service, and no
+redistribution of data. The request is for Basic access so that production account data can
+be queried; a test-account token cannot serve this purpose.</p>

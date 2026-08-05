@@ -1,0 +1,212 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\froman\fcharset0 Times-Italic;
+\f3\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red109\green109\blue109;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c50196\c50196\c50196;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat0\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat0\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat0\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
+\deftab720
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Google Ads API \'97 Tool Design Document\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Applicant:
+\f1\b0  Kaique Nogueira\uc0\u8232 
+\f0\b Contact:
+\f1\b0  kaiquenogueir@gmail.com\uc0\u8232 
+\f0\b Google Cloud project:
+\f1\b0  juliana-site-504617 (project number 931477069622)\uc0\u8232 
+\f0\b Primary website:
+\f1\b0  https://www.julianacapucci.com.br\uc0\u8232 
+\f0\b Date:
+\f1\b0  5 August 2026\
+\pard\pardeftab720\partightenfactor0
+\cf3 \strokec3 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \strokec2 1. Business model\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 I manage digital marketing for a single advertiser: Juliana Capucci, a licensed clinical psychologist in Brazil (professional registration CRP 06/209216) who provides online psychotherapy sessions by video call.\
+The business is a solo clinical practice. Revenue comes directly from therapy sessions paid by the patient. There is no reselling of advertising services, no agency operation, and no third-party clients. I am the only person who will use the tool, and the only advertiser account involved is the practice's own account.\
+The practice's capacity is limited to roughly one to four new patients per month, so the advertising objective is not volume. It is to keep the cost per acquired patient within a known range and to stop spending when the schedule fills. That constraint is what drives the reporting need described below.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 2. What the tool does\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 The tool is an internal, read-only reporting and analysis assistant. It runs on my own laptop and answers questions about the practice's own Google Ads account.\
+It is built from two off-the-shelf components:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Google Ads MCP Server
+\f1\b0  \'97 the official open-source server published by Google at 
+\f2\i github.com/googleads/google-ads-mcp
+\f1\i0 , installed locally via pipx and run as a local stdio process. It is read-only by design and exposes three tools: 
+\f2\i search
+\f1\i0 , 
+\f2\i get_resource_metadata
+\f1\i0  and 
+\f2\i list_accessible_customers
+\f1\i0 .\
+\ls1\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Claude Code
+\f1\b0  \'97 a command-line AI assistant that connects to the local MCP server and turns my questions into GAQL queries, then summarises the results.\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 I did not build a hosted product. There is no web application, no user accounts, no database of Google Ads data, and nothing exposed to the internet.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 3. Why the API rather than the user interface\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Three recurring reporting tasks are slow and error-prone in the interface and are the reason for this application:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Weekly search-terms review.
+\f1\b0  Reading the search terms report and building the negative keyword list is the single most cost-saving routine early in a campaign. Querying it directly makes the review consistent instead of ad hoc.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Cost per acquired patient.
+\f1\b0  Google Ads reports cost per conversion, but a conversion here is a WhatsApp click. The figure that matters is cost per patient who actually started therapy, which requires joining campaign cost data with an offline record I keep separately.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Campaign and keyword performance summaries
+\f1\b0  across a small number of ad groups segmented by patient profile.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 4. API services used\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf2 \trbrdrl\brdrs\brdrw20\brdrcf2 \trbrdrr\brdrs\brdrw20\brdrcf2 
+\clvertalc \clshdrawnil \clwWidth4265\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5758\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+
+\fs24 \cf0 Service / method\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Purpose\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf2 \trbrdrr\brdrs\brdrw20\brdrcf2 
+\clvertalc \clshdrawnil \clwWidth4265\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5758\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b0 \cf0 CustomerService.ListAccessibleCustomers\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Identify which account to query\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf2 \trbrdrr\brdrs\brdrw20\brdrcf2 
+\clvertalc \clshdrawnil \clwWidth4265\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5758\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 GoogleAdsService.Search (GAQL)\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Read campaign, ad group, keyword and search term metrics\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf2 \trbrdrb\brdrs\brdrw20\brdrcf2 \trbrdrr\brdrs\brdrw20\brdrcf2 
+\clvertalc \clshdrawnil \clwWidth4265\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5758\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf2 \clbrdrl\brdrs\brdrw20\brdrcf2 \clbrdrb\brdrs\brdrw20\brdrcf2 \clbrdrr\brdrs\brdrw20\brdrcf2 \clpadt120 \clpadl120 \clpadb120 \clpadr120 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 GoogleAdsFieldService (resource metadata)\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Resolve available fields to build valid queries\cell \lastrow\row
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 No mutate operations are used.
+\f1\b0  The tool cannot create, pause or modify campaigns, budgets, bids or assets. Every change to the account is made by hand in the Google Ads interface. This is a property of the official MCP server, which exposes no mutate methods at all.\
+
+\f0\b Capability provided:
+\f1\b0  Reporting only. The tool does not create or manage accounts or campaigns, and does not use keyword planning services.\
+
+\f0\b Campaign types read:
+\f1\b0  Search, and Display for the remarketing stage planned once the account has accumulated enough traffic.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Representative queries\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0\fs26 \cf0 SELECT search_term_view.search_term,\
+       metrics.clicks, metrics.impressions,\
+       metrics.cost_micros, metrics.conversions\
+FROM   search_term_view\
+WHERE  segments.date DURING LAST_7_DAYS\
+\
+SELECT campaign.name, ad_group.name,\
+       metrics.cost_micros, metrics.conversions\
+FROM   keyword_view\
+WHERE  segments.date DURING LAST_30_DAYS\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 5. Data flow\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0\fs26 \cf0   My terminal (local machine)\
+        |\
+        v\
+  Claude Code  --stdio-->  Google Ads MCP server (local process)\
+                                   |\
+                                   | HTTPS, OAuth 2.0 user credentials\
+                                   v\
+                         Google Ads API (read-only)\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs24 \cf0 Results are returned to my terminal and summarised. Nothing is written to a server, nothing is cached beyond the lifetime of the session, and no Google Ads data leaves my machine other than back to Google. There is no data warehouse, no export pipeline, and no sharing with any third party.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 6. Access and security\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0
+\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Users:
+\f1\b0  internal only \'97 one person, myself.\
+\ls3\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Accounts accessed:
+\f1\b0  one advertiser account, belonging to the practice I manage, linked through my own manager account.\
+\ls3\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Authentication:
+\f1\b0  OAuth 2.0 Application Default Credentials with the 
+\f2\i https://www.googleapis.com/auth/adwords
+\f1\i0  scope, issued to an OAuth client in the Cloud project listed above.\
+\ls3\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Credential storage:
+\f1\b0  credentials live only on my local machine, outside version control. The project's source repository is public, so the credentials directory is excluded by two independent gitignore layers, verified with 
+\f2\i git check-ignore
+\f1\i0 .\
+\ls3\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Query volume:
+\f1\b0  low \'97 on the order of a few dozen queries per week, driven by a weekly review routine rather than by automated polling.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 7. Interface\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 The tool has no graphical interface. Interaction happens in a terminal: I ask a question in plain language, the assistant issues one or more GAQL queries through the MCP server, and returns a table or short summary. A typical exchange looks like this:\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs26 \cf0 > Which search terms spent money last week without producing a conversion?\
+\
+  Running GAQL against search_term_view, last 7 days.\
+\
+  Search term                      Clicks   Cost      Conversions\
+  psicologo online gratis              14   R$ 42,10            0\
+  curso de psicologia                   9   R$ 27,40            0\
+\
+  Recommendation: add "gratis" and "curso" as negative keywords.\
+  (Applied manually in the Google Ads interface.)\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 8. Summary\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 A single practitioner's own advertising account, read by a single internal user, through Google's own open-source MCP server, with no mutate access, no hosted service, and no redistribution of data. The request is for Basic access so that production account data can be queried; a test-account token cannot serve this purpose.\
+}
