@@ -94,6 +94,26 @@ administrador. Não é questão de ter campanha criada.
 Se a conta estiver em Modo Inteligente, troque para **Modo Especialista** antes — o menu de
 ferramentas completo não existe no Modo Inteligente.
 
+## Estado da configuração (05/08/2026)
+
+| Item | Estado |
+|---|---|
+| OAuth client + ADC com escopo `adwords` | validado contra o tokeninfo do Google |
+| Google Ads API em `juliana-site-504617` | habilitada |
+| MCP `google-ads` | registrado, Connected |
+| Developer token | **nível de conta de teste — precisa de Explorer** |
+
+Contas retornadas por `listAccessibleCustomers`:
+
+| ID | Diagnóstico |
+|---|---|
+| `9901998736` | `CUSTOMER_NOT_ENABLED` — criada, nunca ativada |
+| `6180049205` | `CUSTOMER_NOT_ENABLED` — criada, nunca ativada |
+| `8709194696` | ativa; barra em `DEVELOPER_TOKEN_NOT_APPROVED` |
+
+O erro distinto em `8709194696` prova que a conta existe e está ativa — o bloqueio ali é só
+o nível do token.
+
 ## Registro do MCP
 
 Depois de ter os dois valores:
