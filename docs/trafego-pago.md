@@ -97,6 +97,26 @@ Palavras-chave:
 [psicóloga tcc online]
 ```
 
+**Reserva, se faltar volume.** O Google marca a campanha como "Qualificada (limitada) — não há
+palavras-chave relevantes suficientes". Isso é o empurrão padrão dele para correspondência
+ampla e **não deve ser seguido**. O risco real por trás do aviso é outro: com poucas palavras
+em frase/exata a campanha pode não gastar o orçamento, e sem impressão não há dado.
+
+Acompanhar 3–4 dias. Gastando perto do orçamento, o aviso é ruído. Impressões perto de zero,
+adicionar estas — ainda em frase, ainda com intenção de serviço:
+
+```
+"consulta psicológica online"
+"atendimento psicológico online"
+"psicóloga particular online"
+"terapia por videochamada"
+"sessão de terapia online"
+"psicólogo particular online"
+```
+
+> **Pontuação de otimização é métrica de aderência às recomendações do Google, não de
+> qualidade.** Chegar a 100% aqui exigiria ligar AI Max e ampla. Ignorar o número.
+
 Títulos (máx. 30 caracteres):
 ```
 Psicóloga Online CRP 06
