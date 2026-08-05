@@ -51,18 +51,28 @@ gcloud auth application-default login \
 As duas flags são obrigatórias. Sem `--client-id-file` o gcloud usa o cliente padrão dele;
 sem `--scopes` o token sai sem `adwords` e a API do Google Ads recusa a chamada.
 
-Conferir se deu certo:
+Conferir se deu certo — **não leia o campo `scopes` do arquivo**: com `--client-id-file`
+o gcloud não persiste esse campo, então ele fica `None` mesmo quando o token está correto.
+Pergunte ao Google quais escopos o token realmente tem:
 
 ```sh
-python3 -c "
-import json; d=json.load(open('$HOME/.config/gcloud/application_default_credentials.json'))
-print('scopes:', d.get('scopes'))
-print('client:', d.get('client_id','')[:20])
-"
+python3 - <<'PY'
+import json, urllib.request, urllib.parse
+d = json.load(open(f"{__import__('os').environ['HOME']}/.config/gcloud/application_default_credentials.json"))
+body = urllib.parse.urlencode({
+    'client_id': d['client_id'], 'client_secret': d['client_secret'],
+    'refresh_token': d['refresh_token'], 'grant_type': 'refresh_token'}).encode()
+at = json.load(urllib.request.urlopen(urllib.request.Request(
+    'https://oauth2.googleapis.com/token', data=body)))['access_token']
+ti = json.load(urllib.request.urlopen(
+    'https://oauth2.googleapis.com/tokeninfo?access_token=' + at))
+print('adwords:', 'OK' if 'adwords' in ti.get('scope', '') else 'FALTANDO')
+PY
 ```
 
-`scopes` precisa listar `.../auth/adwords` e `client` **não** pode começar com `764086051850`
-(esse é o cliente padrão do gcloud).
+O `client_id` do arquivo, esse sim vale conferir: precisa começar com `931477069622`.
+Se começar com `764086051850`, o login rodou sem `--client-id-file` e caiu no cliente
+padrão do gcloud.
 
 > Se o login falhar com "acesso bloqueado" ou "app não verificado": a tela de consentimento
 > OAuth do projeto `juliana-site-504617` provavelmente está em modo *Testing*. Adicione seu
