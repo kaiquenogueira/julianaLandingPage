@@ -1,0 +1,46 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+
+const pains = [
+  {
+    heading: 'Ambivalência sobre ser mãe',
+    body: 'Querer e não querer ao mesmo tempo. O espaço da terapia é onde essa dúvida pode existir inteira, sem precisar de resposta pronta.',
+  },
+  {
+    heading: 'Pressão social e familiar',
+    body: 'A pergunta que volta em todo almoço de família, o comentário sobre a idade, a comparação com quem já teve filhos.',
+  },
+  {
+    heading: 'O peso do relógio biológico',
+    body: 'A sensação de decidir com prazo. Trabalhamos a ansiedade dessa contagem para que a escolha seja sua, e não do calendário.',
+  },
+  {
+    heading: 'Medos sobre a maternidade',
+    body: 'Medo de não dar conta, de perder a própria identidade, de arrepender-se. Nomear o medo é o que permite examiná-lo.',
+  },
+  {
+    heading: 'A decisão dentro do relacionamento',
+    body: 'Quando você e seu parceiro estão em pontos diferentes dessa conversa, ou quando ela nunca acontece de verdade.',
+  },
+  {
+    heading: 'Luto de tentativas e perdas',
+    body: 'Espaço para elaborar tentativas frustradas e perdas gestacionais. Apoio emocional — não é tratamento de fertilidade nem acompanhamento médico.',
+  },
+];
+---
+
+<LandingLayout
+  title="Terapia para o Desejo de Ser Mãe | Juliana Capucci — Psicóloga Online"
+  description="Apoio psicológico online para mulheres diante da decisão sobre a maternidade: ambivalência, pressão social, medos e ansiedade da escolha. Juliana Capucci, CRP 06/209216."
+  canonical="/terapia-para-maternidade/"
+  origin="lp-maternidade"
+  heroAriaLabel="Psicoterapia online para mulheres diante da decisão sobre a maternidade"
+  heroTitle="A decisão de ser mãe<br>não precisa ser<br><em>tomada sozinha.</em>"
+  heroSubtitle="Psicoterapia online para mulheres que vivem a ambivalência, a pressão e os medos em torno da maternidade. Um espaço para pensar com calma o que ainda não tem resposta."
+  heroCtaLabel="Quero conversar sobre isso"
+  painsTitle="O que podemos trabalhar juntas"
+  painsIntro="Este é um acompanhamento de apoio emocional. Não substitui nem realiza tratamento de fertilidade ou acompanhamento médico."
+  pains={pains}
+  ctaTitle="Um espaço para<br>pensar <em>sem pressa.</em>"
+  ctaSubtitle="Envie uma mensagem e vamos combinar um horário para conversar sobre o seu momento."
+/>

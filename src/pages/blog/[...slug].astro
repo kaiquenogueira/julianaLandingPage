@@ -4,6 +4,7 @@ import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import { whatsappLinkAttrs } from '../../lib/whatsapp';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -54,7 +55,7 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
 
     <div class="post-cta">
       <p>Gostou do artigo? Agende sua sessão e vamos conversar.</p>
-      <a href="https://wa.me/5511993051221" class="btn-primary" target="_blank" rel="noopener noreferrer">
+      <a {...whatsappLinkAttrs({ origin: 'blog-artigo', label: `artigo: ${post.data.title}` })} class="btn-primary">
         Agendar pelo WhatsApp
       </a>
     </div>

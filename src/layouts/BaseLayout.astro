@@ -1,5 +1,13 @@
 ---
 import '../styles/global.css';
+import ConsentBanner from '../components/ConsentBanner.astro';
+
+// IDs de mídia. Google Ads já existe; GA4 e Meta Pixel só entram quando as
+// variáveis estiverem definidas na Vercel — sem placeholder falso no HTML.
+const GOOGLE_ADS_ID = 'AW-974807273';
+const GOOGLE_ADS_CONVERSION = 'AW-974807273/_5kACLbX4oEcEOnB6dAD';
+const GA4_ID = import.meta.env.PUBLIC_GA4_ID;
+const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
 
 export interface Props {
   title?: string;
@@ -33,40 +41,126 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 <html lang="pt-BR">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=AW-974807273"></script>
-  <script type="text/partytown">
+  <!-- Decisão de consentimento já tomada em visita anterior. Lida antes de tudo
+       para que o gtag aplique o estado certo já dentro do worker do Partytown,
+       sem corrida entre a thread principal e o worker. -->
+  <script is:inline>
+    try { window.__jcConsent = localStorage.getItem('jc-consent'); } catch (e) { window.__jcConsent = null; }
+  </script>
+
+  <!-- Google tag (gtag.js) — Google Ads + GA4 -->
+  <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}></script>
+  <script type="text/partytown" set:html={`
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    // Atribuição explícita: dentro do worker do Partytown a declaração de função
+    // não chega ao objeto global, e o forward da thread principal quebra ao
+    // aplicar window.gtag — o que derrubava silenciosamente toda conversão.
+    window.gtag = gtag;
 
-    gtag('config', 'AW-974807273');
-  </script>
+    // Consent Mode v2 — LGPD: nada de marketing antes do aceite explícito.
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
 
-  <script is:inline>
-    // Event snippet for contato para o whtasapp conversion page
-    function gtag_report_conversion(url) {
-      var callback = function () {
-        if (typeof(url) != 'undefined') {
-          window.location = url;
-        }
-      };
-      gtag('event', 'conversion', {
-          'send_to': 'AW-974807273/_5kACLbX4oEcEOnB6dAD',
-          'event_callback': callback
+    if (window.__jcConsent === 'granted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
       });
-      return false;
     }
 
-    // Attach click listener globally to all links pointing to WhatsApp
-    document.addEventListener('click', function(e) {
-      var link = e.target.closest('a');
-      if (link && link.href && (link.href.includes('wa.me') || link.href.includes('api.whatsapp.com'))) {
-        e.preventDefault();
-        gtag_report_conversion(link.href);
+    gtag('js', new Date());
+    gtag('config', '${GOOGLE_ADS_ID}');
+    ${GA4_ID ? `gtag('config', '${GA4_ID}');` : ''}
+  `} />
+
+  {META_PIXEL_ID && (
+    <script type="text/partytown" set:html={`
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('consent', 'revoke');
+      fbq('init', '${META_PIXEL_ID}');
+      fbq('track', 'PageView');
+    `} />
+  )}
+
+  <script is:inline set:html={`
+    (function () {
+      var ADS_CONVERSION = '${GOOGLE_ADS_CONVERSION}';
+      var DEFAULT_MESSAGE_PREFIX = 'Oi, Juliana! Vim pelo site (';
+      var DEFAULT_MESSAGE_SUFFIX = ') e gostaria de agendar uma sessão.';
+
+      function isWhatsApp(href) {
+        return href.indexOf('wa.me') !== -1 || href.indexOf('api.whatsapp.com') !== -1;
       }
-    });
-  </script>
+
+      function pageLabel() {
+        var title = (document.title || '').split('—')[0].trim();
+        return title || document.location.pathname;
+      }
+
+      // Links escritos em markdown não passam pelo helper de build. Preenche a
+      // mensagem com o título da página para não perder a origem do lead.
+      function ensureOrigin(link) {
+        var url;
+        try { url = new URL(link.href); } catch (e) { return; }
+        if (url.searchParams.get('text')) return;
+        url.searchParams.set('text', DEFAULT_MESSAGE_PREFIX + pageLabel() + DEFAULT_MESSAGE_SUFFIX);
+        link.href = url.toString();
+      }
+
+      function enhanceAll() {
+        var links = document.querySelectorAll('a[href]');
+        for (var i = 0; i < links.length; i++) {
+          if (isWhatsApp(links[i].href)) {
+            ensureOrigin(links[i]);
+            if (!links[i].target) {
+              links[i].target = '_blank';
+              links[i].rel = 'noopener noreferrer';
+            }
+          }
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', enhanceAll);
+      } else {
+        enhanceAll();
+      }
+
+      document.addEventListener('click', function (e) {
+        var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!link || !isWhatsApp(link.href)) return;
+
+        ensureOrigin(link);
+        var origin = link.getAttribute('data-wa-origin') || document.location.pathname;
+
+        // Sem preventDefault de propósito: o link abre em nova aba, a página de
+        // origem continua viva e o beacon termina de sair. Se o gtag estiver
+        // bloqueado ou o Partytown falhar, o lead chega no WhatsApp mesmo assim.
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'conversion', { 'send_to': ADS_CONVERSION, 'wa_origin': origin });
+          window.gtag('event', 'contato_whatsapp', { 'wa_origin': origin });
+        }
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Contact', { 'wa_origin': origin });
+        }
+      });
+    })();
+  `} />
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -134,7 +228,18 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         "description": "Serviço de psicoterapia 100% online especializado em Terapia Cognitivo-Comportamental (TCC), uma abordagem intervencionista baseada em evidências. Atende adolescentes, adultos, famílias, mulheres em decisão sobre a maternidade e brasileiras no exterior (au pairs e estudantes de intercâmbio). Foco em ansiedade, depressão, relacionamentos e bem-estar emocional.",
         "url": siteUrl,
         "telephone": "+5511993051221",
-        "areaServed": "BR",
+        // Atendimento é 100% online e em português: o alcance inclui brasileiras
+        // no exterior (au pairs e estudantes de intercâmbio), não só o Brasil.
+        "areaServed": [
+          { "@type": "Country", "name": "Brasil" },
+          { "@type": "Country", "name": "Estados Unidos" },
+          { "@type": "Country", "name": "Irlanda" },
+          { "@type": "Country", "name": "Austrália" },
+          { "@type": "Country", "name": "Canadá" },
+          { "@type": "Country", "name": "Reino Unido" },
+          { "@type": "Country", "name": "Portugal" },
+          { "@type": "Country", "name": "Nova Zelândia" }
+        ],
         "serviceType": "Psicoterapia Online",
         "availableService": [
           {
@@ -164,13 +269,6 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
           }
         ],
         "image": absoluteImage,
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "5.0",
-          "reviewCount": "15",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "R. Catequese, 725",
@@ -330,6 +428,8 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
 <body>
   <slot />
+
+  <ConsentBanner />
 
   <script>
     // Scroll reveal

@@ -1,0 +1,45 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+
+const pains = [
+  {
+    heading: 'Ansiedade',
+    body: 'Agitação constante, preocupação excessiva, pensamentos acelerados e angústia diante de certas situações ou sem motivo aparente.',
+  },
+  {
+    heading: 'Depressão',
+    body: 'Desânimo persistente, vazio, desesperança, perda de interesse no que antes dava prazer e alterações no sono e no apetite.',
+  },
+  {
+    heading: 'Luto',
+    body: 'A perda de alguém ou de algo significativo, e a dificuldade de seguir adiante enquanto a vida continua ao redor.',
+  },
+  {
+    heading: 'Traumas',
+    body: 'Experiências que mudaram sua forma de enxergar o mundo, os outros ou você mesma, e que ainda reverberam no presente.',
+  },
+  {
+    heading: 'Baixa autoestima',
+    body: 'Autocrítica constante, insegurança, busca por aprovação e dificuldade de reconhecer o próprio valor.',
+  },
+  {
+    heading: 'Relacionamentos',
+    body: 'Dependência emocional, ciúmes, término e dificuldade em estabelecer limites nas relações amorosas, familiares ou de amizade.',
+  },
+];
+---
+
+<LandingLayout
+  title="Psicóloga Online — Terapia Cognitivo-Comportamental | Juliana Capucci"
+  description="Psicoterapia online com Terapia Cognitivo-Comportamental (TCC) para adolescentes e adultos. Sessões por videochamada, 50 minutos, de qualquer lugar. Juliana Capucci, CRP 06/209216."
+  canonical="/psicologa-online/"
+  origin="lp-psicologa-online"
+  heroAriaLabel="Psicóloga clínica online com Terapia Cognitivo-Comportamental para adolescentes e adultos"
+  heroTitle="Uma psicóloga tão<br>humana quanto<br><em>você!</em>"
+  heroSubtitle="Psicoterapia online com Terapia Cognitivo-Comportamental para adolescentes e adultos. Sessões por videochamada, com ética e sigilo, de onde você estiver."
+  heroCtaLabel="Agendar minha sessão"
+  painsTitle="O que é possível abordar?"
+  pains={pains}
+  ctaTitle="Que tal começar a<br>cuidar de <em>você hoje?</em>"
+  ctaSubtitle="Envie uma mensagem e vamos combinar o melhor dia e horário para a sua primeira sessão."
+/>

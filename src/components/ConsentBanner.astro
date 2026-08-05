@@ -1,0 +1,135 @@
+---
+/**
+ * Banner de consentimento (LGPD).
+ *
+ * Psicoterapia é dado sensível: o Consent Mode v2 sobe com tudo negado em
+ * BaseLayout.astro e só é liberado aqui, depois do aceite explícito. Sem isso
+ * não se pode rodar Meta Pixel nem remarketing.
+ */
+---
+
+<div id="consentBanner" class="consent-banner" role="dialog" aria-live="polite"
+  aria-label="Aviso de privacidade e cookies" hidden>
+  <p class="consent-text">
+    Usamos cookies para entender como você chegou até aqui e melhorar o site.
+    Nenhum dado sobre seu atendimento é coletado.
+  </p>
+  <div class="consent-actions">
+    <button type="button" id="consentReject" class="consent-btn consent-btn-ghost">Recusar</button>
+    <button type="button" id="consentAccept" class="consent-btn consent-btn-solid">Aceitar</button>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'jc-consent';
+    var banner = document.getElementById('consentBanner');
+    if (!banner) return;
+
+    function apply(granted) {
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          'ad_storage': granted ? 'granted' : 'denied',
+          'ad_user_data': granted ? 'granted' : 'denied',
+          'ad_personalization': granted ? 'granted' : 'denied',
+          'analytics_storage': granted ? 'granted' : 'denied'
+        });
+      }
+      if (typeof window.fbq === 'function') {
+        window.fbq('consent', granted ? 'grant' : 'revoke');
+      }
+    }
+
+    function decide(granted) {
+      try { localStorage.setItem(STORAGE_KEY, granted ? 'granted' : 'denied'); } catch (e) {}
+      apply(granted);
+      banner.hidden = true;
+    }
+
+    // Uma decisão anterior já foi aplicada no próprio worker do Partytown
+    // (ver BaseLayout.astro). Aqui só resta decidir se o banner aparece.
+    var stored = window.__jcConsent;
+    if (stored === 'granted' || stored === 'denied') return;
+
+    banner.hidden = false;
+    document.getElementById('consentAccept').addEventListener('click', function () { decide(true); });
+    document.getElementById('consentReject').addEventListener('click', function () { decide(false); });
+  })();
+</script>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: min(640px, calc(100vw - 2rem));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: var(--glass-border);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 12px 40px rgba(42, 59, 54, 0.14);
+  }
+
+  .consent-banner[hidden] {
+    display: none;
+  }
+
+  .consent-text {
+    flex: 1 1 260px;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    font-weight: 300;
+    color: var(--text-light);
+  }
+
+  .consent-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-left: auto;
+  }
+
+  .consent-btn {
+    font-family: inherit;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: opacity var(--transition-fast), background var(--transition-fast);
+  }
+
+  .consent-btn-solid {
+    background: var(--coral);
+    color: var(--white);
+    border: 1px solid var(--coral);
+  }
+
+  .consent-btn-ghost {
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--border-light);
+  }
+
+  .consent-btn:hover {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 520px) {
+    .consent-actions {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .consent-btn {
+      flex: 1;
+    }
+  }
+</style>

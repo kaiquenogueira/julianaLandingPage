@@ -1,0 +1,46 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+
+const pains = [
+  {
+    heading: 'Adaptação cultural',
+    body: 'Outro idioma, outro ritmo, outras regras não escritas. O cansaço de estar sempre traduzindo a si mesma.',
+  },
+  {
+    heading: 'Saudade e isolamento',
+    body: 'Fuso horário que não bate, amizades novas que ainda são superficiais, a sensação de estar longe de tudo que é seu.',
+  },
+  {
+    heading: 'Ansiedade de desempenho',
+    body: 'A cobrança de aproveitar cada dia, de justificar o investimento, de mostrar que está dando certo.',
+  },
+  {
+    heading: 'Convivência com a host family',
+    body: 'Para au pairs: limites, expectativas do contrato e o desconforto de morar no mesmo lugar onde se trabalha.',
+  },
+  {
+    heading: 'A pressão de "estar realizando um sonho"',
+    body: 'Sentir-se mal quando todo mundo espera que você esteja feliz. Isso não invalida a experiência — e pode ser falado.',
+  },
+  {
+    heading: 'A volta para o Brasil',
+    body: 'O reencontro que não é como imaginado, a sensação de não pertencer mais aqui nem lá, e a reconstrução de planos.',
+  },
+];
+---
+
+<LandingLayout
+  title="Terapia Online para Intercâmbio e Au Pair | Juliana Capucci — Psicóloga"
+  description="Psicoterapia online em português para brasileiras no exterior — au pairs e estudantes de intercâmbio. Adaptação, saudade, isolamento e ansiedade. Juliana Capucci, CRP 06/209216."
+  canonical="/terapia-para-intercambio/"
+  origin="lp-intercambio"
+  heroAriaLabel="Psicoterapia online em português para au pairs e estudantes de intercâmbio no exterior"
+  heroTitle="Morar fora tem uma<br>parte que quase<br><em>ninguém conta.</em>"
+  heroSubtitle="Psicoterapia online em português para au pairs e estudantes de intercâmbio. De qualquer país, no seu fuso, com quem entende o contexto de estar longe."
+  heroCtaLabel="Quero conversar em português"
+  painsTitle="O que podemos trabalhar juntas"
+  painsIntro="Sessões por videochamada, em português, ajustadas ao seu fuso horário."
+  pains={pains}
+  ctaTitle="Você não precisa<br>atravessar isso <em>sozinha.</em>"
+  ctaSubtitle="Envie uma mensagem e vamos encontrar um horário que funcione no seu fuso."
+/>

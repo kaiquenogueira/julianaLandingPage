@@ -1,17 +1,35 @@
+---
+import { whatsappLinkAttrs, type WhatsAppOrigin } from '../lib/whatsapp';
+
+export interface Props {
+  /** Em landing pages de tráfego pago, esconde os links internos para não vazar o clique pago. */
+  minimal?: boolean;
+  origin?: WhatsAppOrigin;
+}
+
+const { minimal = false, origin = 'nav' } = Astro.props;
+---
+
 <!-- NAV -->
 <nav id="mainNav">
   <div class="logo">Juliana <span>Capucci</span></div>
-  <button class="hamburger" id="menuToggle" aria-label="Abrir menu de navegação">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+  {!minimal && (
+    <button class="hamburger" id="menuToggle" aria-label="Abrir menu de navegação">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  )}
   <div class="nav-links" id="navLinks">
-    <a href="/#sobre">Sobre Mim</a>
-    <a href="/#abordagem">Minha Abordagem</a>
-    <a href="/#informacoes">Informações Importantes</a>
-    <a href="/blog/">Blog</a>
-    <a href="https://wa.me/5511993051221" class="btn-ghost" target="_blank" rel="noopener noreferrer">Fale no WhatsApp</a>
-    <a href="/#agendar" class="nav-cta">Agendar sessão</a>
+    {!minimal && (
+      <>
+        <a href="/#sobre">Sobre Mim</a>
+        <a href="/#abordagem">Minha Abordagem</a>
+        <a href="/#informacoes">Informações Importantes</a>
+        <a href="/blog/">Blog</a>
+      </>
+    )}
+    <a {...whatsappLinkAttrs({ origin })} class="btn-ghost">Fale no WhatsApp</a>
+    <a href={minimal ? '#agendar' : '/#agendar'} class="nav-cta">Agendar sessão</a>
   </div>
 </nav>

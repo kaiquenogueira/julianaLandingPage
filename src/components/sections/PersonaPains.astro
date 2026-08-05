@@ -1,0 +1,67 @@
+---
+/**
+ * Recorte de "o que é possível abordar" para uma persona específica.
+ * Reaproveita as classes de HowItWorks.astro (.how / .steps / .step) para as
+ * landing pages não fugirem do sistema visual da home.
+ */
+
+export interface Props {
+  title: string;
+  intro?: string;
+  items: Array<{ heading: string; body: string }>;
+}
+
+const { title, intro, items } = Astro.props;
+---
+
+<section class="how" id="possibilidades" aria-label={title}>
+  <div class="how-header reveal">
+    <h2 class="section-title" set:html={title}></h2>
+    <div class="hero-line" aria-hidden="true" style="margin: 1rem auto; opacity: 1; animation: none;"></div>
+    {intro && <p class="persona-intro">{intro}</p>}
+  </div>
+  <div class="steps possibilities-grid">
+    {items.map((item) => (
+      <div class="step reveal">
+        <div class="quote-icon">“</div>
+        <h3>{item.heading}</h3>
+        <p>{item.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .possibilities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .persona-intro {
+    max-width: 620px;
+    margin: 1.5rem auto 0;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-light);
+  }
+
+  .quote-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    color: var(--sage);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 900px) {
+    .possibilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .possibilities-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
