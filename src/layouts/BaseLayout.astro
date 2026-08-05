@@ -15,12 +15,9 @@ const GOOGLE_ADS_IDS = [
 // Ações de conversão disparadas no clique de WhatsApp. Cada conta precisa da
 // própria ação criada na interface do Google Ads — o rótulo depois da barra é
 // exclusivo dela e não pode ser reaproveitado entre contas.
-//
-// VAZIO DE PROPÓSITO: a conta antiga saiu e a ação de conversão da nova ainda
-// não foi criada. Enquanto esta lista estiver vazia nenhuma conversão é
-// registrada no Google Ads — o evento `contato_whatsapp` continua saindo e
-// serve de rastro até o rótulo novo entrar aqui.
-const GOOGLE_ADS_CONVERSIONS: string[] = [];
+const GOOGLE_ADS_CONVERSIONS = [
+  { send_to: 'AW-18373032857/XfZECKDk29wcEJn3-LhE', value: 1.0, currency: 'BRL' },
+];
 
 const GA4_ID = import.meta.env.PUBLIC_GA4_ID;
 const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
@@ -169,7 +166,13 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         // bloqueado ou o Partytown falhar, o lead chega no WhatsApp mesmo assim.
         if (typeof window.gtag === 'function') {
           for (var i = 0; i < ADS_CONVERSIONS.length; i++) {
-            window.gtag('event', 'conversion', { 'send_to': ADS_CONVERSIONS[i], 'wa_origin': origin });
+            var c = ADS_CONVERSIONS[i];
+            window.gtag('event', 'conversion', {
+              'send_to': c.send_to,
+              'value': c.value,
+              'currency': c.currency,
+              'wa_origin': origin
+            });
           }
           window.gtag('event', 'contato_whatsapp', { 'wa_origin': origin });
         }
