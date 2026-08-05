@@ -5,14 +5,14 @@
     "trailingSlash": true,
     "redirects": [
         {
-            "source": "/:path*",
+            "source": "/:path(.*)",
             "has": [
                 {
                     "type": "host",
                     "value": "julianacapucci.com.br"
                 }
             ],
-            "destination": "https://www.julianacapucci.com.br/:path*",
+            "destination": "https://www.julianacapucci.com.br/:path",
             "permanent": true
         }
     ],
