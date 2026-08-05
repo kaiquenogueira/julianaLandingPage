@@ -130,6 +130,15 @@ sharing with any third party.</p>
       driven by a weekly review routine rather than by automated polling.</li>
 </ul>
 
+<h3>Relationship to third-party tools</h3>
+
+<p>The developer token and the OAuth credentials are never shared with a third party and
+never leave my machine. The MCP server is Google's own open-source software, installed
+from source with pipx and executed as a local process over stdio — functionally the same
+arrangement as using an official Google Ads API client library. No externally operated or
+hosted service receives the token, holds the credentials, or proxies the API calls on my
+behalf.</p>
+
 <h2>7. Interface</h2>
 
 <p>The tool has no graphical interface. Interaction happens in a terminal: I ask a question

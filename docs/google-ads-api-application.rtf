@@ -185,6 +185,12 @@ WHERE  segments.date DURING LAST_30_DAYS\
 \f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
 \outl0\strokewidth0 \strokec2 Query volume:
 \f1\b0  low \'97 on the order of a few dozen queries per week, driven by a weekly review routine rather than by automated polling.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Relationship to third-party tools\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 The developer token and the OAuth credentials are never shared with a third party and never leave my machine. The MCP server is Google's own open-source software, installed from source with pipx and executed as a local process over stdio \'97 functionally the same arrangement as using an official Google Ads API client library. No externally operated or hosted service receives the token, holds the credentials, or proxies the API calls on my behalf.\
 \pard\pardeftab720\sa298\partightenfactor0
 
 \f0\b\fs36 \cf0 7. Interface\
