@@ -105,14 +105,19 @@ ferramentas completo não existe no Modo Inteligente.
 
 Contas retornadas por `listAccessibleCustomers`:
 
-| ID | Diagnóstico |
+| ID | Papel |
 |---|---|
-| `9901998736` | `CUSTOMER_NOT_ENABLED` — criada, nunca ativada |
-| `6180049205` | `CUSTOMER_NOT_ENABLED` — criada, nunca ativada |
-| `8709194696` | ativa; barra em `DEVELOPER_TOKEN_NOT_APPROVED` |
+| **`6180049205`** | **conta da Juliana** — ativada e verificada como anunciante em 05/08/2026 |
+| `9901998736` | ainda `CUSTOMER_NOT_ENABLED`; provavelmente o MCC |
+| `8709194696` | ativa; outra conta |
 
-O erro distinto em `8709194696` prova que a conta existe e está ativa — o bloqueio ali é só
-o nível do token.
+`CUSTOMER_NOT_ENABLED` significa conta criada mas nunca ativada — o assistente de primeira
+campanha precisa chegar até o passo de faturamento. `DEVELOPER_TOKEN_NOT_APPROVED` numa
+conta ativa significa que o bloqueio é o nível do token, não a conta.
+
+> Verificação de anunciante e Basic Access do developer token são aprovações diferentes e
+> chegam em e-mails separados. A primeira libera veicular anúncio; a segunda libera ler
+> dados pela API.
 
 ## Registro do MCP
 
