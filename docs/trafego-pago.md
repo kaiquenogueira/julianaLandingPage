@@ -39,7 +39,7 @@ A capacidade é o limitador, não o CAC. Toda decisão abaixo prioriza **qualifi
 | Orçamento | Dividir a verba mensal por 30 (ex.: R$ 700 → R$ 23/dia) |
 | Rotação de anúncios | Otimizar |
 
-> **Por que não começar em "Maximizar conversões":** o histórico de conversão da conta `AW-974807273` não é confiável — a tag estava quebrada e nenhuma conversão foi registrada corretamente até 05/08/2026. O algoritmo não tem base para otimizar. Rodar em Maximizar cliques até acumular ~30 conversões reais.
+> **Por que não começar em "Maximizar conversões":** o histórico de conversão da conta (tag `AW-974807273`) não é confiável — a tag estava quebrada e nenhuma conversão foi registrada corretamente até 05/08/2026. O algoritmo não tem base para otimizar. Rodar em Maximizar cliques até acumular ~30 conversões reais.
 
 **Localização por grupo**
 
