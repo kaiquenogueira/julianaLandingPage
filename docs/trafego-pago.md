@@ -38,8 +38,35 @@ A capacidade é o limitador, não o CAC. Toda decisão abaixo prioriza **qualifi
 | Idioma | Português |
 | Orçamento | Dividir a verba mensal por 30 (ex.: R$ 700 → R$ 23/dia) |
 | Rotação de anúncios | Otimizar |
+| AI Max | **Desligado** |
+| Segmentação otimizada | **Desativada** |
+| Públicos-alvo | **Vazios** |
 
-> **Por que não começar em "Maximizar conversões":** o histórico de conversão da conta (tag `AW-974807273`) não é confiável — a tag estava quebrada e nenhuma conversão foi registrada corretamente até 05/08/2026. O algoritmo não tem base para otimizar. Rodar em Maximizar cliques até acumular ~30 conversões reais.
+> **Por que não começar em "Maximizar conversões":** a conta nova (`AW-18373032857`) não tem
+> nenhuma conversão registrada, e o histórico da conta anterior era inválido — a tag estava
+> quebrada até 05/08/2026. O algoritmo não tem base para otimizar. Rodar em Maximizar cliques
+> até acumular ~30 conversões reais.
+
+> **Por que AI Max desligado:** expande as palavras-chave com correspondência ampla, o que
+> anula a escolha de frase/exata e enfraquece a lista de negativas; gera copy automática a
+> partir do site, o que arrisca promessa de resultado vedada pelo CFP; e escolhe sozinha a
+> página de destino, quebrando o match anúncio→LP por persona. Reavaliar só depois de uns
+> 3 meses com volume de conversão.
+
+### Política de saúde — o que ela restringe
+
+O Google sinaliza campanhas de saúde mental sob **Health in personalized advertising**. A
+política restringe *publicidade personalizada* — segmentar por condição de saúde inferida —
+e **não** proíbe anunciar psicoterapia.
+
+- **Campanha de Pesquisa por palavra-chave é contextual**, não personalizada. Se for
+  sinalizada, solicitar revisão em vez de mutilar as palavras-chave.
+- **Manter Públicos-alvo vazios e Segmentação otimizada desativada.** É o que de fato aciona
+  a política, e o que mantém a conta puramente contextual.
+- **Remarketing provavelmente não é permitido.** Montar lista a partir de quem visitou uma
+  página de psicoterapia é exatamente o comportamento restrito. Verificar a política vigente
+  antes de planejar essa etapa — vale também para públicos semelhantes no Meta a partir do
+  tráfego dessas páginas.
 
 **Localização por grupo**
 
