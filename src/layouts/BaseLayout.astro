@@ -2,10 +2,24 @@
 import '../styles/global.css';
 import ConsentBanner from '../components/ConsentBanner.astro';
 
-// IDs de mídia. Google Ads já existe; GA4 e Meta Pixel só entram quando as
-// variáveis estiverem definidas na Vercel — sem placeholder falso no HTML.
-const GOOGLE_ADS_ID = 'AW-974807273';
-const GOOGLE_ADS_CONVERSION = 'AW-974807273/_5kACLbX4oEcEOnB6dAD';
+// IDs de mídia. GA4 e Meta Pixel só entram quando as variáveis estiverem
+// definidas na Vercel — sem placeholder falso no HTML.
+//
+// Contas do Google Ads que recebem a tag base. Mais de uma conta convive sem
+// conflito: cada uma monta o próprio público de remarketing. O primeiro ID é o
+// que carrega o gtag.js; os demais entram só como `config`.
+const GOOGLE_ADS_IDS = [
+  'AW-974807273',    // conta antiga
+  'AW-18373032857',  // conta nova
+];
+
+// Ações de conversão disparadas no clique de WhatsApp. Cada conta precisa da
+// própria ação criada na interface do Google Ads — o rótulo depois da barra é
+// exclusivo dela e não pode ser reaproveitado entre contas.
+const GOOGLE_ADS_CONVERSIONS = [
+  'AW-974807273/_5kACLbX4oEcEOnB6dAD',
+];
+
 const GA4_ID = import.meta.env.PUBLIC_GA4_ID;
 const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
 
@@ -49,7 +63,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
   </script>
 
   <!-- Google tag (gtag.js) — Google Ads + GA4 -->
-  <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}></script>
+  <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_IDS[0]}`}></script>
   <script type="text/partytown" set:html={`
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -77,7 +91,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
     }
 
     gtag('js', new Date());
-    gtag('config', '${GOOGLE_ADS_ID}');
+    ${GOOGLE_ADS_IDS.map((id) => `gtag('config', '${id}');`).join('\n    ')}
     ${GA4_ID ? `gtag('config', '${GA4_ID}');` : ''}
   `} />
 
@@ -99,7 +113,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
   <script is:inline set:html={`
     (function () {
-      var ADS_CONVERSION = '${GOOGLE_ADS_CONVERSION}';
+      var ADS_CONVERSIONS = ${JSON.stringify(GOOGLE_ADS_CONVERSIONS)};
       var DEFAULT_MESSAGE_PREFIX = 'Oi, Juliana! Vim pelo site (';
       var DEFAULT_MESSAGE_SUFFIX = ') e gostaria de agendar uma sessão.';
 
@@ -152,7 +166,9 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
         // origem continua viva e o beacon termina de sair. Se o gtag estiver
         // bloqueado ou o Partytown falhar, o lead chega no WhatsApp mesmo assim.
         if (typeof window.gtag === 'function') {
-          window.gtag('event', 'conversion', { 'send_to': ADS_CONVERSION, 'wa_origin': origin });
+          for (var i = 0; i < ADS_CONVERSIONS.length; i++) {
+            window.gtag('event', 'conversion', { 'send_to': ADS_CONVERSIONS[i], 'wa_origin': origin });
+          }
           window.gtag('event', 'contato_whatsapp', { 'wa_origin': origin });
         }
         if (typeof window.fbq === 'function') {
