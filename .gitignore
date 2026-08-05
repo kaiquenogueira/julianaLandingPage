@@ -12,6 +12,19 @@ dist/
 .env.*
 !.env.example
 
+# Credenciais — segunda camada de proteção. O repositório é público, então
+# padrões de credencial ficam bloqueados em qualquer diretório, não só em
+# credentials/ (que tem o próprio .gitignore).
+credentials/*
+!credentials/.gitignore
+!credentials/README.md
+*.pem
+*.key
+*client_secret*.json
+*credentials*.json
+application_default_credentials.json
+google-ads.yaml
+
 # OS
 .DS_Store
 Thumbs.db
