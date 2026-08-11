@@ -46,7 +46,7 @@
       banner.hidden = true;
     }
 
-    // Uma decisão anterior já foi aplicada no próprio worker do Partytown
+    // Uma decisão anterior já foi aplicada junto com a subida do gtag
     // (ver BaseLayout.astro). Aqui só resta decidir se o banner aparece.
     var stored = window.__jcConsent;
     if (stored === 'granted' || stored === 'denied') return;

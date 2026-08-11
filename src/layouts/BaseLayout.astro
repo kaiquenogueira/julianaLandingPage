@@ -54,22 +54,33 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 <html lang="pt-BR">
 
 <head>
-  <!-- Decisão de consentimento já tomada em visita anterior. Lida antes de tudo
-       para que o gtag aplique o estado certo já dentro do worker do Partytown,
-       sem corrida entre a thread principal e o worker. -->
+  <!-- Decisão de consentimento já tomada em visita anterior. Lida antes do gtag
+       para que o Consent Mode suba com o estado certo, sem corrida. -->
   <script is:inline>
     try { window.__jcConsent = localStorage.getItem('jc-consent'); } catch (e) { window.__jcConsent = null; }
   </script>
 
-  <!-- Google tag (gtag.js) — Google Ads + GA4 -->
-  <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_IDS[0]}`}></script>
-  <script type="text/partytown" set:html={`
+  <!--
+    Google tag (gtag.js) — Google Ads + GA4.
+
+    Roda na thread principal de propósito. NÃO mover para o Partytown.
+
+    Sob o Partytown os eventos comuns até saem (o worker consegue usar fetch),
+    mas a conversão do Google Ads não: ela depende do cookie `_gcl_aw`, da
+    Attribution Reporting API e das enhanced conversions, nada disso disponível
+    dentro do worker. O gtag desiste em silêncio — sem erro no console, sem
+    requisição. Verificado em 11/08/2026 comparando os dois caminhos na mesma
+    página: pela thread principal a chamada vira um GET 200 para
+    `googleadservices.com/pagead/conversion/.../?label=...`; pelo worker, nada.
+
+    Foi o que manteve a campanha em 0 conversão com 96 cliques. A correção
+    anterior (expor `window.gtag` no worker) só ressuscitou os eventos
+    customizados, o que fez a tag *parecer* instalada.
+  -->
+  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_IDS[0]}`}></script>
+  <script is:inline set:html={`
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    // Atribuição explícita: dentro do worker do Partytown a declaração de função
-    // não chega ao objeto global, e o forward da thread principal quebra ao
-    // aplicar window.gtag — o que derrubava silenciosamente toda conversão.
-    window.gtag = gtag;
 
     // Consent Mode v2 — LGPD: nada de marketing antes do aceite explícito.
     gtag('consent', 'default', {
