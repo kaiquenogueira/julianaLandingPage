@@ -30,7 +30,8 @@ Documento vivo. Atualizar a cada rodada de análise.
 | AI Max / recursos automáticos / DSA | desligados |
 | Locais / Idioma | Brasil, presença; Português |
 | Landing pages | 4 no ar |
-| Conversão | `AW-18373032857 / XfZECKDk29wcEJn3-LhE` |
+| Conversão principal | `AW-18373032857 / XfZECKDk29wcEJn3-LhE` ("Contato"), contagem "Uma" |
+| Conversão secundária | `HznsCJ6H0dwcEJn3-LhE` ("Visualização de página") — só observação |
 | Consent Mode v2 + banner LGPD | ativo |
 
 **Conta da Juliana:** `6180049205` (618-004-9205) — ativa e verificada como anunciante.
@@ -249,26 +250,54 @@ sai um hit com **outro rótulo**:
 Não vem do código do site — vem da configuração da conta, provavelmente ação criada pelo
 assistente do Google. Ficou invisível a semana toda porque o Partytown bloqueava tudo.
 
-**Risco:** se essa ação estiver como Principal, cada visita vira conversão. A taxa infla, o
-custo por conversão despenca e, ao migrar para Maximizar conversões, o algoritmo passa a
-otimizar para visita em vez de lead.
+Confirmado na interface: a ação chama-se **"Visualização de página"**, origem Site, **data de
+criação 05/08/2026** — o mesmo dia em que a campanha subiu. Foi criada pelo assistente do
+Google, não de propósito. Estava como **Ação principal** e como **meta padrão da conta**,
+aplicada à campanha ("1 de 1"). Contagem em "Todas as conversões", ou seja: cada página aberta
+na mesma sessão contaria separado.
 
-Em Metas → Conversões: só `XfZECKDk29wcEJn3-LhE` fica como **Principal**; qualquer outra vai
-para **Secundária**.
+**Risco:** cada visita viraria conversão. A taxa infla, o custo por conversão despenca e, ao
+migrar para Maximizar conversões, o algoritmo passa a otimizar para visita em vez de lead.
+Ficou invisível a semana toda só porque o Partytown bloqueava tudo — com a tag corrigida,
+começaria a contar já no dia seguinte.
+
+### Ajustes feitos na conta em 11/08/2026
+
+| Meta | Ação | Antes | Depois |
+|---|---|---|---|
+| Visualização de página | `HznsCJ6H0dwcEJn3-LhE` | Principal | **Secundária** |
+| Contato (WhatsApp) | `XfZECKDk29wcEJn3-LhE` | Principal, contagem "Todas" | **Principal, contagem "Uma"** |
+
+Secundária significa que a ação continua sendo registrada, mas só na coluna "Todas as
+conversões" — fora da coluna "Conversões" e fora da otimização de lances.
+
+Contagem **"Uma"** é a correta para lead: uma pessoa que abre o WhatsApp, fecha e volta contaria
+2 leads em "Todas". Com 3 leads por semana, um lead fantasma distorce o custo por lead em mais
+de 30% — e é nele que as decisões estão baseadas.
+
+> Regra geral que sai daí: **só `XfZECKDk29wcEJn3-LhE` pode ser Principal.** Se aparecer outra
+> ação Principal, foi o Google que criou sozinho. Conferir também "Conversões automáticas do
+> site" em Metas → Configurações, que é o que permite a recriação.
 
 ### Pendente desta rodada
 
 1. ~~Deploy da correção~~ — feito e verificado em produção em 11/08/2026 (commits `f2a9e3d`
    e `ada8cfe`).
-2. **Ação de conversão duplicada** → Secundária. Item mais urgente: agora que a tag funciona,
-   ela infla tudo.
-3. **Tempo de resposta das 3 conversas.** Fator isolado mais provável e mais barato de
+2. ~~Ação de conversão duplicada → Secundária~~ — feito em 11/08/2026, junto com a contagem
+   da "Contato" para "Uma".
+3. **Confirmar que a "Contato" saiu de 0,00.** É o teste final: com a tag corrigida e o lead
+   entrando, a coluna Conversões tem que sair do zero. Se continuar em "Não há conversões
+   recentes" depois de um clique real com aceite do banner, voltar a investigar.
+4. **Tempo de resposta das 3 conversas.** Fator isolado mais provável e mais barato de
    corrigir.
-4. **CSV de termos de pesquisa** (05–11/08). O objetivo mudou: não é cortar volume, é achar
+5. **CSV de termos de pesquisa** (05–11/08). O objetivo mudou: não é cortar volume, é achar
    termo que gastou e não gerou lead.
-5. **Planilha dos leads** a partir de 11/08: data, origem, tempo até a resposta, agendou,
+6. **Planilha dos leads** a partir de 11/08: data, origem, tempo até a resposta, agendou,
    compareceu.
-6. **Lance: não mexer.** Ver "Como ler esses números".
+7. **Lance: não mexer.** Ver "Como ler esses números".
+8. **Não aplicar "Remover 2 palavras-chave redundantes"** — a recomendação apareceu no painel
+   em 11/08. A campanha usa o mesmo termo em frase e em exata de propósito; o Google chama
+   isso de redundante e a sugestão tira a exata, que é a de maior controle.
 
 ---
 
