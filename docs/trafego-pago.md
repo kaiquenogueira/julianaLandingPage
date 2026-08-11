@@ -2,7 +2,7 @@
 
 Documento operacional. Tudo aqui é para ser copiado direto no Gerenciador.
 
-**Última atualização:** 05/08/2026
+**Última atualização:** 11/08/2026
 
 ---
 
@@ -43,9 +43,16 @@ A capacidade é o limitador, não o CAC. Toda decisão abaixo prioriza **qualifi
 | Públicos-alvo | **Vazios** |
 
 > **Por que não começar em "Maximizar conversões":** a conta nova (`AW-18373032857`) não tem
-> nenhuma conversão registrada, e o histórico da conta anterior era inválido — a tag estava
-> quebrada até 05/08/2026. O algoritmo não tem base para otimizar. Rodar em Maximizar cliques
-> até acumular ~30 conversões reais.
+> nenhuma conversão registrada, e o histórico da conta anterior era inválido — a tag ficou
+> quebrada até 11/08/2026, inclusive durante a primeira semana de veiculação (o detalhe está
+> na seção 7 do `status-campanha.md`). O algoritmo não tem base para otimizar. Rodar em
+> Maximizar cliques até acumular ~30 conversões reais.
+
+> **Ressalva sobre Maximizar cliques com orçamento estourado.** Na primeira semana isso
+> entregou CPC de R$ 1,64 num mercado de R$ 3–8, com CTR de 1,39% — sinal de posição de
+> rodapé. O Google compra o clique mais barato que existir dentro do orçamento. Com
+> capacidade de 1–4 pacientes/mês, poucos cliques bons valem mais que muitos baratos.
+> Avaliar CPC manual em ~R$ 4,00 assim que a conversão estiver registrando de verdade.
 
 > **Por que AI Max desligado:** expande as palavras-chave com correspondência ampla, o que
 > anula a escolha de frase/exata e enfraquece a lista de negativas; gera copy automática a
