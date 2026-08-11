@@ -5,10 +5,14 @@ Documento vivo. Atualizar a cada rodada de análise.
 **Campanha no ar desde:** 05/08/2026
 **Última atualização:** 11/08/2026
 
-> **11/08/2026 — a conversão estava quebrada desde o dia 1.** 96 cliques, R$ 157,89, 0,00
-> conversão. Causa: o Partytown engolia o evento de conversão do Google Ads. Corrigido no
-> mesmo dia (seção 7). **Nenhum dado de conversão de 05–11/08 existe** — o marco zero real
-> é a data do deploy da correção.
+> **11/08/2026 — a conversão estava quebrada desde o dia 1.** 96 cliques, R$ 157,89 e 0,00
+> conversão no painel. Causa: o Partytown engolia o evento de conversão do Google Ads.
+> Corrigido e no ar no mesmo dia (seção 7). **Nenhum dado de conversão de 05–11/08 existe no
+> Ads** — o marco zero da medição automática é 11/08/2026.
+>
+> Os leads da semana existiram e foram contados na mão: **3 no WhatsApp, todos pela LP do
+> anúncio, nenhum virou primeiro atendimento.** R$ 52,63 por lead. Isso é resultado normal
+> para uma amostra de 3 — ver "Como ler esses números" antes de mudar qualquer coisa.
 
 ---
 
@@ -89,9 +93,12 @@ Calcular **custo por paciente** = verba do mês ÷ pacientes que iniciaram terap
 ## 4. O que trazer para a próxima sessão
 
 1. **CSV de termos de pesquisa** (ou avisar se a API já foi aprovada — aí eu puxo direto)
-2. **Planilha de controle** com os leads: data, origem, agendou, virou paciente
+2. **Planilha de controle** com os leads: data, origem, tempo até a resposta, agendou,
+   compareceu
 3. Quantos leads chegaram no WhatsApp e quantos viraram paciente
-4. Se a agenda encheu
+4. **Onde cada conversa parou** — quem falou por último e em que ponto morreu. Não precisa de
+   conteúdo clínico, só a forma. É o que aponta a correção (tabela na seção 7).
+5. Se a agenda encheu
 
 Sem o item 2 não dá para calcular custo por paciente, que é o número que decide tudo. O Google
 Ads mostra custo por conversão; conversão aqui é clique no WhatsApp, não paciente.
@@ -140,14 +147,57 @@ abaixo do mercado CRP-06 online em SP).
 | CTR | 1,39% |
 | Custo | R$ 157,89 (R$ 22,56/dia — orçamento consumido todo dia) |
 | CPC médio | R$ 1,64 |
-| **Conversões** | **0,00** |
+| Conversões **registradas no Ads** | 0,00 — a tag estava quebrada, ver abaixo |
+| **Leads reais no WhatsApp** | **3** (contados na mão, na conversa) |
+| **Primeiro atendimento** | **0** |
 | Cliques em celular | 94,8% |
+
+Os 3 leads vieram da LP do anúncio — a mensagem pré-preenchida dizia "página de psicoterapia
+online". Atribuição não é dúvida nesta semana.
+
+| Taxa | Valor |
+|---|---|
+| Clique → lead | 3,1% |
+| **Custo por lead** | **R$ 52,63** |
+| Lead → paciente | 0 de 3 |
 
 Redes conferidas: parceiros de pesquisa e Display **desmarcados**. O CPC baixo não é
 vazamento de Display.
 
 Volume estabilizou em 16–19 cliques/dia a partir do dia 3. O aviso "Qualificada (limitada)"
 era ruído — **não adicionar as palavras de reserva**, não falta volume.
+
+### Como ler esses números
+
+**R$ 52,63 por lead é bom** para psicoterapia. Com os 20–25% de lead→paciente das premissas,
+projeta CAC de ~R$ 234 — dentro da meta de R$ 200–350 e bem abaixo do teto de R$ 660. Com
+R$ 700/mês dá ~13 leads/mês, ou ~3 pacientes novos/mês. É exatamente a meta de trabalho e o
+limite da agenda.
+
+**0 de 3 não é sinal de nada.** Se a taxa real fosse 20–25%, a chance de sair 0 em 3 leads é
+de 42–51%. O resultado é o esperado quase metade das vezes numa campanha saudável. O número
+que separa azar de problema é **12 leads**: com 12 e nenhum paciente, a premissa de 20% cai
+para 6,9% de probabilidade, e aí o gargalo é real. 12 leads ≈ R$ 630 ≈ um mês de verba — bate
+com o checkpoint de dia 30 da seção 3.
+
+> **Não pausar, não mexer no lance e não mexer em palavra-chave por causa de 0 de 3.**
+> Reavaliar em 12 leads.
+
+**A recomendação de trocar para CPC manual foi descartada.** O CPC de R$ 1,64 com CTR de 1,39%
+parecia posição de rodapé comprando clique ruim. Os 3 leads desmentem: esse tráfego converte.
+Subir o lance cortaria o volume em ~4x para comprar qualidade que os dados dizem já existir.
+O CTR baixo é cosmético — quem paga a conta é o custo por lead.
+
+**O gargalo agora está depois do clique.** Para o CAC ficar abaixo do teto de R$ 660 basta 8%
+de lead→paciente (1 a cada 12,5). A margem é grande, mas depende da conversa no WhatsApp, que
+o Google não controla. Onde a conversa morre define a correção:
+
+| Padrão na conversa | O que indica | Correção |
+|---|---|---|
+| Demora para responder | maior fator isolado em lead de WhatsApp | responder em minutos |
+| Some depois do preço | R$ 130 não é caro no mercado; é ancoragem | falar do formato antes do número |
+| Pede o que ela não faz (casal, presencial, criança, convênio) | negativa faltando | adicionar às negativas |
+| Some sem responder nada | lead frio | normal, é o custo do jogo |
 
 ### A falha: o Partytown engole a conversão do Google Ads
 
@@ -187,15 +237,38 @@ Com recusa, o gtag **não fica em silêncio** — envia um ping sem cookie
 Consent Mode v2 avançado e é compatível com a LGPD: nenhum identificador é gravado. A versão
 anterior deste documento afirmava que a recusa bloqueava o registro; estava errado.
 
+### Uma segunda ação de conversão dispara no page view
+
+Descoberto durante o teste em produção: ao abrir qualquer página, antes de qualquer clique,
+sai um hit com **outro rótulo**:
+
+```
+…/pagead/conversion/18373032857/?…&en=page_view&label=HznsCJ6H0dwcEJn3-LhE&data=event%3Dgtag.config
+```
+
+Não vem do código do site — vem da configuração da conta, provavelmente ação criada pelo
+assistente do Google. Ficou invisível a semana toda porque o Partytown bloqueava tudo.
+
+**Risco:** se essa ação estiver como Principal, cada visita vira conversão. A taxa infla, o
+custo por conversão despenca e, ao migrar para Maximizar conversões, o algoritmo passa a
+otimizar para visita em vez de lead.
+
+Em Metas → Conversões: só `XfZECKDk29wcEJn3-LhE` fica como **Principal**; qualquer outra vai
+para **Secundária**.
+
 ### Pendente desta rodada
 
-1. **Deploy da correção** — sem ele o número segue 0.
-2. **CSV de termos de pesquisa** (05–11/08). É o que separa "posição ruim" de "consulta ruim"
-   como explicação do CTR de 1,39%.
-3. **Estratégia de lance.** Maximizar cliques com orçamento estourado faz o Google comprar o
-   clique mais barato disponível: R$ 1,64 num mercado de R$ 3–8 significa rodapé de página.
-   Com capacidade de 1–4 pacientes/mês, 17 cliques ruins/dia valem menos que 5 bons. Avaliar
-   CPC manual em ~R$ 4,00 **depois** de a conversão estar registrando.
+1. ~~Deploy da correção~~ — feito e verificado em produção em 11/08/2026 (commits `f2a9e3d`
+   e `ada8cfe`).
+2. **Ação de conversão duplicada** → Secundária. Item mais urgente: agora que a tag funciona,
+   ela infla tudo.
+3. **Tempo de resposta das 3 conversas.** Fator isolado mais provável e mais barato de
+   corrigir.
+4. **CSV de termos de pesquisa** (05–11/08). O objetivo mudou: não é cortar volume, é achar
+   termo que gastou e não gerou lead.
+5. **Planilha dos leads** a partir de 11/08: data, origem, tempo até a resposta, agendou,
+   compareceu.
+6. **Lance: não mexer.** Ver "Como ler esses números".
 
 ---
 

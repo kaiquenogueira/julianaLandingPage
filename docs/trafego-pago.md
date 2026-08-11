@@ -48,11 +48,11 @@ A capacidade é o limitador, não o CAC. Toda decisão abaixo prioriza **qualifi
 > na seção 7 do `status-campanha.md`). O algoritmo não tem base para otimizar. Rodar em
 > Maximizar cliques até acumular ~30 conversões reais.
 
-> **Ressalva sobre Maximizar cliques com orçamento estourado.** Na primeira semana isso
-> entregou CPC de R$ 1,64 num mercado de R$ 3–8, com CTR de 1,39% — sinal de posição de
-> rodapé. O Google compra o clique mais barato que existir dentro do orçamento. Com
-> capacidade de 1–4 pacientes/mês, poucos cliques bons valem mais que muitos baratos.
-> Avaliar CPC manual em ~R$ 4,00 assim que a conversão estiver registrando de verdade.
+> **Maximizar cliques está funcionando — não trocar por CPC manual.** Na primeira semana o
+> CPC ficou em R$ 1,64 (mercado: R$ 3–8) com CTR de 1,39%, o que parecia posição de rodapé
+> comprando clique ruim. Os 3 leads reais da semana desmentem: esse tráfego converte, a
+> R$ 52,63 por lead. Subir o lance cortaria o volume em ~4x para comprar qualidade que já
+> existe. Reavaliar só quando houver conversão registrada em volume.
 
 > **Por que AI Max desligado:** expande as palavras-chave com correspondência ampla, o que
 > anula a escolha de frase/exata e enfraquece a lista de negativas; gera copy automática a
