@@ -3,7 +3,11 @@
 Documento vivo. Atualizar a cada rodada de análise.
 
 **Campanha no ar desde:** 05/08/2026
-**Última atualização:** 11/08/2026
+**Última atualização:** 12/08/2026
+
+> **12/08/2026 — os 4 leads acumulados são todos homens, e nenhum com a intenção esperada.**
+> Público masculino excluído no demográfico (seção 8). Não é ajuste fino de lance: é corte,
+> porque lead errado custa tempo de atendimento, não só verba.
 
 > **11/08/2026 — a conversão estava quebrada desde o dia 1.** 96 cliques, R$ 157,89 e 0,00
 > conversão no painel. Causa: o Partytown engolia o evento de conversão do Google Ads.
@@ -29,6 +33,7 @@ Documento vivo. Atualizar a cada rodada de análise.
 | Recursos | 4 sitelinks, 6 frases de destaque, snippet "Tipos" |
 | AI Max / recursos automáticos / DSA | desligados |
 | Locais / Idioma | Brasil, presença; Português |
+| Demográfico | **Masculino excluído** (12/08); Desconhecido, idade e renda intactos — nível de grupo |
 | Landing pages | 4 no ar |
 | Conversão principal | `AW-18373032857 / XfZECKDk29wcEJn3-LhE` ("Contato"), contagem "Uma" |
 | Conversão secundária | `HznsCJ6H0dwcEJn3-LhE` ("Visualização de página") — só observação |
@@ -301,7 +306,90 @@ de 30% — e é nele que as decisões estão baseadas.
 
 ---
 
-## 8. Referências
+## 8. Segunda semana (12/08/2026) — corte do público masculino
+
+### O número
+
+| Métrica (05–12/08) | Valor |
+|---|---|
+| Cliques | 112 |
+| Impressões | 8.336 |
+| Custo | R$ 177,88 |
+| CPC médio | R$ 1,59 |
+| Conversões registradas | 1,00 — **a tag saiu do zero**, correção do Partytown confirmada |
+| Leads reais no WhatsApp | 4 |
+| **Leads homens** | **4 de 4** |
+| Leads com a intenção esperada | 0 |
+
+Mix de cliques por sexo: **Feminino 61 · Masculino ~34 · Desconhecido ~15** (≈55/31/14%).
+
+### Por que 4 de 4 é sinal, e 0 de 3 não era
+
+Se os leads chegassem na proporção do tráfego, a chance de sair 4 homens em 4 leads é
+**0,31⁴ ≈ 0,9%**. É a diferença entre este caso e o "0 de 3 pacientes" da seção 7: lá o
+resultado nulo era esperado em ~metade das campanhas saudáveis; aqui o desvio é de 1 em 100.
+
+O critério não é só estatístico. Lead fora do perfil consome **tempo de atendimento**, não só
+verba — e a capacidade é o limitador do projeto. O custo de esperar os 12 leads é maior que o
+custo de errar o corte.
+
+### O que foi feito
+
+Públicos-alvo → Informações demográficas → **Sexo**:
+
+| Linha | Estado |
+|---|---|
+| Feminino | marcado |
+| **Masculino** | **desmarcado (excluído)** |
+| Desconhecido | marcado — **não tocar** |
+
+Idade e Renda familiar: **todas as faixas marcadas**, sem alteração.
+
+> **Está no nível de grupo de anúncios**, não de campanha. Vale para o Grupo 1, que é o único
+> ativo. **Um Grupo 2 nasceria sem a exclusão** — replicar na criação, ou subir a exclusão
+> para o nível de campanha antes disso.
+
+Volume esperado cai ~30%. Como o orçamento é consumido integralmente todo dia, a verba
+realoca para o tráfego restante no mesmo R$ 23/dia — troca de volume por aderência, que é o
+trade correto numa campanha limitada por agenda.
+
+### Política: por que isso é permitido
+
+A restrição *Health in personalized advertising* incide sobre **listas e públicos** montados a
+partir de condição de saúde inferida (remarketing, públicos personalizados) — que continuam
+fora, conforme a seção 6. **Demográfico básico de sexo em Search não está restrito.** A
+proibição de segmentar por gênero vale para Habitação, Emprego e Crédito, e só nos EUA e
+Canadá.
+
+- https://support.google.com/adspolicy/answer/16701855
+- https://support.google.com/adspolicy/answer/143465
+
+### O que ainda não foi feito e vale mais que o demográfico
+
+**O que os 4 leads pediram.** Intenção errada quase sempre nasce no termo de pesquisa, e
+negativa corta melhor e mais barato que demográfico. Mapa de correção:
+
+| O que pediram | Negativa a adicionar |
+|---|---|
+| terapia de casal | `casal`, `conjugal`, `terapia de casal` |
+| psicólogo homem, "quero psicólogo" | conferir se `psicólogo` (masculino) está entrando por frase |
+| grátis, SUS, CVV | `grátis`, `gratuito`, `barato`, `sus`, `cvv` |
+| presencial, criança, convênio | já deve constar nas 43 — conferir |
+
+**CSV de termos de pesquisa 05–13/08** continua pendente. A API segue barrada:
+`developer token is only approved for use with test accounts` — Basic Access não saiu.
+Export manual.
+
+### Observação de renda para depois
+
+Dos 112 cliques, **64 (57%) vêm da faixa "50% com menor renda"**, e foi de lá que saiu a única
+conversão registrada. Com sessão a R$ 130, isso conversa diretamente com o reajuste de preço
+pendente na seção 2. **Não mexer na segmentação por renda agora** — cortaria mais da metade do
+volume com base em uma conversão.
+
+---
+
+## 9. Referências
 
 | Assunto | Onde |
 |---|---|
