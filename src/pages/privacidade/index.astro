@@ -1,0 +1,300 @@
+---
+/**
+ * Política de Privacidade (LGPD).
+ *
+ * Existe por três motivos, nessa ordem:
+ *
+ * 1. O site roda cookies de análise e de publicidade. A LGPD exige informar
+ *    finalidade, base legal e como revogar (art. 9º e art. 8º, §5º).
+ * 2. A política de destino do Google Ads pede uma política de privacidade
+ *    acessível quando a conta usa remarketing — é o caso aqui.
+ * 3. Psicoterapia é dado sensível (art. 5º, II). A parte que mais importa é
+ *    dizer com todas as letras o que o site NÃO faz: não existe formulário,
+ *    banco de dados nem servidor próprio guardando nada.
+ *
+ * Ao mexer aqui, confira se o texto continua batendo com o código: o consentimento
+ * padrão está em `BaseLayout.astro`, a revogação em `ConsentBanner.astro` e a
+ * decisão de não salvar resposta nenhuma do funil está em `Funil.astro`.
+ * Uma política que descreve algo diferente do que o site faz é pior que nenhuma.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { WHATSAPP_DISPLAY, whatsappUrl } from '../../lib/whatsapp';
+
+/**
+ * Fixa de propósito. Data gerada no build subiria a cada deploy e faria a
+ * política parecer revisada sem ninguém ter lido uma linha.
+ */
+const ATUALIZADO_EM = '14 de agosto de 2026';
+
+const contatoWhatsapp = whatsappUrl({
+  origin: 'nav',
+  message: 'Oi, Juliana! Tenho uma dúvida sobre privacidade e uso dos meus dados no site.',
+});
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
+---
+
+<BaseLayout
+  title="Política de Privacidade — Juliana Capucci | Psicóloga"
+  description="Como o site de Juliana Capucci (CRP 06/209216) trata cookies, dados de navegação e consentimento, conforme a LGPD."
+>
+  <Nav />
+
+  <article class="legal-page">
+    <header class="legal-header">
+      <p class="section-label">Privacidade</p>
+      <h1>Política de <em>Privacidade</em></h1>
+      <p class="legal-updated">Atualizada em {ATUALIZADO_EM}</p>
+    </header>
+
+    <div class="legal-content">
+      <p class="legal-lead">
+        Este site não tem formulário, cadastro nem banco de dados. Nada que você
+        digita aqui é salvo em um servidor meu. O que existe são cookies de
+        medição e de publicidade, que só passam a funcionar depois que você
+        clica em “Aceitar” — e que você pode desligar quando quiser.
+      </p>
+
+      <h2>Quem é responsável pelos dados</h2>
+      <p>
+        Juliana Capucci, psicóloga clínica inscrita no CRP 06/209216, é a
+        controladora dos dados tratados neste site. Contato para qualquer
+        assunto desta política, inclusive para exercer os direitos descritos
+        mais abaixo: <a href={contatoWhatsapp} target="_blank" rel="noopener noreferrer">WhatsApp {WHATSAPP_DISPLAY}</a>.
+      </p>
+
+      <h2>O que o site coleta</h2>
+      <p>
+        Só há dois tipos de informação em jogo, e nenhum deles chega a um
+        servidor meu:
+      </p>
+      <ul>
+        <li>
+          <strong>Sua decisão sobre cookies.</strong> Fica guardada apenas no
+          seu navegador, para que o aviso não reapareça a cada visita. Não
+          identifica você e não sai do seu aparelho.
+        </li>
+        <li>
+          <strong>Dados de navegação coletados por terceiros.</strong> Páginas
+          visitadas, tempo de visita, tipo de aparelho, cidade aproximada e de
+          qual anúncio ou busca você veio. São coletados pelas ferramentas do
+          Google e da Meta, descritas na seção seguinte, e só depois do seu
+          aceite.
+        </li>
+      </ul>
+      <p>
+        Não coletamos nome, e-mail, telefone ou qualquer informação sobre sua
+        saúde por meio deste site. Não existe campo para isso em página alguma.
+      </p>
+
+      <h2>Cookies e ferramentas de terceiros</h2>
+      <p>
+        Enquanto você não decide, tudo sobe bloqueado: as ferramentas abaixo são
+        carregadas sem permissão para gravar cookies ou identificar você
+        (o chamado Consent Mode, no modo avançado). Elas só passam a usar
+        cookies depois que você clica em “Aceitar”.
+      </p>
+      <ul>
+        <li>
+          <strong>Google Analytics</strong> — mede quantas pessoas visitam o
+          site e quais páginas são lidas, em números agregados. Serve para
+          decidir o que escrever e o que corrigir.
+        </li>
+        <li>
+          <strong>Google Ads</strong> — mostra quais anúncios trouxeram
+          visitas e permite exibir anúncios do site para quem já esteve aqui
+          (remarketing).
+        </li>
+        <li>
+          <strong>Meta (Instagram e Facebook)</strong> — mesma finalidade do
+          item anterior, usada quando há campanhas ativas nessas plataformas.
+        </li>
+      </ul>
+      <p>
+        Nenhuma dessas ferramentas recebe qualquer informação sobre o assunto
+        que levou você a procurar terapia. Isso é uma decisão de projeto, não um
+        detalhe: os eventos enviados ao Google registram apenas de qual página
+        do site partiu o clique, nunca o tema.
+      </p>
+      <p>
+        Ao usar essas ferramentas, seus dados de navegação são tratados também
+        pelo Google e pela Meta, empresas sediadas fora do Brasil, segundo as
+        políticas próprias delas —
+        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google</a>
+        e
+        <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer">Meta</a>.
+      </p>
+
+      <h2>As perguntas antes do WhatsApp</h2>
+      <p>
+        Algumas páginas fazem três perguntas rápidas (assunto, para quem é a
+        terapia e melhor período) antes de abrir a conversa. As respostas não
+        são salvas, não são enviadas para nenhum servidor e não viram dado de
+        anúncio: elas só montam a primeira mensagem do WhatsApp, que fica
+        visível para você e pode ser editada ou apagada antes do envio.
+      </p>
+
+      <h2>Quando você fala comigo pelo WhatsApp</h2>
+      <p>
+        A conversa acontece fora deste site e passa a ser regida pela política
+        de privacidade do WhatsApp. O que você me contar ali está protegido pelo
+        sigilo profissional do psicólogo, previsto no Código de Ética
+        Profissional do Psicólogo e nas resoluções do Conselho Federal de
+        Psicologia.
+      </p>
+      <p>
+        Registros de atendimento e prontuários existem apenas para quem já é
+        paciente, seguem regras próprias do Conselho e <strong>nunca transitam
+        por este site nem pelas ferramentas de anúncio</strong>.
+      </p>
+
+      <h2>Com que base legal isso é feito</h2>
+      <p>
+        Os cookies de análise e de publicidade são usados com base no seu
+        consentimento (art. 7º, I, da Lei 13.709/2018), coletado pelo aviso que
+        aparece na primeira visita. Guardar a sua própria decisão sobre cookies
+        se apoia no cumprimento da obrigação legal de respeitá-la.
+      </p>
+
+      <h2>Como retirar o consentimento</h2>
+      <p>
+        A qualquer momento, clique em <strong>“Preferências de cookies”</strong>
+        no rodapé de qualquer página: o aviso reaparece e você pode recusar. A
+        recusa desliga a gravação de cookies pelas ferramentas do Google e da
+        Meta a partir daquele instante. Apagar os dados do navegador tem o mesmo
+        efeito.
+      </p>
+
+      <h2>Seus direitos</h2>
+      <p>
+        A LGPD garante a você (art. 18) confirmar se há tratamento de dados,
+        acessá-los, corrigi-los, pedir anonimização, bloqueio ou eliminação,
+        pedir portabilidade, saber com quem foram compartilhados e revogar o
+        consentimento. Para exercer qualquer um deles, é só me chamar no
+        <a href={contatoWhatsapp} target="_blank" rel="noopener noreferrer">WhatsApp {WHATSAPP_DISPLAY}</a>.
+      </p>
+      <p>
+        Como o site não guarda dados identificáveis, pedidos de acesso ou
+        exclusão relativos ao que o Google e a Meta coletaram precisam ser
+        feitos também junto a essas empresas, nos links da seção sobre cookies.
+        Posso orientar você no caminho.
+      </p>
+
+      <h2>Mudanças nesta política</h2>
+      <p>
+        Se o site passar a usar alguma ferramenta nova, esta página é atualizada
+        junto e a data no topo muda. Vale a pena reler se você acessa o site com
+        frequência.
+      </p>
+    </div>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Política de Privacidade — Juliana Capucci",
+    "description": "Como o site trata cookies, dados de navegação e consentimento, conforme a LGPD.",
+    "url": `${siteUrl}/privacidade/`,
+    "isPartOf": { "@id": `${siteUrl}/#website` },
+    "publisher": { "@id": `${siteUrl}/#organization` },
+  })} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: clamp(8rem, 12vw, 10rem) var(--container-padding) var(--section-spacing);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .legal-header {
+    margin-bottom: 3rem;
+  }
+
+  .legal-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0.8rem 0 1.2rem;
+    color: var(--warm-dark);
+  }
+
+  .legal-header h1 em {
+    font-style: italic;
+    color: var(--coral);
+  }
+
+  .legal-updated {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .legal-content {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .legal-lead {
+    font-size: 1.05rem;
+    color: var(--warm-dark);
+    border-left: 2px solid var(--coral);
+    padding-left: 1.4rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .legal-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--warm-dark);
+    margin: 2.5rem 0 1rem;
+  }
+
+  .legal-content p {
+    margin-bottom: 1.2rem;
+  }
+
+  .legal-content ul {
+    margin-bottom: 1.2rem;
+    padding-left: 1.5rem;
+  }
+
+  .legal-content li {
+    margin-bottom: 0.6rem;
+  }
+
+  .legal-content strong {
+    font-weight: 500;
+    color: var(--warm-dark);
+  }
+
+  .legal-content a {
+    color: var(--coral);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    transition: opacity var(--transition-fast);
+  }
+
+  .legal-content a:hover {
+    opacity: 0.75;
+  }
+
+  @media (max-width: 768px) {
+    .legal-page {
+      padding: 7rem 1.5rem 4rem;
+    }
+
+    .legal-lead {
+      padding-left: 1rem;
+    }
+  }
+</style>
