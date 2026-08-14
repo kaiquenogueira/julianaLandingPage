@@ -19,7 +19,11 @@ export default defineConfig({
     output: 'static',
     trailingSlash: 'always',
     integrations: [
-        sitemap(),
+        // `/comecar/` é destino de anúncio e vai com noindex: mantê-la no
+        // sitemap seria pedir indexação e negar na mesma respiração.
+        sitemap({
+            filter: (page) => !page.includes('/comecar/'),
+        }),
         partytown({
             config: {
                 forward,

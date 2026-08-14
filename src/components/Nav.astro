@@ -5,9 +5,23 @@ export interface Props {
   /** Em landing pages de tráfego pago, esconde os links internos para não vazar o clique pago. */
   minimal?: boolean;
   origin?: WhatsAppOrigin;
+  /**
+   * Remove o atalho para o WhatsApp. Existe para a página do funil: lá o
+   * WhatsApp é o final de um caminho que filtra casal, criança e presencial,
+   * e um atalho no topo devolveria à agenda exatamente o lead que o funil
+   * existe para descartar.
+   */
+  hideWhatsApp?: boolean;
+  /** Destino do botão principal. Em `minimal`, o padrão aponta para a seção de agendamento. */
+  ctaHref?: string;
 }
 
-const { minimal = false, origin = 'nav' } = Astro.props;
+const {
+  minimal = false,
+  origin = 'nav',
+  hideWhatsApp = false,
+  ctaHref = minimal ? '#agendar' : '/#agendar',
+} = Astro.props;
 ---
 
 <!-- NAV -->
@@ -29,7 +43,9 @@ const { minimal = false, origin = 'nav' } = Astro.props;
         <a href="/blog/">Blog</a>
       </>
     )}
-    <a {...whatsappLinkAttrs({ origin })} class="btn-ghost">Fale no WhatsApp</a>
-    <a href={minimal ? '#agendar' : '/#agendar'} class="nav-cta">Agendar sessão</a>
+    {!hideWhatsApp && (
+      <a {...whatsappLinkAttrs({ origin })} class="btn-ghost">Fale no WhatsApp</a>
+    )}
+    <a href={ctaHref} class="nav-cta">Agendar sessão</a>
   </div>
 </nav>

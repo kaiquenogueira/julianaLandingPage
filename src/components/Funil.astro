@@ -1,0 +1,451 @@
+---
+/**
+ * Funil de qualificação — três perguntas entre o anúncio e o WhatsApp.
+ *
+ * Projeto, restrições e critério de decisão em `docs/funil-qualificacao.md`.
+ * Os três pontos que mais restringem o código estão aqui porque quebram em
+ * silêncio se alguém "simplificar" depois:
+ *
+ * 1. As opções da última pergunta são âncoras, nunca `location.href`. Deep link
+ *    disparado por JS é justamente o que o iOS trata pior, e 94,8% dos cliques
+ *    são celular. Como âncora, o clique também aciona o listener de conversão
+ *    do BaseLayout sem uma linha de tracking nova.
+ * 2. Nenhuma resposta é salva, enviada ou virada em parâmetro de evento.
+ *    Resposta sobre saúde mental é dado sensível na LGPD e é o que a política
+ *    de publicidade personalizada do Google proíbe usar. O único lugar onde o
+ *    assunto aparece é o texto que a própria pessoa envia — e ela pode editar.
+ * 3. Não existe tela de resultado, score ou perfil: o art. 2º "q" do Código de
+ *    Ética veda apresentar resultado de serviço psicológico, e o art. 18 veda
+ *    divulgar instrumento privativo a leigos. Por isso as perguntas são de
+ *    contexto e logística, e nunca de intensidade de sintoma.
+ *
+ * Sem JavaScript a página mostra as três perguntas e os dois encaminhamentos
+ * em sequência, com um link de WhatsApp genérico. É o que o AdsBot enxerga e o
+ * que atende a política de destino do Google.
+ */
+import { whatsappUrl } from '../lib/whatsapp';
+
+const ORIGIN = 'lp-quiz' as const;
+
+/** Assuntos que já têm página e conteúdo próprios no site. */
+const CONTEXTOS = [
+  { id: 'maternidade', label: 'Maternidade, tentativa de engravidar ou pós-parto', frase: 'principalmente por causa da maternidade' },
+  { id: 'fora', label: 'Morar fora, intercâmbio ou au pair', frase: 'principalmente por causa da experiência de morar fora' },
+  { id: 'relacionamentos', label: 'Relacionamentos', frase: 'principalmente por causa de relacionamentos' },
+  { id: 'ansiedade', label: 'Ansiedade e rotina', frase: 'principalmente por causa de ansiedade e rotina' },
+  { id: 'luto', label: 'Luto ou uma perda recente', frase: 'principalmente por causa de um luto recente' },
+  { id: 'outro', label: 'Outro assunto', frase: '' },
+];
+
+/**
+ * A pergunta que justifica o funil existir. Adolescente segue — ela atende
+ * adolescentes e adultos. Casal e criança param aqui, e param sem link de
+ * WhatsApp: um "ainda quero falar" anularia o filtro inteiro.
+ */
+const PESSOAS = [
+  { id: 'eu', label: 'Para mim', frase: 'para mim', saida: null },
+  { id: 'adolescente', label: 'Para um adolescente', frase: 'para um adolescente', saida: null },
+  { id: 'casal', label: 'Para mim e meu parceiro ou parceira', frase: '', saida: 'casal' },
+  { id: 'crianca', label: 'Para uma criança', frase: '', saida: 'crianca' },
+];
+
+const PERIODOS = [
+  { id: 'manha', label: 'De manhã', frase: 'de manhã' },
+  { id: 'tarde', label: 'À tarde', frase: 'à tarde' },
+  { id: 'noite', label: 'À noite', frase: 'à noite' },
+];
+
+function mensagem(pessoa: string, contexto: string, periodo: string): string {
+  const meio = contexto ? `${pessoa}, ${contexto}` : pessoa;
+  return `Oi, Juliana! Vim pelo anúncio. Procuro terapia online ${meio}, e o melhor período pra mim é ${periodo}.`;
+}
+
+/**
+ * Todas as combinações montadas no build pelo mesmo helper do resto do site.
+ * O navegador só escolhe a chave — não concatena texto —, então o que sai daqui
+ * é o que a pessoa vê.
+ */
+const LINKS: Record<string, string> = {};
+for (const contexto of CONTEXTOS) {
+  for (const pessoa of PESSOAS.filter((p) => !p.saida)) {
+    for (const periodo of PERIODOS) {
+      LINKS[`${contexto.id}|${pessoa.id}|${periodo.id}`] = whatsappUrl({
+        origin: ORIGIN,
+        message: mensagem(pessoa.frase, contexto.frase, periodo.frase),
+      });
+    }
+  }
+}
+
+/** Vale sem JavaScript e é o href inicial das âncoras da etapa 3. */
+const LINK_GENERICO = whatsappUrl({
+  origin: ORIGIN,
+  message: 'Oi, Juliana! Vim pelo anúncio e gostaria de agendar uma sessão online.',
+});
+---
+
+<section class="funil" id="funil" aria-labelledby="funil-titulo" data-funil>
+  <div class="funil-blob" aria-hidden="true"></div>
+
+  <header class="funil-header">
+    <p class="funil-eyebrow">Psicoterapia online · CRP 06/209216</p>
+    <h1 class="funil-titulo" id="funil-titulo">
+      Três perguntas e você<br>fala <em>direto com a Juliana.</em>
+    </h1>
+    <p class="funil-nota">Leva menos de um minuto. Sem cadastro — nada do que você responder fica salvo.</p>
+  </header>
+
+  <div class="funil-etapas">
+    <div class="funil-etapa" data-etapa="1">
+      <p class="funil-contador" aria-hidden="true">1 de 3</p>
+      <h2 class="funil-pergunta" tabindex="-1">O que te trouxe até aqui?</h2>
+      <div class="funil-opcoes">
+        {CONTEXTOS.map((item) => (
+          <button type="button" class="funil-opcao" data-campo="contexto" data-valor={item.id}>
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="funil-etapa" data-etapa="2">
+      <p class="funil-contador" aria-hidden="true">2 de 3</p>
+      <h2 class="funil-pergunta" tabindex="-1">O atendimento é para quem?</h2>
+      <div class="funil-opcoes">
+        {PESSOAS.map((item) => (
+          <button
+            type="button"
+            class="funil-opcao"
+            data-campo="pessoa"
+            data-valor={item.id}
+            data-saida={item.saida}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+      <button type="button" class="funil-recomecar" data-recomecar>Recomeçar</button>
+    </div>
+
+    <div class="funil-etapa" data-etapa="3">
+      <p class="funil-contador" aria-hidden="true">3 de 3</p>
+      <h2 class="funil-pergunta" tabindex="-1">
+        As sessões são online, por videochamada, de 50 minutos.
+        <span>Qual período funciona melhor pra você?</span>
+      </h2>
+      <div class="funil-opcoes">
+        {PERIODOS.map((item) => (
+          <a
+            class="funil-opcao funil-opcao--final"
+            data-periodo={item.id}
+            href={LINK_GENERICO}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-wa-origin={ORIGIN}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+      <p class="funil-nota">O botão abre o WhatsApp com a mensagem já escrita. Você pode mudar o que quiser antes de enviar.</p>
+      <button type="button" class="funil-recomecar" data-recomecar>Recomeçar</button>
+    </div>
+  </div>
+
+  <div class="funil-saida" data-saida-tela="casal">
+    <h2 class="funil-pergunta" tabindex="-1">Para casal, o caminho é outro.</h2>
+    <p>
+      O atendimento dela é individual, para adolescentes e adultos. Terapia de casal pede
+      formação específica, e o encaminhamento certo vale mais do que uma primeira conversa que
+      não vai levar a lugar nenhum.
+    </p>
+    <p>
+      Dá para procurar profissionais com essa formação no
+      <a href="https://cadastro.cfp.org.br/" target="_blank" rel="noopener noreferrer">Cadastro Nacional de Psicólogos do CFP</a>.
+    </p>
+    <button type="button" class="funil-recomecar" data-recomecar>Errei a resposta, recomeçar</button>
+  </div>
+
+  <div class="funil-saida" data-saida-tela="crianca">
+    <h2 class="funil-pergunta" tabindex="-1">Para criança, o caminho é outro.</h2>
+    <p>
+      A Juliana atende adolescentes e adultos. Atendimento infantil pede formação e recursos
+      próprios para essa faixa etária.
+    </p>
+    <p>
+      Dá para procurar profissionais de psicologia infantil no
+      <a href="https://cadastro.cfp.org.br/" target="_blank" rel="noopener noreferrer">Cadastro Nacional de Psicólogos do CFP</a>.
+    </p>
+    <button type="button" class="funil-recomecar" data-recomecar>Errei a resposta, recomeçar</button>
+  </div>
+</section>
+
+<script is:inline define:vars={{ LINKS }}>
+  (function () {
+    var raiz = document.querySelector('[data-funil]');
+    if (!raiz) return;
+
+    var etapas = raiz.querySelectorAll('[data-etapa]');
+    var saidas = raiz.querySelectorAll('[data-saida-tela]');
+    var finais = raiz.querySelectorAll('[data-periodo]');
+    var resposta = { contexto: null, pessoa: null };
+
+    // Só a partir daqui a página vira passo a passo. Sem JavaScript ela
+    // permanece como está no HTML: as três perguntas e os dois
+    // encaminhamentos em sequência, com o link genérico do WhatsApp.
+    raiz.setAttribute('data-funil-js', '');
+
+    function esconderTudo() {
+      for (var i = 0; i < etapas.length; i++) etapas[i].hidden = true;
+      for (var j = 0; j < saidas.length; j++) saidas[j].hidden = true;
+    }
+
+    function focar(bloco) {
+      var titulo = bloco.querySelector('.funil-pergunta');
+      if (titulo) titulo.focus({ preventScroll: true });
+    }
+
+    function mostrarEtapa(numero) {
+      esconderTudo();
+      var alvo = raiz.querySelector('[data-etapa="' + numero + '"]');
+      if (!alvo) return;
+      raiz.removeAttribute('data-funil-encerrado');
+      alvo.hidden = false;
+      focar(alvo);
+    }
+
+    function mostrarSaida(nome) {
+      esconderTudo();
+      var alvo = raiz.querySelector('[data-saida-tela="' + nome + '"]');
+      if (!alvo) return;
+      // "Três perguntas e você fala direto com a Juliana" em cima de um
+      // encaminhamento é promessa contradita na mesma tela.
+      raiz.setAttribute('data-funil-encerrado', '');
+      alvo.hidden = false;
+      focar(alvo);
+    }
+
+    function prepararFinais() {
+      for (var i = 0; i < finais.length; i++) {
+        var chave = resposta.contexto + '|' + resposta.pessoa + '|' + finais[i].getAttribute('data-periodo');
+        // Se a chave não existir, o href genérico do build continua valendo:
+        // um lead com mensagem menos rica é melhor que uma âncora quebrada.
+        if (LINKS[chave]) finais[i].href = LINKS[chave];
+      }
+    }
+
+    raiz.addEventListener('click', function (evento) {
+      var opcao = evento.target.closest ? evento.target.closest('[data-campo]') : null;
+      if (opcao) {
+        var campo = opcao.getAttribute('data-campo');
+        resposta[campo] = opcao.getAttribute('data-valor');
+
+        var saida = opcao.getAttribute('data-saida');
+        if (saida) {
+          mostrarSaida(saida);
+        } else if (campo === 'contexto') {
+          mostrarEtapa(2);
+        } else {
+          prepararFinais();
+          mostrarEtapa(3);
+        }
+        return;
+      }
+
+      if (evento.target.closest && evento.target.closest('[data-recomecar]')) {
+        resposta = { contexto: null, pessoa: null };
+        mostrarEtapa(1);
+      }
+    });
+
+    mostrarEtapa(1);
+  })();
+</script>
+
+<style>
+  .funil {
+    position: relative;
+    padding: calc(var(--section-spacing) * 0.75) var(--container-padding) var(--section-spacing);
+    max-width: 780px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .funil-blob {
+    position: absolute;
+    top: -180px;
+    right: -160px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(242, 156, 82, 0.28), rgba(242, 156, 82, 0) 70%);
+    pointer-events: none;
+  }
+
+  .funil-header {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .funil-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  .funil-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--charcoal);
+    margin-bottom: 1.2rem;
+  }
+
+  .funil-titulo em {
+    font-style: italic;
+    color: var(--coral);
+  }
+
+  .funil-nota {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    max-width: 46ch;
+  }
+
+  .funil-etapa,
+  .funil-saida {
+    position: relative;
+  }
+
+  .funil-contador {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.8rem;
+  }
+
+  .funil-pergunta {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--charcoal);
+    margin-bottom: 1.8rem;
+  }
+
+  .funil-pergunta:focus {
+    outline: none;
+  }
+
+  .funil-pergunta span {
+    display: block;
+    margin-top: 0.4rem;
+    color: var(--teal);
+  }
+
+  .funil-opcoes {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  /* Alvo de toque grande de propósito: quase todo o tráfego é celular. */
+  .funil-opcao {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: var(--charcoal);
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 1.15rem 1.3rem;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: var(--glass-shadow);
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .funil-opcao:hover {
+    border-color: var(--coral);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(42, 59, 54, 0.08);
+  }
+
+  .funil-opcao--final {
+    background: var(--coral);
+    color: var(--white);
+    border-color: var(--coral);
+    font-size: 1.1rem;
+    box-shadow: 0 8px 24px rgba(208, 83, 53, 0.28);
+  }
+
+  .funil-opcao--final:hover {
+    background: var(--amber);
+    border-color: var(--amber);
+  }
+
+  .funil-opcao--final::after {
+    content: ' →';
+  }
+
+  .funil-etapa .funil-nota {
+    margin-top: 1.4rem;
+  }
+
+  .funil-recomecar {
+    margin-top: 1.6rem;
+    background: none;
+    border: none;
+    padding: 0.4rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+  }
+
+  .funil-recomecar:hover {
+    color: var(--teal);
+  }
+
+  .funil-saida {
+    background: var(--cream-warm);
+    border-radius: var(--radius-md);
+    padding: clamp(1.6rem, 5vw, 2.6rem);
+  }
+
+  .funil-saida p {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .funil-saida a {
+    color: var(--teal);
+    text-underline-offset: 3px;
+  }
+
+  [data-funil-encerrado] .funil-titulo,
+  [data-funil-encerrado] .funil-header .funil-nota {
+    display: none;
+  }
+
+  /* Sem JavaScript tudo fica empilhado; com JavaScript, uma tela por vez. */
+  [data-funil-js] .funil-etapa,
+  [data-funil-js] .funil-saida {
+    margin-bottom: 0;
+  }
+
+  .funil-etapa,
+  .funil-saida {
+    margin-bottom: 3.5rem;
+  }
+</style>

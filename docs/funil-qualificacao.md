@@ -4,9 +4,9 @@ Documento de decisão. Escrito **antes** da implementação, para a discussão a
 desenho e não sobre o código já pronto.
 
 **Data:** 14/08/2026
-**Estado:** proposto, não implementado
-**Pré-requisito:** as negativas da seção 8 do `status-campanha.md` (custam zero e cortam o mesmo
-lead errado antes do clique pago)
+**Estado:** **implementado em `/comecar/`, ainda não é o destino do anúncio**
+**Pré-requisito para trocar a URL do anúncio:** as negativas da seção 8 do `status-campanha.md`
+(custam zero e cortam o mesmo lead errado antes do clique pago)
 
 ---
 
@@ -259,7 +259,36 @@ página para resolver problema de palavra-chave.
 
 ---
 
-## 10. Referências
+## 10. O que a implementação decidiu além do projeto
+
+Três decisões que só apareceram ao montar a página. Ficam registradas porque cada uma tem um
+jeito silencioso de ser desfeita por quem não souber do motivo.
+
+**A página não usa `LandingLayout`.** Aquele layout monta Hero e CTA, e os dois trazem link
+direto para o WhatsApp. Numa página cujo propósito é filtrar, um atalho no topo devolveria à
+agenda exatamente o lead que o funil existe para descartar. Pelo mesmo motivo o `Nav` ganhou a
+prop `hideWhatsApp`. O rodapé continua com "Agendar" apontando para a home — é o mesmo vazamento
+que as outras LPs já têm, não é novo, e mexer nele é outra conversa.
+
+**`/comecar/` vai com `noindex, follow` e fora do sitemap.** É destino de anúncio com conteúdo
+fino: indexá-la faria disputar busca orgânica com `/psicologa-online/`, que foi escrita para
+isso. `noindex` não atrapalha o AdsBot — a exigência do Google é rastreabilidade, não indexação.
+O filtro do sitemap está no `astro.config.mjs`, porque manter a página no sitemap seria pedir
+indexação e negar na mesma respiração.
+
+**As âncoras da etapa 3 já nascem com um link genérico do build.** Só o *href* muda no navegador,
+escolhendo uma chave de um mapa montado no build pelo mesmo `whatsappUrl()` do resto do site — o
+navegador nunca concatena texto. Se o JavaScript falhar no meio, o link genérico continua
+valendo: um lead com mensagem menos rica é melhor que uma âncora quebrada.
+
+**Verificado em navegador (14/08/2026):** avanço das três etapas, telas de casal e criança sem
+nenhum link de WhatsApp, mensagem montada corretamente por combinação, e a conversão
+`AW-18373032857/XfZECKDk29wcEJn3-LhE` disparando no clique final com `wa_origin: lp-quiz` —
+sem nenhum parâmetro de contexto de saúde. Zero erro de console.
+
+---
+
+## 11. Referências
 
 | Assunto | Onde |
 |---|---|

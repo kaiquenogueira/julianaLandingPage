@@ -1,0 +1,52 @@
+---
+/**
+ * Destino do anúncio de Search.
+ *
+ * Difere das outras landing pages em um ponto só, e é o ponto inteiro: aqui o
+ * WhatsApp está no fim de um caminho que filtra casal, criança e presencial.
+ * Por isso a página não usa `LandingLayout` — ele monta Hero e CTA, que trazem
+ * atalho direto para o WhatsApp e furariam o filtro. Pelo mesmo motivo o Nav
+ * entra sem o link de WhatsApp.
+ *
+ * Abaixo do funil ficam credencial, abordagem e como funciona o online: é o que
+ * a pessoa que quer conferir CRP procura, e é o que a política de destino do
+ * Google espera encontrar em vez de uma página só de perguntas.
+ *
+ * Projeto e critério de decisão em `docs/funil-qualificacao.md`.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SectionTransition from '../../components/SectionTransition.astro';
+import Funil from '../../components/Funil.astro';
+import About from '../../components/sections/About.astro';
+import TCC from '../../components/sections/TCC.astro';
+import OnlineInfo from '../../components/sections/OnlineInfo.astro';
+---
+
+<BaseLayout
+  title="Começar — Psicoterapia Online | Juliana Capucci"
+  description="Três perguntas rápidas para entender o que você procura e falar direto com a Juliana Capucci, psicóloga clínica (CRP 06/209216). Sessões online por videochamada."
+  canonical="/comecar/"
+  noindex
+>
+  <Nav minimal hideWhatsApp ctaHref="#funil" />
+
+  <main id="main-content">
+    <Funil />
+
+    <SectionTransition variant="default" />
+
+    <About />
+
+    <SectionTransition variant="reverse" />
+
+    <TCC />
+
+    <SectionTransition variant="warm" />
+
+    <OnlineInfo />
+  </main>
+
+  <Footer />
+</BaseLayout>

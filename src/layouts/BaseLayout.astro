@@ -27,6 +27,13 @@ export interface Props {
   description?: string;
   image?: string;
   canonical?: string;
+  /**
+   * Tira a página do índice sem tirá-la do alcance do rastreador. Existe para
+   * destinos de anúncio: o AdsBot continua enxergando a página (é exigência da
+   * política de destino do Google), mas ela não disputa busca orgânica com a
+   * landing page que foi escrita para isso.
+   */
+  noindex?: boolean;
 }
 
 const {
@@ -34,6 +41,7 @@ const {
   description = 'Juliana Capucci (CRP 06/209216), Psicóloga Clínica. Psicoterapia online com TCC para ansiedade, maternidade, relacionamentos e intercâmbio (au pair e estudos). Agende →',
   image = '/img/profile.jpg',
   canonical,
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
@@ -203,7 +211,7 @@ const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
   <!-- Keywords em formato NLU/Intent para IA contextualizar o conteúdo como respostas à pesquisas -->
   <meta name="keywords" content="Juliana Capucci, psicóloga online, psicoterapia online, ansiedade, família, au pair saúde mental, intercâmbio saúde mental, au pair e estudos, desejo de ser mãe, maternidade psicológica, apoio emocional maternidade, relacionamento, terapia intervencionista, Terapia Cognitivo-Comportamental TCC, psicóloga para adolescentes e adultos, CRP 06/209216">
   <meta name="author" content="Juliana Capucci">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'}>
   <link rel="canonical" href={canonicalUrl}>
   <link rel="me" href="https://instagram.com/psijulianacapucci">
   <link rel="author" href={`${siteUrl}/`}>

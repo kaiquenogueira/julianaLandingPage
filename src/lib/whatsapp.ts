@@ -21,6 +21,11 @@ export const WHATSAPP_ORIGINS = {
   'lp-intercambio': 'página sobre intercâmbio',
   'lp-relacionamento': 'página sobre relacionamentos',
   'lp-psicologa-online': 'página de psicoterapia online',
+  // Origem única de propósito. O funil conhece o assunto que a pessoa escolheu,
+  // mas `data-wa-origin` vira parâmetro do evento de conversão — e mandar
+  // contexto de saúde para o Google esbarra na política de publicidade
+  // personalizada. O assunto só existe no texto que a própria pessoa envia.
+  'lp-quiz': 'funil de qualificação',
 } as const;
 
 export type WhatsAppOrigin = keyof typeof WHATSAPP_ORIGINS;
