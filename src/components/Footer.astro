@@ -7,6 +7,12 @@
     <a href="/#informacoes">Informações</a>
     <a href="/blog/">Blog</a>
     <a href="/#agendar">Agendar</a>
+    <a href="/privacidade/">Privacidade</a>
+    <!-- Reabre o banner de consentimento (ConsentBanner.astro). É <button> e não
+         <a href="#"> porque não navega para lugar nenhum. -->
+    <button type="button" class="footer-link-btn" onclick="window.jcOpenConsent && window.jcOpenConsent()">
+      Preferências de cookies
+    </button>
   </div>
   <div>CRP 06/209216 · © {new Date().getFullYear()} Todos os direitos reservados.</div>
 </footer>

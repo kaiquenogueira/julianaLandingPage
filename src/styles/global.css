@@ -1023,10 +1023,13 @@ footer .logo {
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
 }
 
-.footer-links a {
+.footer-links a,
+.footer-links .footer-link-btn {
   color: var(--text-light);
   text-decoration: none;
   font-size: 0.9rem;
@@ -1035,7 +1038,16 @@ footer .logo {
   transition: color var(--transition-fast);
 }
 
-.footer-links a:hover {
+/* O botão de preferências de cookies precisa passar por link. */
+.footer-link-btn {
+  font-family: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.footer-links a:hover,
+.footer-links .footer-link-btn:hover {
   color: var(--coral);
 }
 

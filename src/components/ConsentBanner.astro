@@ -13,6 +13,7 @@
   <p class="consent-text">
     Usamos cookies para entender como você chegou até aqui e melhorar o site.
     Nenhum dado sobre seu atendimento é coletado.
+    <a href="/privacidade/">Política de privacidade</a>.
   </p>
   <div class="consent-actions">
     <button type="button" id="consentReject" class="consent-btn consent-btn-ghost">Recusar</button>
@@ -46,14 +47,25 @@
       banner.hidden = true;
     }
 
+    document.getElementById('consentAccept').addEventListener('click', function () { decide(true); });
+    document.getElementById('consentReject').addEventListener('click', function () { decide(false); });
+
+    // Revogação (LGPD art. 8º, §5º: retirar o consentimento tem que ser tão
+    // fácil quanto dá-lo). O link no rodapé chama isto, o que apaga a decisão
+    // guardada e devolve o banner à tela. O estado das tags só muda no próximo
+    // clique — quem abre e fecha sem escolher continua com o que já tinha.
+    window.jcOpenConsent = function () {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      banner.hidden = false;
+      banner.scrollIntoView({ block: 'nearest' });
+    };
+
     // Uma decisão anterior já foi aplicada junto com a subida do gtag
     // (ver BaseLayout.astro). Aqui só resta decidir se o banner aparece.
     var stored = window.__jcConsent;
     if (stored === 'granted' || stored === 'denied') return;
 
     banner.hidden = false;
-    document.getElementById('consentAccept').addEventListener('click', function () { decide(true); });
-    document.getElementById('consentReject').addEventListener('click', function () { decide(false); });
   })();
 </script>
 
@@ -88,6 +100,12 @@
     line-height: 1.55;
     font-weight: 300;
     color: var(--text-light);
+  }
+
+  .consent-text a {
+    color: var(--coral);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   .consent-actions {
