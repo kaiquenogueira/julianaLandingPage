@@ -129,10 +129,14 @@ const LINK_GENERICO = whatsappUrl({
 
     <div class="funil-etapa" data-etapa="3">
       <p class="funil-contador" aria-hidden="true">3 de 3</p>
-      <h2 class="funil-pergunta" tabindex="-1">
-        As sessões são online, por videochamada, de 50 minutos.
-        <span>Qual período funciona melhor pra você?</span>
-      </h2>
+      <!--
+        A frase da modalidade fica em corpo pequeno, e não dentro do título:
+        em serifada grande ela ocupava duas linhas e empurrava a última opção
+        para fora da tela no celular. Ela filtra quem procura presencial, então
+        precisa estar aqui — só não precisa ser a manchete.
+      -->
+      <p class="funil-modalidade">As sessões são online, por videochamada, de 50 minutos.</p>
+      <h2 class="funil-pergunta" tabindex="-1">Qual período funciona melhor pra você?</h2>
       <div class="funil-opcoes">
         {PERIODOS.map((item) => (
           <a
@@ -147,7 +151,7 @@ const LINK_GENERICO = whatsappUrl({
           </a>
         ))}
       </div>
-      <p class="funil-nota">O botão abre o WhatsApp com a mensagem já escrita. Você pode mudar o que quiser antes de enviar.</p>
+      <p class="funil-nota">A mensagem já vai escrita. Dá para editar antes de enviar.</p>
       <button type="button" class="funil-recomecar" data-recomecar>Recomeçar</button>
     </div>
   </div>
@@ -178,6 +182,17 @@ const LINK_GENERICO = whatsappUrl({
     </p>
     <button type="button" class="funil-recomecar" data-recomecar>Errei a resposta, recomeçar</button>
   </div>
+
+  <!--
+    Saída para o site inteiro. Fica fora do jogo de mostrar/esconder porque
+    precisa existir em qualquer tela — no celular o menu do topo não abre nesta
+    página, e uma página de anúncio sem caminho para o resto do site é beco sem
+    saída para quem quer conferir formação e CRP antes de falar.
+  -->
+  <p class="funil-rodape">
+    Quer ler antes de falar?
+    <a href="/psicologa-online/">Veja a formação da Juliana e como funciona o online →</a>
+  </p>
 </section>
 
 <script is:inline define:vars={{ LINKS }}>
@@ -263,12 +278,24 @@ const LINK_GENERICO = whatsappUrl({
 </script>
 
 <style>
+  /*
+    Uma tela, sem nada embaixo para rolar. Conteúdo abaixo do funil competia
+    com a pergunta: quem rola para ler não volta para responder. O caminho para
+    o resto do site é o nome no topo e o link do rodapé, não a rolagem.
+
+    `dvh` depois de `vh` porque no celular a barra do navegador entra e sai da
+    conta, e é aí que a última opção some abaixo da dobra.
+  */
   .funil {
     position: relative;
-    padding: calc(var(--section-spacing) * 0.75) var(--container-padding) var(--section-spacing);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 5.2rem var(--container-padding) 1.6rem;
     max-width: 780px;
     margin: 0 auto;
-    overflow: hidden;
   }
 
   .funil-blob {
@@ -284,7 +311,7 @@ const LINK_GENERICO = whatsappUrl({
 
   .funil-header {
     position: relative;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
   }
 
   .funil-eyebrow {
@@ -297,12 +324,12 @@ const LINK_GENERICO = whatsappUrl({
 
   .funil-titulo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-size: clamp(2rem, 5.2vw, 3.2rem);
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.02em;
     color: var(--charcoal);
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.9rem;
   }
 
   .funil-titulo em {
@@ -331,26 +358,27 @@ const LINK_GENERICO = whatsappUrl({
 
   .funil-pergunta {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+    font-size: clamp(1.55rem, 4vw, 2.1rem);
     font-weight: 400;
     line-height: 1.2;
     color: var(--charcoal);
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.3rem;
   }
 
   .funil-pergunta:focus {
     outline: none;
   }
 
-  .funil-pergunta span {
-    display: block;
-    margin-top: 0.4rem;
+  .funil-modalidade {
+    font-size: 0.95rem;
     color: var(--teal);
+    margin-bottom: 0.5rem;
+    max-width: 46ch;
   }
 
   .funil-opcoes {
     display: grid;
-    gap: 0.8rem;
+    gap: 0.55rem;
   }
 
   /* Alvo de toque grande de propósito: quase todo o tráfego é celular. */
@@ -359,13 +387,13 @@ const LINK_GENERICO = whatsappUrl({
     width: 100%;
     text-align: left;
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.35;
     color: var(--charcoal);
     background: var(--white);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-sm);
-    padding: 1.15rem 1.3rem;
+    padding: 0.85rem 1.15rem;
     cursor: pointer;
     text-decoration: none;
     box-shadow: var(--glass-shadow);
@@ -396,11 +424,11 @@ const LINK_GENERICO = whatsappUrl({
   }
 
   .funil-etapa .funil-nota {
-    margin-top: 1.4rem;
+    margin-top: 1rem;
   }
 
   .funil-recomecar {
-    margin-top: 1.6rem;
+    margin-top: 1.1rem;
     background: none;
     border: none;
     padding: 0.4rem 0;
@@ -438,14 +466,20 @@ const LINK_GENERICO = whatsappUrl({
     display: none;
   }
 
-  /* Sem JavaScript tudo fica empilhado; com JavaScript, uma tela por vez. */
-  [data-funil-js] .funil-etapa,
-  [data-funil-js] .funil-saida {
-    margin-bottom: 0;
+  .funil-rodape {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
   }
 
-  .funil-etapa,
-  .funil-saida {
+  .funil-rodape a {
+    color: var(--teal);
+    text-underline-offset: 4px;
+  }
+
+  /* Sem JavaScript tudo fica empilhado; com JavaScript, uma tela por vez. */
+  .funil:not([data-funil-js]) .funil-etapa,
+  .funil:not([data-funil-js]) .funil-saida {
     margin-bottom: 3.5rem;
   }
 </style>

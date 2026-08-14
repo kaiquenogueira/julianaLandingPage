@@ -14,6 +14,13 @@ export interface Props {
   hideWhatsApp?: boolean;
   /** Destino do botão principal. Em `minimal`, o padrão aponta para a seção de agendamento. */
   ctaHref?: string;
+  ctaLabel?: string;
+  /**
+   * Transforma o nome em link. Em página sem rodapé e sem menu no celular, é a
+   * única saída visível para o resto do site — e o nome é onde a pessoa tenta
+   * clicar por hábito.
+   */
+  logoHref?: string;
 }
 
 const {
@@ -21,12 +28,16 @@ const {
   origin = 'nav',
   hideWhatsApp = false,
   ctaHref = minimal ? '#agendar' : '/#agendar',
+  ctaLabel = 'Agendar sessão',
+  logoHref,
 } = Astro.props;
 ---
 
 <!-- NAV -->
 <nav id="mainNav">
-  <div class="logo">Juliana <span>Capucci</span></div>
+  {logoHref
+    ? <a class="logo logo-link" href={logoHref}>Juliana <span>Capucci</span></a>
+    : <div class="logo">Juliana <span>Capucci</span></div>}
   {!minimal && (
     <button class="hamburger" id="menuToggle" aria-label="Abrir menu de navegação">
       <span></span>
@@ -46,6 +57,6 @@ const {
     {!hideWhatsApp && (
       <a {...whatsappLinkAttrs({ origin })} class="btn-ghost">Fale no WhatsApp</a>
     )}
-    <a href={ctaHref} class="nav-cta">Agendar sessão</a>
+    <a href={ctaHref} class="nav-cta">{ctaLabel}</a>
   </div>
 </nav>

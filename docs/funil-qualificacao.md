@@ -120,9 +120,9 @@ Rota nova: **`/comecar/`**. Mobile-first. Primeira pergunta acima da dobra. Sem 
 progresso falsa, sem campo de texto, sem botão "voltar" (recomeçar é mais barato que manter
 estado).
 
-Abaixo do funil, na mesma página: nome, foto, CRP, TCC, como funciona o online. Serve à política
-de destino do Google e ao art. 18 da NT — e é o que a pessoa que quer conferir credencial
-procura.
+Nada abaixo do funil: a página é uma tela só. O CRP fica no topo, e quem quer conferir formação
+antes de falar sai pelos dois links da seção 10. (A primeira versão trazia About, TCC e
+OnlineInfo empilhados abaixo — ver seção 10 para por que saíram.)
 
 ### Tela 1 — contexto
 
@@ -267,8 +267,31 @@ jeito silencioso de ser desfeita por quem não souber do motivo.
 **A página não usa `LandingLayout`.** Aquele layout monta Hero e CTA, e os dois trazem link
 direto para o WhatsApp. Numa página cujo propósito é filtrar, um atalho no topo devolveria à
 agenda exatamente o lead que o funil existe para descartar. Pelo mesmo motivo o `Nav` ganhou a
-prop `hideWhatsApp`. O rodapé continua com "Agendar" apontando para a home — é o mesmo vazamento
-que as outras LPs já têm, não é novo, e mexer nele é outra conversa.
+prop `hideWhatsApp`.
+
+**A página é uma tela só, sem nada embaixo para rolar** (decisão de 14/08, depois da primeira
+versão). Formação, abordagem e "como funciona o online" tinham ficado abaixo do funil e
+competiam com a pergunta: quem rola para ler não volta para responder, e a rolagem é a saída
+mais fácil de uma decisão. Conferido em 390×844: as três etapas e as duas telas de
+encaminhamento cabem sem rolagem nenhuma.
+
+O que substituiu o conteúdo são duas saídas explícitas, porque página de anúncio sem caminho
+para o resto do site é beco sem saída — e é justamente o que a política de destino do Google
+cobra:
+
+| Saída | Onde | Por quê |
+|---|---|---|
+| Nome "Juliana Capucci" no topo → `/` | `Nav logoHref` | é onde a pessoa clica por hábito, e é o único elemento do topo visível no celular |
+| "Veja a formação da Juliana e como funciona o online" → `/psicologa-online/` | rodapé do funil, fora do jogo de mostrar/esconder | no celular o menu do topo não abre nesta página, então a saída precisa estar no corpo |
+
+Ambas levam a páginas com CTA de WhatsApp, ou seja, são um furo possível no filtro. É
+deliberado: quem faz o desvio para ler formação inteira antes de falar chega mais informado, e
+não é esse o lead que o funil precisa barrar — casal e criança não fazem esse caminho. O texto
+é link discreto, nunca botão, para não competir com a resposta.
+
+**A frase "as sessões são online, por videochamada, de 50 minutos" saiu do título da etapa 3.**
+Em serifada grande ocupava duas linhas e empurrava a última opção para fora da tela no celular.
+Ela filtra quem procura presencial, então continua na tela — em corpo pequeno, acima da pergunta.
 
 **`/comecar/` vai com `noindex, follow` e fora do sitemap.** É destino de anúncio com conteúdo
 fino: indexá-la faria disputar busca orgânica com `/psicologa-online/`, que foi escrita para
