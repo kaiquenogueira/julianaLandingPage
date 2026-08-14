@@ -35,3 +35,6 @@ Thumbs.db
 
 # Artefatos do Playwright MCP (diagnóstico de tag)
 .playwright-mcp/
+
+# Vercel CLI (link do projeto, .env.local baixado por `vercel env pull`)
+.vercel
